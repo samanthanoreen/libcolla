@@ -57,14 +57,6 @@ const mainNavItems: NavItem[] = [
                 title: 'Books',
                 href: '/books',
             },
-            {
-                title: 'Course Subjects',
-                href: '/course-subjects',
-            },
-            {
-                title: 'Prospectuses',
-                href: '/prospectuses',
-            },
         ],
     },
     {

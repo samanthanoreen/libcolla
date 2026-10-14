@@ -1,9 +1,8 @@
 <?php
 
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\CourseSubjectController;
 use App\Http\Controllers\ProgramController;
-use App\Http\Controllers\ProspectusController;
+use App\Http\Controllers\ProgramProspectusController;
 use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
@@ -22,7 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'total_prospectuses' => Prospectus::count(),
                 'total_subjects'     => CourseSubject::count(),
                 'total_books'        => Book::count(),
-            ]
+            ],
         ]);
     })->name('dashboard');
 
@@ -37,10 +36,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('manage');
     });
 
-    // LibColla Entities CRUD Routes (includes index, create, store, show, edit, update, destroy)
-    Route::resource('programs', ProgramController::class);
-    Route::resource('prospectuses', ProspectusController::class);
-    Route::resource('course-subjects', CourseSubjectController::class);
+    // Prospectus and subjects, managed from inside a program
+    Route::prefix('programs/{program}/prospectus')->name('programs.prospectus.')->group(function () {
+        Route::get('/', [ProgramProspectusController::class, 'show'])->name('show');
+        Route::put('/', [ProgramProspectusController::class, 'save'])->name('save');
+        Route::post('subjects', [ProgramProspectusController::class, 'storeSubject'])->name('subjects.store');
+        Route::put('subjects/{subject}', [ProgramProspectusController::class, 'updateSubject'])->name('subjects.update');
+        Route::delete('subjects/{subject}', [ProgramProspectusController::class, 'destroySubject'])->name('subjects.destroy');
+    });
+
+    // LibColla Entities CRUD Routes
+    Route::resource('programs', ProgramController::class)->except(['create', 'show', 'edit']);
     Route::resource('books', BookController::class);
 });
 
