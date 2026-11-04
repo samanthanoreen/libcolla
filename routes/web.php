@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramProspectusController;
+use App\Models\AssessmentReport;
 use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
@@ -15,12 +16,18 @@ Route::inertia('/', 'welcome')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dynamic Dashboard Route
     Route::get('/dashboard', function () {
+        $totalSubjects = CourseSubject::count();
+        $assessedSubjects = Book::distinct()->count('subject_id');
+
         return inertia('Dashboard', [
             'stats' => [
-                'total_programs'     => Program::count(),
-                'total_prospectuses' => Prospectus::count(),
-                'total_subjects'     => CourseSubject::count(),
-                'total_books'        => Book::count(),
+                'total_programs'      => Program::count(),
+                'total_prospectuses'  => Prospectus::count(),
+                'total_subjects'      => $totalSubjects,
+                'total_books'         => Book::count(),
+                'assessed_percentage' => $totalSubjects > 0 ? round(($assessedSubjects / $totalSubjects) * 100) : 0,
+                'assessed_count'      => $assessedSubjects,
+                'total_reports'       => AssessmentReport::count(),
             ],
         ]);
     })->name('dashboard');
