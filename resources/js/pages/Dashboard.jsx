@@ -1,74 +1,89 @@
+import { Link, usePage } from '@inertiajs/react';
+import { BookOpen, ClipboardCheck, FileBarChart, FileOutput, TrendingUp, Users, Zap } from 'lucide-react';
 import React from 'react';
-import { Link } from '@inertiajs/react';
+
+const serif = { fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif' };
+
+function StatCard({ label, value, note, Icon }) {
+    return (
+        <div className="rounded-[2rem] border border-white/10 border-t-[3px] border-t-[#d4a017] bg-white/[0.06] px-9 pt-9 pb-7 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(159,18,57,0.25)]">
+            <div className="flex justify-between">
+                <div>
+                    <p className="text-base font-medium text-white/70">{label}</p>
+                    <p className="mt-2 text-[3.1rem] leading-tight font-bold text-white" style={serif}>
+                        {value}
+                    </p>
+                </div>
+                <Icon className="size-14 text-[#c8102e]/20" />
+            </div>
+            <div className="mt-7 flex items-center gap-1 text-[0.95rem] text-[#10b981]">
+                <TrendingUp className="size-4" />
+                <span>{note}</span>
+            </div>
+        </div>
+    );
+}
+
+function QuickAction({ href, label, Icon }) {
+    const body = (
+        <>
+            <div
+                className="mx-auto mb-7 flex size-16 items-center justify-center rounded-3xl"
+                style={{ background: 'linear-gradient(135deg, #9f1239, #c8102e)' }}
+            >
+                <Icon className="size-7 text-white" />
+            </div>
+            <p className="text-[1.05rem] font-semibold text-white">{label}</p>
+        </>
+    );
+    const cls =
+        'block rounded-[2rem] border border-white/10 bg-white/[0.06] px-7 py-9 text-center backdrop-blur-xl transition duration-300 hover:-translate-y-1.5 hover:bg-white/10';
+
+    return href ? (
+        <Link href={href} className={cls}>
+            {body}
+        </Link>
+    ) : (
+        <div className={`${cls} cursor-default opacity-60`} title="Coming soon">
+            {body}
+        </div>
+    );
+}
 
 export default function Dashboard({ stats }) {
-    const cardStyle = {
-        padding: '24px',
-        background: '#ffffff',
-        borderRadius: '8px',
-        border: '1px solid #e5e7eb',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-        display: 'flex',
-        flexDirection: 'column',
-        justify: 'space-between',
-    };
+    const { auth } = usePage().props;
+    const name = auth?.user?.name ?? 'User';
+    const fmt = (n) => Number(n ?? 0).toLocaleString();
 
     return (
-        <div style={{ padding: '32px', fontFamily: 'sans-serif', maxWidth: '1100px', margin: '0 auto' }}>
-            <h1 style={{ fontSize: '28px', marginBottom: '8px' }}>LibColla Management Dashboard</h1>
-            <p style={{ color: '#6b7280', marginBottom: '32px' }}>Overview of academic curriculum and library holdings.</p>
-
-            {/* Metrics Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', marginBottom: '40px' }}>
-                <div style={cardStyle}>
-                    <span style={{ color: '#6b7280', fontSize: '14px', fontWeight: '600' }}>Academic Programs</span>
-                    <span style={{ fontSize: '36px', fontWeight: 'bold', margin: '12px 0', color: '#111827' }}>{stats?.total_programs || 0}</span>
-                    <Link href="/programs" style={{ color: '#2563eb', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>
-                        Manage Programs &rarr;
-                    </Link>
-                </div>
-
-                <div style={cardStyle}>
-                    <span style={{ color: '#6b7280', fontSize: '14px', fontWeight: '600' }}>Curriculum Prospectuses</span>
-                    <span style={{ fontSize: '36px', fontWeight: 'bold', margin: '12px 0', color: '#111827' }}>{stats?.total_prospectuses || 0}</span>
-                    <Link href="/prospectuses" style={{ color: '#2563eb', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>
-                        Manage Prospectuses &rarr;
-                    </Link>
-                </div>
-
-                <div style={cardStyle}>
-                    <span style={{ color: '#6b7280', fontSize: '14px', fontWeight: '600' }}>Course Subjects</span>
-                    <span style={{ fontSize: '36px', fontWeight: 'bold', margin: '12px 0', color: '#111827' }}>{stats?.total_subjects || 0}</span>
-                    <Link href="/course-subjects" style={{ color: '#2563eb', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>
-                        Manage Subjects &rarr;
-                    </Link>
-                </div>
-
-                <div style={cardStyle}>
-                    <span style={{ color: '#6b7280', fontSize: '14px', fontWeight: '600' }}>Library Books</span>
-                    <span style={{ fontSize: '36px', fontWeight: 'bold', margin: '12px 0', color: '#111827' }}>{stats?.total_books || 0}</span>
-                    <Link href="/books" style={{ color: '#2563eb', fontSize: '14px', textDecoration: 'none', fontWeight: '500' }}>
-                        Manage Books &rarr;
-                    </Link>
-                </div>
+        <div className="w-full">
+            <div className="mb-14">
+                <h2 className="text-3xl font-semibold" style={serif}>
+                    Welcome back, {name}! <span aria-hidden>👋</span>
+                </h2>
+                <p className="mt-3 text-white/70">Here's an overview of your library collection today</p>
             </div>
 
-            {/* Quick Actions Panel */}
-            <div style={{ background: '#f9fafb', padding: '24px', borderRadius: '8px', border: '1px solid #e5e7eb' }}>
-                <h3 style={{ marginTop: 0, marginBottom: '16px' }}>Quick Actions</h3>
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <Link href="/programs/create" style={{ padding: '10px 18px', background: '#2563eb', color: '#fff', textDecoration: 'none', borderRadius: '6px', fontSize: '14px' }}>
-                        + Add Program
-                    </Link>
-                    <Link href="/prospectuses/create" style={{ padding: '10px 18px', background: '#2563eb', color: '#fff', textDecoration: 'none', borderRadius: '6px', fontSize: '14px' }}>
-                        + Add Prospectus
-                    </Link>
-                    <Link href="/course-subjects/create" style={{ padding: '10px 18px', background: '#2563eb', color: '#fff', textDecoration: 'none', borderRadius: '6px', fontSize: '14px' }}>
-                        + Add Course Subject
-                    </Link>
-                    <Link href="/books/create" style={{ padding: '10px 18px', background: '#2563eb', color: '#fff', textDecoration: 'none', borderRadius: '6px', fontSize: '14px' }}>
-                        + Add Book
-                    </Link>
+            <div className="mx-auto grid max-w-[60rem] grid-cols-1 gap-8 md:grid-cols-3">
+                <StatCard label="Total Books" value={fmt(stats?.total_books)} note="Currently in catalog" Icon={BookOpen} />
+                <StatCard
+                    label="Assessed Collections"
+                    value={`${stats?.assessed_percentage ?? 0}%`}
+                    note={`${stats?.assessed_count ?? 0} subjects evaluated`}
+                    Icon={ClipboardCheck}
+                />
+                <StatCard label="Reports Generated" value={fmt(stats?.total_reports)} note="Saved to system" Icon={FileBarChart} />
+            </div>
+
+            <div className="mt-16">
+                <h3 className="mb-8 flex items-center gap-2 text-xl font-semibold" style={serif}>
+                    <Zap className="size-5" /> Quick Actions
+                </h3>
+                <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
+                    <QuickAction href="/reports/generate" label="New Assessment" Icon={ClipboardCheck} />
+                    <QuickAction href="/reports/manage" label="Manage Reports" Icon={FileOutput} />
+                    <QuickAction href="/books" label="Manage Books" Icon={BookOpen} />
+                    <QuickAction label="Manage Users" Icon={Users} />
                 </div>
             </div>
         </div>
