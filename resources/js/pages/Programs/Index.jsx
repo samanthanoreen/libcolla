@@ -19,8 +19,6 @@ import {
 } from '@/components/crud-ui';
 import { LEVELS, PROGRAM_CATALOG } from '@/lib/programCatalog';
 
-// Scopes the PHP LibCollaLayout look (white card, maroon accents) to this page only.
-// Overriding the --color-* tokens recolors every shared crud-ui piece inside it, including the modals.
 const libcollaTheme = {
     colorScheme: 'light',
     color: '#1e293b',
@@ -47,7 +45,6 @@ const serif = {
 };
 
 export default function Index({ programs, filters = {} }) {
-    // Search and filter (debounced)
     const [search, setSearch] = useState(filters.search || '');
     const [field, setField] = useState(filters.field || 'all');
     const [perPage, setPerPage] = useState(filters.per_page || 10);
@@ -67,10 +64,8 @@ export default function Index({ programs, filters = {} }) {
         }
         const t = setTimeout(visit, 300);
         return () => clearTimeout(t);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search, field, perPage]);
 
-    // Add / edit modal
     const [formOpen, setFormOpen] = useState(false);
     const [editing, setEditing] = useState(null);
     const form = useForm({
@@ -116,7 +111,6 @@ export default function Index({ programs, filters = {} }) {
         else form.post('/programs', opts);
     };
 
-    // Cascading dropdowns. A saved value missing from the catalog is kept so edits never blank it.
     const withCurrent = (list, current) =>
         current && !list.includes(current) ? [...list, current] : list;
     const colleges = withCurrent(
@@ -132,7 +126,6 @@ export default function Index({ programs, filters = {} }) {
         form.data.major,
     );
 
-    // Delete modal
     const [deleting, setDeleting] = useState(null);
     const [deleteBusy, setDeleteBusy] = useState(false);
 

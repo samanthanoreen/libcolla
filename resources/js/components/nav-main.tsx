@@ -29,6 +29,15 @@ function toHrefString(href: string | { url?: string } | null | undefined) {
     return '';
 }
 
+function isRouteActive(
+    currentUrl: string,
+    href?: string | { url?: string } | null,
+) {
+    const hrefString = toHrefString(href);
+
+    return hrefString.length > 0 && currentUrl.startsWith(hrefString);
+}
+
 export function NavMain({ items }: { items: NavItem[] }) {
     const { url } = usePage();
 
@@ -39,11 +48,10 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 {items.map((item) => {
                     const hasSubItems = item.items && item.items.length > 0;
                     const isActive = item.href
-                        ? url.startsWith(toHrefString(item.href))
+                        ? isRouteActive(url, item.href)
                         : false;
-                    const isSubActive = item.items?.some(
-                        (sub) =>
-                            sub.href && url.startsWith(toHrefString(sub.href)),
+                    const isSubActive = item.items?.some((sub) =>
+                        sub.href ? isRouteActive(url, sub.href) : false,
                     );
 
                     if (!hasSubItems) {
@@ -91,10 +99,9 @@ export function NavMain({ items }: { items: NavItem[] }) {
                                                     asChild
                                                     isActive={
                                                         subItem.href
-                                                            ? url.startsWith(
-                                                                  toHrefString(
-                                                                      subItem.href,
-                                                                  ),
+                                                            ? isRouteActive(
+                                                                  url,
+                                                                  subItem.href,
                                                               )
                                                             : false
                                                     }
