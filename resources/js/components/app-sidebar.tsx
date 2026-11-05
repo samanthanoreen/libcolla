@@ -1,4 +1,4 @@
-import { Link } from '@inertiajs/react';
+import { Link } from "@inertiajs/react";
 import {
     BookOpen,
     Database,
@@ -8,11 +8,11 @@ import {
     LayoutGrid,
     Users,
     Wrench,
-} from 'lucide-react';
-import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
-import { NavMain } from '@/components/nav-main';
-import { NavUser } from '@/components/nav-user';
+} from "lucide-react";
+import AppLogo from "@/components/app-logo";
+import { NavFooter } from "@/components/nav-footer";
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
 import {
     Sidebar,
     SidebarContent,
@@ -21,56 +21,56 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
-import type { NavItem } from '@/types';
+} from "@/components/ui/sidebar";
+import { dashboard } from "@/routes";
+import type { NavItem } from "@/types";
 
 const mainNavItems: NavItem[] = [
     {
-        title: 'Dashboard',
+        title: "Dashboard",
         href: dashboard(),
         icon: LayoutGrid,
     },
     {
-        title: 'Collection Assessment',
+        title: "Collection Assessment",
         icon: FileText,
         items: [
             {
-                title: 'Generate Report',
-                href: '/reports/generate',
+                title: "Generate Report",
+                href: "/reports/generate",
             },
             {
-                title: 'Manage Reports',
-                href: '/reports/manage',
+                title: "Manage Reports",
+                href: "/reports/manage",
             },
         ],
     },
     {
-        title: 'Database',
+        title: "Database",
         icon: Database,
         items: [
             {
-                title: 'Program',
-                href: '/programs',
+                title: "Program",
+                href: "/programs",
             },
             {
-                title: 'Books',
-                href: '/books',
+                title: "Books",
+                href: "/books",
             },
         ],
     },
     {
-        title: 'Tools',
+        title: "Tools",
         icon: Wrench,
         items: [],
     },
     {
-        title: 'Support',
+        title: "Support",
         icon: HelpCircle,
         items: [],
     },
     {
-        title: 'Users',
+        title: "Users",
         icon: Users,
         items: [],
     },
@@ -78,13 +78,13 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        title: "Repository",
+        href: "https://github.com/laravel/react-starter-kit",
         icon: FolderGit2,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
+        title: "Documentation",
+        href: "https://laravel.com/docs/starter-kits#react",
         icon: BookOpen,
     },
 ];

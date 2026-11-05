@@ -1,4 +1,4 @@
-import { Link, router, useForm } from '@inertiajs/react';
+import { Link, router, useForm } from "@inertiajs/react";
 import {
     ArrowLeft,
     FileDown,
@@ -6,9 +6,9 @@ import {
     Plus,
     Trash2,
     TriangleAlert,
-} from 'lucide-react';
-import React, { useState } from 'react';
-import { toast } from 'sonner';
+} from "lucide-react";
+import React, { useState } from "react";
+import { toast } from "sonner";
 import {
     Field,
     Modal,
@@ -17,25 +17,25 @@ import {
     btnPrimary,
     btnSecondary,
     inputCls,
-} from '@/components/crud-ui';
-import { libcollaTheme } from '@/lib/libcollaTheme';
+} from "@/components/crud-ui";
+import { libcollaTheme } from "@/lib/libcollaTheme";
 
 const SECTIONS = [
-    ['FIRST YEAR — 1st Semester', '1st Year — 1st Sem'],
-    ['FIRST YEAR — 2nd Semester', '1st Year — 2nd Sem'],
-    ['SECOND YEAR — 1st Semester', '2nd Year — 1st Sem'],
-    ['SECOND YEAR — 2nd Semester', '2nd Year — 2nd Sem'],
-    ['THIRD YEAR — 1st Semester', '3rd Year — 1st Sem'],
-    ['THIRD YEAR — 2nd Semester', '3rd Year — 2nd Sem'],
-    ['THIRD YEAR — Summer', '3rd Year — Summer'],
-    ['FOURTH YEAR — 1st Semester', '4th Year — 1st Sem'],
-    ['FOURTH YEAR — 2nd Semester', '4th Year — 2nd Sem'],
+    ["FIRST YEAR — 1st Semester", "1st Year — 1st Sem"],
+    ["FIRST YEAR — 2nd Semester", "1st Year — 2nd Sem"],
+    ["SECOND YEAR — 1st Semester", "2nd Year — 1st Sem"],
+    ["SECOND YEAR — 2nd Semester", "2nd Year — 2nd Sem"],
+    ["THIRD YEAR — 1st Semester", "3rd Year — 1st Sem"],
+    ["THIRD YEAR — 2nd Semester", "3rd Year — 2nd Sem"],
+    ["THIRD YEAR — Summer", "3rd Year — Summer"],
+    ["FOURTH YEAR — 1st Semester", "4th Year — 1st Sem"],
+    ["FOURTH YEAR — 2nd Semester", "4th Year — 2nd Sem"],
 ];
 const SECTION_ORDER = SECTIONS.map(([value]) => value);
-const YEAR_TABS = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
+const YEAR_TABS = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
 
 // Works for "FIRST YEAR — 1st Semester" and similar labels.
-function yearIndex(label = '') {
+function yearIndex(label = "") {
     const head = label.split(/[—-]/)[0].toLowerCase();
     if (/first|1st/.test(head)) return 0;
     if (/second|2nd/.test(head)) return 1;
@@ -45,20 +45,20 @@ function yearIndex(label = '') {
 }
 
 const COLLEGE_ABBR = {
-    'College of Information and Computing': 'CIC',
-    'College of Business Administration': 'CBA',
-    'College of Arts and Sciences': 'CAS',
-    'College of Engineering': 'CoE',
-    'College of Education': 'CED',
-    'College of Technology': 'CT',
-    'College of Applied Economics': 'CAEc',
+    "College of Information and Computing": "CIC",
+    "College of Business Administration": "CBA",
+    "College of Arts and Sciences": "CAS",
+    "College of Engineering": "CoE",
+    "College of Education": "CED",
+    "College of Technology": "CT",
+    "College of Applied Economics": "CAEc",
 };
-const abbr = (college = '') =>
+const abbr = (college = "") =>
     COLLEGE_ABBR[college] ||
     college
-        .split(' ')
+        .split(" ")
         .map((w) => w[0])
-        .join('')
+        .join("")
         .toUpperCase();
 
 const num = (v) => {
@@ -70,33 +70,37 @@ const num = (v) => {
 const fmtUnits = (n) => String(Math.round(n * 10) / 10);
 
 const JSPDF_SRC =
-    'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+    "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
 
 // jsPDF is only needed when the PDF button is pressed, so it is loaded on demand.
 function loadJsPdf() {
     if (window.jspdf?.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
     return new Promise((resolve, reject) => {
-        const el = document.createElement('script');
+        const el = document.createElement("script");
         el.src = JSPDF_SRC;
         el.async = true;
         el.onload = () =>
             window.jspdf?.jsPDF
                 ? resolve(window.jspdf.jsPDF)
-                : reject(new Error('jsPDF is not available'));
+                : reject(new Error("jsPDF is not available"));
         el.onerror = () =>
-            reject(new Error('Could not load the PDF library. Check your internet connection.'));
+            reject(
+                new Error(
+                    "Could not load the PDF library. Check your internet connection.",
+                ),
+            );
         document.head.appendChild(el);
     });
 }
 
 const emptySubject = {
     year_semester: SECTION_ORDER[0],
-    subject_code: '',
-    subject_title: '',
-    lec_hours: '',
-    lab_hours: '',
-    credit_units: '',
-    pre_requisite: 'None',
+    subject_code: "",
+    subject_title: "",
+    lec_hours: "",
+    lab_hours: "",
+    credit_units: "",
+    pre_requisite: "None",
 };
 
 export default function Prospectus({ program, prospectus, subjects = [] }) {
@@ -129,13 +133,13 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
         setEditingSubject(s);
         subjectForm.setData({
             year_semester: s.year_semester || SECTION_ORDER[0],
-            subject_code: s.subject_code || '',
-            subject_title: s.subject_title || '',
-            lec_hours: s.lec_hours ?? '',
-            lab_hours: s.lab_hours ?? '',
+            subject_code: s.subject_code || "",
+            subject_title: s.subject_title || "",
+            lec_hours: s.lec_hours ?? "",
+            lab_hours: s.lab_hours ?? "",
             credit_units:
-                s.credit_units !== null ? String(num(s.credit_units)) : '',
-            pre_requisite: s.pre_requisite || 'None',
+                s.credit_units !== null ? String(num(s.credit_units)) : "",
+            pre_requisite: s.pre_requisite || "None",
         });
         subjectForm.clearErrors();
         setSubjectOpen(true);
@@ -167,7 +171,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
     // Prospectus (title and academic year) modal
     const [prospectusOpen, setProspectusOpen] = useState(false);
-    const prospectusForm = useForm({ title: '', academic_year: '' });
+    const prospectusForm = useForm({ title: "", academic_year: "" });
 
     const openProspectus = () => {
         const year = new Date().getFullYear();
@@ -209,9 +213,9 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
         try {
             const JsPdf = await loadJsPdf();
             const doc = new JsPdf({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4',
+                orientation: "portrait",
+                unit: "mm",
+                format: "a4",
             });
             const pw = doc.internal.pageSize.getWidth();
             const ph = doc.internal.pageSize.getHeight();
@@ -219,47 +223,47 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             let y = 36;
 
             doc.setFillColor(159, 18, 57);
-            doc.rect(0, 0, pw, 28, 'F');
+            doc.rect(0, 0, pw, 28, "F");
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(16);
-            doc.setFont('helvetica', 'bold');
-            doc.text('LibColla', margin, 12);
+            doc.setFont("helvetica", "bold");
+            doc.text("LibColla", margin, 12);
             doc.setFontSize(9);
-            doc.setFont('helvetica', 'normal');
-            doc.text('Academic Program Prospectus', margin, 19);
+            doc.setFont("helvetica", "normal");
+            doc.text("Academic Program Prospectus", margin, 19);
             doc.setFontSize(8);
             doc.text(
-                'Generated: ' +
-                    new Date().toLocaleDateString('en-PH', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
+                "Generated: " +
+                    new Date().toLocaleDateString("en-PH", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
                     }),
                 pw - margin,
                 19,
-                { align: 'right' },
+                { align: "right" },
             );
 
             doc.setTextColor(30, 41, 59);
             doc.setFontSize(13);
-            doc.setFont('helvetica', 'bold');
+            doc.setFont("helvetica", "bold");
             doc.text(program.program_name, margin, y);
             y += 6;
             if (program.major) {
                 doc.setFontSize(9);
-                doc.setFont('helvetica', 'italic');
+                doc.setFont("helvetica", "italic");
                 doc.setTextColor(100, 116, 139);
-                doc.text('Major/Track: ' + program.major, margin, y);
+                doc.text("Major/Track: " + program.major, margin, y);
                 y += 5;
             }
             doc.setFontSize(8);
-            doc.setFont('helvetica', 'normal');
+            doc.setFont("helvetica", "normal");
             doc.setTextColor(100, 116, 139);
             doc.text(
-                'College: ' +
+                "College: " +
                     program.college +
-                    '   |   Level: ' +
-                    (program.level || 'Bachelor'),
+                    "   |   Level: " +
+                    (program.level || "Bachelor"),
                 margin,
                 y,
             );
@@ -277,22 +281,22 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
             const colW = [24, 84, 10, 10, 13, 30];
             const hdrs = [
-                'Code',
-                'Course Subject Name',
-                'Lec',
-                'Lab',
-                'Units',
-                'Pre/Co-Req',
+                "Code",
+                "Course Subject Name",
+                "Lec",
+                "Lab",
+                "Units",
+                "Pre/Co-Req",
             ];
             const rowH = 5.5;
             const drawHeader = () => {
                 doc.setFillColor(241, 245, 249);
-                doc.rect(margin, y, pw - margin * 2, rowH + 1, 'F');
+                doc.rect(margin, y, pw - margin * 2, rowH + 1, "F");
                 doc.setDrawColor(30, 41, 59);
                 doc.setLineWidth(0.4);
                 doc.rect(margin, y, pw - margin * 2, rowH + 1);
                 doc.setFontSize(6);
-                doc.setFont('helvetica', 'bold');
+                doc.setFont("helvetica", "bold");
                 doc.setTextColor(71, 85, 105);
                 let cx = margin + 2;
                 hdrs.forEach((h, i) => {
@@ -321,9 +325,9 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     drawHeader();
                 }
                 doc.setFillColor(51, 65, 85);
-                doc.rect(margin, y, pw - margin * 2, rowH, 'F');
+                doc.rect(margin, y, pw - margin * 2, rowH, "F");
                 doc.setFontSize(6);
-                doc.setFont('helvetica', 'bold');
+                doc.setFont("helvetica", "bold");
                 doc.setTextColor(255, 255, 255);
                 doc.text(label, margin + 2, y + rowH - 1.5);
                 y += rowH;
@@ -337,9 +341,9 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     }
                     total += num(s.credit_units);
                     doc.setFillColor(255, 255, 255);
-                    doc.rect(margin, y, pw - margin * 2, rowH - 1, 'F');
+                    doc.rect(margin, y, pw - margin * 2, rowH - 1, "F");
                     doc.setFontSize(6);
-                    doc.setFont('helvetica', 'normal');
+                    doc.setFont("helvetica", "normal");
                     doc.setTextColor(30, 41, 59);
                     const cells = [
                         s.subject_code,
@@ -347,12 +351,12 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                         String(s.lec_hours ?? 0),
                         String(s.lab_hours ?? 0),
                         String(num(s.credit_units)),
-                        s.pre_requisite || 'None',
+                        s.pre_requisite || "None",
                     ];
                     let cx = margin + 2;
                     cells.forEach((c, i) => {
                         const t = doc.splitTextToSize(
-                            String(c || ''),
+                            String(c || ""),
                             colW[i] - 2,
                         );
                         doc.text(t[0], cx, y + rowH - 2);
@@ -365,15 +369,15 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                 });
 
                 doc.setFillColor(248, 250, 252);
-                doc.rect(margin, y, pw - margin * 2, rowH - 1, 'F');
+                doc.rect(margin, y, pw - margin * 2, rowH - 1, "F");
                 doc.setFontSize(6.5);
-                doc.setFont('helvetica', 'bold');
+                doc.setFont("helvetica", "bold");
                 doc.setTextColor(159, 18, 57);
                 doc.text(
-                    'TOTAL UNITS: ' + fmtUnits(total),
+                    "TOTAL UNITS: " + fmtUnits(total),
                     pw - margin - 2,
                     y + rowH - 2.5,
-                    { align: 'right' },
+                    { align: "right" },
                 );
                 doc.setDrawColor(203, 213, 225);
                 doc.setLineWidth(0.3);
@@ -385,25 +389,25 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             for (let i = 1; i <= pages; i++) {
                 doc.setPage(i);
                 doc.setFillColor(248, 250, 252);
-                doc.rect(0, ph - 10, pw, 10, 'F');
+                doc.rect(0, ph - 10, pw, 10, "F");
                 doc.setFontSize(7);
-                doc.setFont('helvetica', 'normal');
+                doc.setFont("helvetica", "normal");
                 doc.setTextColor(148, 163, 184);
-                doc.text('LibColla - ' + program.college, margin, ph - 4);
-                doc.text('Page ' + i + ' of ' + pages, pw - margin, ph - 4, {
-                    align: 'right',
+                doc.text("LibColla - " + program.college, margin, ph - 4);
+                doc.text("Page " + i + " of " + pages, pw - margin, ph - 4, {
+                    align: "right",
                 });
             }
 
             const fileName =
-                (program.college + '_' + program.program_name)
-                    .replace(/\s+/g, '_')
-                    .replace(/[^a-zA-Z0-9_]/g, '') + '_Prospectus.pdf';
+                (program.college + "_" + program.program_name)
+                    .replace(/\s+/g, "_")
+                    .replace(/[^a-zA-Z0-9_]/g, "") + "_Prospectus.pdf";
             doc.save(fileName);
-            toast.success('PDF downloaded!');
+            toast.success("PDF downloaded!");
         } catch (e) {
             console.error(e);
-            toast.error(e?.message || 'PDF generation failed.');
+            toast.error(e?.message || "PDF generation failed.");
         } finally {
             setPdfBusy(false);
         }
@@ -423,7 +427,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
     const yearSuffix =
         prospectus?.academic_year && !title.includes(prospectus.academic_year)
             ? ` (SY ${prospectus.academic_year})`
-            : '';
+            : "";
 
     return (
         <div style={libcollaTheme} className="md:p-6">
@@ -445,7 +449,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     </div>
                     <div className="border-border flex items-center border-t px-5 py-3 sm:border-t-0 sm:border-l sm:py-0">
                         <span className="bg-muted text-muted-foreground rounded-md px-3 py-1.5 text-xs font-bold">
-                            {program.level || 'Bachelor'}
+                            {program.level || "Bachelor"}
                         </span>
                     </div>
                 </div>
@@ -480,8 +484,8 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             onClick={() => setYearIdx(i)}
                             className={`rounded-lg border px-4 py-2 text-xs font-bold whitespace-nowrap transition ${
                                 i === yearIdx
-                                    ? 'border-primary bg-primary text-primary-foreground'
-                                    : 'border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground'
+                                    ? "border-primary bg-primary text-primary-foreground"
+                                    : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground"
                             }`}
                         >
                             {label}
@@ -525,7 +529,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                         className="text-muted-foreground px-4 py-10 text-center"
                                     >
                                         No subjects yet for {YEAR_TABS[yearIdx]}
-                                        .{' '}
+                                        .{" "}
                                         <button
                                             type="button"
                                             onClick={openAddSubject}
@@ -574,7 +578,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                                     </td>
                                                     <td className="text-muted-foreground px-4 py-3 text-xs">
                                                         {s.pre_requisite ||
-                                                            'None'}
+                                                            "None"}
                                                     </td>
                                                     <td className="px-4 py-3">
                                                         <div className="flex justify-center gap-1.5">
@@ -647,7 +651,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                         className={btnPrimary}
                     >
                         <FileDown className="size-4" />
-                        {pdfBusy ? 'GENERATING...' : 'DOWNLOAD PDF'}
+                        {pdfBusy ? "GENERATING..." : "DOWNLOAD PDF"}
                     </button>
                     <button
                         type="button"
@@ -664,7 +668,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             <Modal open={subjectOpen} onClose={closeSubject}>
                 <form onSubmit={submitSubject}>
                     <ModalHeader
-                        title={editingSubject ? 'Edit Subject' : 'Add Subject'}
+                        title={editingSubject ? "Edit Subject" : "Add Subject"}
                         onClose={closeSubject}
                     />
                     <div className="space-y-4 px-6 py-5">
@@ -676,7 +680,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 value={subjectForm.data.year_semester}
                                 onChange={(e) =>
                                     subjectForm.setData(
-                                        'year_semester',
+                                        "year_semester",
                                         e.target.value,
                                     )
                                 }
@@ -700,7 +704,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                     value={subjectForm.data.subject_code}
                                     onChange={(e) =>
                                         subjectForm.setData(
-                                            'subject_code',
+                                            "subject_code",
                                             e.target.value,
                                         )
                                     }
@@ -721,7 +725,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                     value={subjectForm.data.credit_units}
                                     onChange={(e) =>
                                         subjectForm.setData(
-                                            'credit_units',
+                                            "credit_units",
                                             e.target.value,
                                         )
                                     }
@@ -740,7 +744,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 value={subjectForm.data.subject_title}
                                 onChange={(e) =>
                                     subjectForm.setData(
-                                        'subject_title',
+                                        "subject_title",
                                         e.target.value,
                                     )
                                 }
@@ -761,7 +765,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                     value={subjectForm.data.lec_hours}
                                     onChange={(e) =>
                                         subjectForm.setData(
-                                            'lec_hours',
+                                            "lec_hours",
                                             e.target.value,
                                         )
                                     }
@@ -780,7 +784,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                     value={subjectForm.data.lab_hours}
                                     onChange={(e) =>
                                         subjectForm.setData(
-                                            'lab_hours',
+                                            "lab_hours",
                                             e.target.value,
                                         )
                                     }
@@ -798,7 +802,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 value={subjectForm.data.pre_requisite}
                                 onChange={(e) =>
                                     subjectForm.setData(
-                                        'pre_requisite',
+                                        "pre_requisite",
                                         e.target.value,
                                     )
                                 }
@@ -821,8 +825,8 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             className={btnPrimary}
                         >
                             {subjectForm.processing
-                                ? 'SAVING...'
-                                : 'SAVE SUBJECT'}
+                                ? "SAVING..."
+                                : "SAVE SUBJECT"}
                         </button>
                     </div>
                 </form>
@@ -840,10 +844,10 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     </div>
                     <h3 className="text-lg font-semibold">Remove Subject?</h3>
                     <p className="text-muted-foreground mt-2 mb-6 text-sm">
-                        Remove{' '}
+                        Remove{" "}
                         <strong className="text-foreground">
                             {deletingSubject?.subject_title}
-                        </strong>{' '}
+                        </strong>{" "}
                         from the prospectus? Books linked to it will be removed
                         too.
                     </p>
@@ -861,7 +865,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             onClick={confirmDeleteSubject}
                             className={btnDanger}
                         >
-                            {deleteBusy ? 'REMOVING...' : 'REMOVE'}
+                            {deleteBusy ? "REMOVING..." : "REMOVE"}
                         </button>
                     </div>
                 </div>
@@ -879,10 +883,10 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     </div>
                     <h3 className="text-lg font-semibold">Delete Program?</h3>
                     <p className="text-muted-foreground mt-2 mb-6 text-sm">
-                        This will permanently remove{' '}
+                        This will permanently remove{" "}
                         <strong className="text-foreground">
                             {program.program_name}
-                        </strong>{' '}
+                        </strong>{" "}
                         and its prospectus, subjects, and books.
                     </p>
                     <div className="flex justify-center gap-3">
@@ -899,7 +903,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             onClick={confirmDeleteProgram}
                             className={btnDanger}
                         >
-                            {deleteProgramBusy ? 'DELETING...' : 'CONFIRM'}
+                            {deleteProgramBusy ? "DELETING..." : "CONFIRM"}
                         </button>
                     </div>
                 </div>
@@ -925,7 +929,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 value={prospectusForm.data.title}
                                 onChange={(e) =>
                                     prospectusForm.setData(
-                                        'title',
+                                        "title",
                                         e.target.value,
                                     )
                                 }
@@ -942,7 +946,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 value={prospectusForm.data.academic_year}
                                 onChange={(e) =>
                                     prospectusForm.setData(
-                                        'academic_year',
+                                        "academic_year",
                                         e.target.value,
                                     )
                                 }
@@ -964,7 +968,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             disabled={prospectusForm.processing}
                             className={btnPrimary}
                         >
-                            {prospectusForm.processing ? 'SAVING...' : 'SAVE'}
+                            {prospectusForm.processing ? "SAVING..." : "SAVE"}
                         </button>
                     </div>
                 </form>

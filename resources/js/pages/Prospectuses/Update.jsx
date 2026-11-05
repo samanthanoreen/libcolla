@@ -1,12 +1,12 @@
-import React from 'react';
-import { useForm, Link } from '@inertiajs/react';
+import React from "react";
+import { useForm, Link } from "@inertiajs/react";
 
 export default function Update({ prospectus, programs }) {
     const { data, setData, put, processing, errors } = useForm({
-        program_id: prospectus.program_id || '',
-        title: prospectus.title || '',
-        academic_year: prospectus.academic_year || '',
-        description: prospectus.description || '',
+        program_id: prospectus.program_id || "",
+        title: prospectus.title || "",
+        academic_year: prospectus.academic_year || "",
+        description: prospectus.description || "",
         is_active: prospectus.is_active ?? true,
     });
 
@@ -18,26 +18,26 @@ export default function Update({ prospectus, programs }) {
     return (
         <div
             style={{
-                maxWidth: '600px',
-                margin: '40px auto',
-                fontFamily: 'sans-serif',
+                maxWidth: "600px",
+                margin: "40px auto",
+                fontFamily: "sans-serif",
             }}
         >
             <h1>Edit Prospectus: {prospectus.title}</h1>
             <form
                 onSubmit={handleSubmit}
                 style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px',
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
                 }}
             >
                 <div>
                     <label>Program:</label>
                     <select
                         value={data.program_id}
-                        onChange={(e) => setData('program_id', e.target.value)}
-                        style={{ width: '100%', padding: '8px' }}
+                        onChange={(e) => setData("program_id", e.target.value)}
+                        style={{ width: "100%", padding: "8px" }}
                     >
                         {programs.map((p) => (
                             <option key={p.id} value={p.id}>
@@ -51,11 +51,11 @@ export default function Update({ prospectus, programs }) {
                     <input
                         type="text"
                         value={data.title}
-                        onChange={(e) => setData('title', e.target.value)}
-                        style={{ width: '100%', padding: '8px' }}
+                        onChange={(e) => setData("title", e.target.value)}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                     {errors.title && (
-                        <span style={{ color: 'red' }}>{errors.title}</span>
+                        <span style={{ color: "red" }}>{errors.title}</span>
                     )}
                 </div>
                 <div>
@@ -64,21 +64,21 @@ export default function Update({ prospectus, programs }) {
                         type="text"
                         value={data.academic_year}
                         onChange={(e) =>
-                            setData('academic_year', e.target.value)
+                            setData("academic_year", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: "flex", gap: "10px" }}>
                     <button
                         type="submit"
                         disabled={processing}
                         style={{
-                            padding: '8px 16px',
-                            background: '#2563eb',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: 'pointer',
+                            padding: "8px 16px",
+                            background: "#2563eb",
+                            color: "#fff",
+                            border: "none",
+                            cursor: "pointer",
                         }}
                     >
                         Update
@@ -86,10 +86,10 @@ export default function Update({ prospectus, programs }) {
                     <Link
                         href="/prospectuses"
                         style={{
-                            padding: '8px 16px',
-                            background: '#e5e7eb',
-                            textDecoration: 'none',
-                            color: '#000',
+                            padding: "8px 16px",
+                            background: "#e5e7eb",
+                            textDecoration: "none",
+                            color: "#000",
                         }}
                     >
                         Cancel

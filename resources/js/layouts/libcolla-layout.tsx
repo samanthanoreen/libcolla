@@ -1,4 +1,4 @@
-import { Link, router, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from "@inertiajs/react";
 import {
     Bell,
     ChevronDown,
@@ -14,9 +14,9 @@ import {
     Users,
     Wrench,
     BarChart3,
-} from 'lucide-react';
-import type { ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+} from "lucide-react";
+import type { ReactNode } from "react";
+import { useEffect, useState } from "react";
 
 const serif = {
     fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
@@ -24,48 +24,48 @@ const serif = {
 
 type Child = { label: string; href?: string };
 type NavEntry =
-    | { type: 'link'; label: string; href: string; Icon: any }
-    | { type: 'faded'; label: string; Icon: any }
-    | { type: 'group'; label: string; Icon: any; children: Child[] };
+    | { type: "link"; label: string; href: string; Icon: any }
+    | { type: "faded"; label: string; Icon: any }
+    | { type: "group"; label: string; Icon: any; children: Child[] };
 
 const NAV: NavEntry[] = [
     {
-        type: 'link',
-        label: 'DASHBOARD',
-        href: '/dashboard',
+        type: "link",
+        label: "DASHBOARD",
+        href: "/dashboard",
         Icon: LayoutDashboard,
     },
-    { type: 'faded', label: 'MAIN', Icon: BarChart3 },
+    { type: "faded", label: "MAIN", Icon: BarChart3 },
     {
-        type: 'group',
-        label: 'COLLECTION ASSESSMENT',
+        type: "group",
+        label: "COLLECTION ASSESSMENT",
         Icon: ClipboardCheck,
         children: [
-            { label: 'Generate Report', href: '/reports/generate' },
-            { label: 'Manage Reports', href: '/reports/manage' },
+            { label: "Generate Report", href: "/reports/generate" },
+            { label: "Manage Reports", href: "/reports/manage" },
         ],
     },
     {
-        type: 'group',
-        label: 'DATABASE',
+        type: "group",
+        label: "DATABASE",
         Icon: Database,
         children: [
-            { label: 'Program', href: '/programs' },
-            { label: 'Books', href: '/books' },
+            { label: "Program", href: "/programs" },
+            { label: "Books", href: "/books" },
         ],
     },
-    { type: 'faded', label: 'TOOLS', Icon: Wrench },
+    { type: "faded", label: "TOOLS", Icon: Wrench },
     {
-        type: 'group',
-        label: 'SUPPORT',
+        type: "group",
+        label: "SUPPORT",
         Icon: Headset,
-        children: [{ label: 'Contact Form' }],
+        children: [{ label: "Contact Form" }],
     },
     {
-        type: 'group',
-        label: 'USERS',
+        type: "group",
+        label: "USERS",
         Icon: Users,
-        children: [{ label: 'Manage Users' }],
+        children: [{ label: "Manage Users" }],
     },
 ];
 
@@ -75,57 +75,57 @@ const PAGES: {
     title: string;
     trail: { label: string; href?: string }[];
 }[] = [
-    { match: 'Dashboard', title: 'Dashboard', trail: [] },
-    { match: 'dashboard', title: 'Dashboard', trail: [] },
+    { match: "Dashboard", title: "Dashboard", trail: [] },
+    { match: "dashboard", title: "Dashboard", trail: [] },
     {
-        match: 'Programs',
-        title: 'Program',
-        trail: [{ label: 'Database', href: '/programs' }],
+        match: "Programs",
+        title: "Program",
+        trail: [{ label: "Database", href: "/programs" }],
     },
     {
-        match: 'Prospectuses',
-        title: 'Prospectus',
+        match: "Prospectuses",
+        title: "Prospectus",
         trail: [
-            { label: 'Database', href: '/programs' },
-            { label: 'Program', href: '/programs' },
+            { label: "Database", href: "/programs" },
+            { label: "Program", href: "/programs" },
         ],
     },
     {
-        match: 'CourseSubjects',
-        title: 'Course Subjects',
-        trail: [{ label: 'Database', href: '/programs' }],
+        match: "CourseSubjects",
+        title: "Course Subjects",
+        trail: [{ label: "Database", href: "/programs" }],
     },
     {
-        match: 'Books',
-        title: 'Books',
-        trail: [{ label: 'Database', href: '/books' }],
+        match: "Books",
+        title: "Books",
+        trail: [{ label: "Database", href: "/books" }],
     },
     {
-        match: 'Reports/Generate',
-        title: 'Generate Report',
-        trail: [{ label: 'Collection Assessment', href: '/reports/generate' }],
+        match: "Reports/Generate",
+        title: "Generate Report",
+        trail: [{ label: "Collection Assessment", href: "/reports/generate" }],
     },
     {
-        match: 'Reports/Preview',
-        title: 'Report Preview',
-        trail: [{ label: 'Collection Assessment', href: '/reports/generate' }],
+        match: "Reports/Preview",
+        title: "Report Preview",
+        trail: [{ label: "Collection Assessment", href: "/reports/generate" }],
     },
     {
-        match: 'Reports/View',
-        title: 'View Report',
-        trail: [{ label: 'Collection Assessment', href: '/reports/manage' }],
+        match: "Reports/View",
+        title: "View Report",
+        trail: [{ label: "Collection Assessment", href: "/reports/manage" }],
     },
     {
-        match: 'Reports/Manage',
-        title: 'Manage Reports',
-        trail: [{ label: 'Collection Assessment', href: '/reports/generate' }],
+        match: "Reports/Manage",
+        title: "Manage Reports",
+        trail: [{ label: "Collection Assessment", href: "/reports/generate" }],
     },
-    { match: 'settings', title: 'Settings', trail: [] },
+    { match: "settings", title: "Settings", trail: [] },
 ];
 
 function readCollapsed() {
     try {
-        return localStorage.getItem('sidebar_collapsed') === 'true';
+        return localStorage.getItem("sidebar_collapsed") === "true";
     } catch {
         return false;
     }
@@ -136,12 +136,12 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
     const { component, url } = page;
     const user = page.props?.auth?.user;
 
-    const username: string = user?.name ?? 'Admin User';
-    const role: string = user?.role ?? 'Administrator';
+    const username: string = user?.name ?? "Admin User";
+    const role: string = user?.role ?? "Administrator";
     const initials = username.slice(0, 2).toUpperCase();
 
     const meta = PAGES.find((p) => component.startsWith(p.match));
-    const title = meta?.title ?? component.split('/').pop() ?? 'Page';
+    const title = meta?.title ?? component.split("/").pop() ?? "Page";
     const trail = meta?.trail ?? [];
 
     const [collapsed, setCollapsed] = useState(readCollapsed);
@@ -152,7 +152,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
             const open: Record<string, boolean> = {};
             NAV.forEach((n) => {
                 if (
-                    n.type === 'group' &&
+                    n.type === "group" &&
                     n.children.some((c) => c.href && url.startsWith(c.href))
                 )
                     open[n.label] = true;
@@ -168,33 +168,33 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         const onKey = (e: KeyboardEvent) =>
-            e.key === 'Escape' && setProfileOpen(false);
-        window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
+            e.key === "Escape" && setProfileOpen(false);
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
     }, []);
 
     const toggleCollapse = () => {
         const next = !collapsed;
         setCollapsed(next);
         try {
-            localStorage.setItem('sidebar_collapsed', String(next));
+            localStorage.setItem("sidebar_collapsed", String(next));
         } catch {
             /* ignore */
         }
     };
 
     const logout = () => {
-        if (confirm('Are you sure you want to logout?')) router.post('/logout');
+        if (confirm("Are you sure you want to logout?")) router.post("/logout");
     };
 
     const itemBase =
-        'flex w-full items-center gap-3 rounded-2xl px-[1.125rem] py-3 text-left text-white transition hover:translate-x-1 hover:bg-white/[0.14]';
+        "flex w-full items-center gap-3 rounded-2xl px-[1.125rem] py-3 text-left text-white transition hover:translate-x-1 hover:bg-white/[0.14]";
 
     return (
         <div
             className="fixed inset-0 overflow-hidden text-[#f5e8e8]"
             style={{
-                background: 'linear-gradient(135deg, #7a0c24 0%, #4d0714 100%)',
+                background: "linear-gradient(135deg, #7a0c24 0%, #4d0714 100%)",
             }}
         >
             {mobileOpen && (
@@ -207,11 +207,11 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
             {/* ============ SIDEBAR ============ */}
             <aside
                 className={`fixed top-0 left-0 z-[100] flex h-screen flex-col overflow-x-hidden overflow-y-auto border-r border-white/[0.08] transition-all duration-300 ${
-                    mobileOpen ? 'translate-x-0' : '-translate-x-full'
-                } w-[292px] lg:translate-x-0 ${collapsed ? 'lg:w-24' : 'lg:w-[292px]'}`}
+                    mobileOpen ? "translate-x-0" : "-translate-x-full"
+                } w-[292px] lg:translate-x-0 ${collapsed ? "lg:w-24" : "lg:w-[292px]"}`}
                 style={{
                     background:
-                        'linear-gradient(180deg, #6e0c25 0%, #40060f 100%)',
+                        "linear-gradient(180deg, #6e0c25 0%, #40060f 100%)",
                 }}
             >
                 {/* empty header band keeps the gold line aligned with the top bar */}
@@ -220,16 +220,16 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                 <nav className="flex-1 overflow-y-auto px-3 py-7">
                     <ul className="flex flex-col gap-1">
                         {NAV.map((entry) => {
-                            if (entry.type === 'faded') {
+                            if (entry.type === "faded") {
                                 return (
                                     <li
                                         key={entry.label}
-                                        className={`${itemBase} pointer-events-none opacity-50 ${collapsed ? 'lg:justify-center' : ''}`}
+                                        className={`${itemBase} pointer-events-none opacity-50 ${collapsed ? "lg:justify-center" : ""}`}
                                     >
                                         <entry.Icon className="size-5 shrink-0" />
                                         <span
                                             className={
-                                                collapsed ? 'lg:hidden' : ''
+                                                collapsed ? "lg:hidden" : ""
                                             }
                                         >
                                             {entry.label}
@@ -238,18 +238,18 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                 );
                             }
 
-                            if (entry.type === 'link') {
+                            if (entry.type === "link") {
                                 const active = url.startsWith(entry.href);
                                 return (
                                     <li key={entry.label}>
                                         <Link
                                             href={entry.href}
-                                            className={`${itemBase} ${active ? 'border-l-4 border-[#d4a017] bg-[#9f1239]/30 hover:bg-[#9f1239]/45' : ''} ${collapsed ? 'lg:justify-center lg:px-3' : ''}`}
+                                            className={`${itemBase} ${active ? "border-l-4 border-[#d4a017] bg-[#9f1239]/30 hover:bg-[#9f1239]/45" : ""} ${collapsed ? "lg:justify-center lg:px-3" : ""}`}
                                         >
                                             <entry.Icon className="size-5 shrink-0" />
                                             <span
                                                 className={
-                                                    collapsed ? 'lg:hidden' : ''
+                                                    collapsed ? "lg:hidden" : ""
                                                 }
                                             >
                                                 {entry.label}
@@ -273,28 +273,28 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                 [entry.label]: !g[entry.label],
                                             }))
                                         }
-                                        className={`${itemBase} justify-between ${groupActive ? 'bg-[#9f1239]/30' : ''} ${collapsed ? 'lg:justify-center lg:px-3' : ''}`}
+                                        className={`${itemBase} justify-between ${groupActive ? "bg-[#9f1239]/30" : ""} ${collapsed ? "lg:justify-center lg:px-3" : ""}`}
                                     >
                                         <span className="flex items-center gap-3">
                                             <entry.Icon className="size-5 shrink-0" />
                                             <span
-                                                className={`text-left ${collapsed ? 'lg:hidden' : ''}`}
+                                                className={`text-left ${collapsed ? "lg:hidden" : ""}`}
                                             >
                                                 {entry.label}
                                             </span>
                                         </span>
                                         <ChevronDown
-                                            className={`size-4 shrink-0 transition ${open ? 'rotate-180' : ''} ${collapsed ? 'lg:hidden' : ''}`}
+                                            className={`size-4 shrink-0 transition ${open ? "rotate-180" : ""} ${collapsed ? "lg:hidden" : ""}`}
                                         />
                                     </button>
                                     <ul
-                                        className={`ml-9 overflow-hidden transition-all duration-300 ${open ? 'max-h-[400px]' : 'max-h-0'} ${collapsed ? 'lg:hidden' : ''}`}
+                                        className={`ml-9 overflow-hidden transition-all duration-300 ${open ? "max-h-[400px]" : "max-h-0"} ${collapsed ? "lg:hidden" : ""}`}
                                     >
                                         {entry.children.map((c) => {
                                             const active =
                                                 !!c.href &&
                                                 url.startsWith(c.href);
-                                            const cls = `block rounded-xl px-[1.125rem] py-3 transition hover:translate-x-1 hover:bg-white/[0.16] ${active ? 'bg-[#9f1239]' : ''}`;
+                                            const cls = `block rounded-xl px-[1.125rem] py-3 transition hover:translate-x-1 hover:bg-white/[0.16] ${active ? "bg-[#9f1239]" : ""}`;
                                             return (
                                                 <li key={c.label}>
                                                     {c.href ? (
@@ -329,7 +329,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                         className="hidden size-12 items-center justify-center rounded-2xl text-white/70 transition hover:bg-white/10 hover:text-white lg:flex"
                     >
                         <ChevronLeft
-                            className={`size-5 transition ${collapsed ? 'rotate-180' : ''}`}
+                            className={`size-5 transition ${collapsed ? "rotate-180" : ""}`}
                         />
                     </button>
                 </div>
@@ -338,7 +338,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
             {/* ============ MAIN ============ */}
             <div
                 className={`absolute inset-y-0 right-0 left-0 flex flex-col overflow-hidden transition-[left] duration-200 ${
-                    collapsed ? 'lg:left-24' : 'lg:left-[292px]'
+                    collapsed ? "lg:left-24" : "lg:left-[292px]"
                 }`}
             >
                 <header className="sticky top-0 z-50 flex h-[120px] shrink-0 items-center justify-between border-b border-white/10 bg-white/10 px-7 backdrop-blur-md">
@@ -379,7 +379,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                         className="flex items-center gap-2"
                                     >
                                         <Link
-                                            href={t.href ?? '#'}
+                                            href={t.href ?? "#"}
                                             className="text-white/60 hover:text-white"
                                         >
                                             {t.label}
@@ -419,13 +419,13 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                     className="flex size-[50px] items-center justify-center rounded-2xl border-2 border-[#d4a017] font-bold transition group-hover:rotate-12"
                                     style={{
                                         background:
-                                            'linear-gradient(135deg, #9f1239, #c8102e)',
+                                            "linear-gradient(135deg, #9f1239, #c8102e)",
                                     }}
                                 >
                                     {initials}
                                 </div>
                                 <ChevronDown
-                                    className={`size-4 text-white/70 transition ${profileOpen ? 'rotate-180' : ''}`}
+                                    className={`size-4 text-white/70 transition ${profileOpen ? "rotate-180" : ""}`}
                                 />
                             </div>
 
@@ -440,7 +440,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                             className="border-b-[3px] border-[#d4a017] px-5 py-[22px] text-center text-white"
                                             style={{
                                                 background:
-                                                    'linear-gradient(135deg, #9f1239 0%, #7f0d2e 100%)',
+                                                    "linear-gradient(135deg, #9f1239 0%, #7f0d2e 100%)",
                                             }}
                                         >
                                             <div
@@ -461,14 +461,14 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                 href="/settings/profile"
                                                 className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50"
                                             >
-                                                <User className="size-4 text-gray-500" />{' '}
+                                                <User className="size-4 text-gray-500" />{" "}
                                                 My Profile
                                             </Link>
                                             <Link
                                                 href="/settings/appearance"
                                                 className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50"
                                             >
-                                                <Settings className="size-4 text-gray-500" />{' '}
+                                                <Settings className="size-4 text-gray-500" />{" "}
                                                 Settings
                                             </Link>
                                             <div className="my-2 h-px bg-gray-200" />
@@ -477,7 +477,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                 onClick={logout}
                                                 className="flex w-full items-center gap-3 px-5 py-3 text-left text-red-600 hover:bg-red-50"
                                             >
-                                                <LogOut className="size-4" />{' '}
+                                                <LogOut className="size-4" />{" "}
                                                 Logout
                                             </button>
                                         </div>

@@ -1,44 +1,44 @@
-import React from 'react';
-import { useForm, Link } from '@inertiajs/react';
+import React from "react";
+import { useForm, Link } from "@inertiajs/react";
 
 export default function Create({ programs, prospectuses }) {
     const { data, setData, post, processing, errors } = useForm({
-        program_id: programs[0]?.id || '',
-        prospectus_id: prospectuses[0]?.id || '',
-        subject_code: '',
-        subject_title: '',
+        program_id: programs[0]?.id || "",
+        prospectus_id: prospectuses[0]?.id || "",
+        subject_code: "",
+        subject_title: "",
         credit_units: 3.0,
-        semester_offered: 'First',
+        semester_offered: "First",
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post('/course-subjects');
+        post("/course-subjects");
     };
 
     return (
         <div
             style={{
-                maxWidth: '600px',
-                margin: '40px auto',
-                fontFamily: 'sans-serif',
+                maxWidth: "600px",
+                margin: "40px auto",
+                fontFamily: "sans-serif",
             }}
         >
             <h1>Add Course Subject</h1>
             <form
                 onSubmit={handleSubmit}
                 style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px',
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
                 }}
             >
                 <div>
                     <label>Program:</label>
                     <select
                         value={data.program_id}
-                        onChange={(e) => setData('program_id', e.target.value)}
-                        style={{ width: '100%', padding: '8px' }}
+                        onChange={(e) => setData("program_id", e.target.value)}
+                        style={{ width: "100%", padding: "8px" }}
                     >
                         {programs.map((p) => (
                             <option key={p.id} value={p.id}>
@@ -52,9 +52,9 @@ export default function Create({ programs, prospectuses }) {
                     <select
                         value={data.prospectus_id}
                         onChange={(e) =>
-                            setData('prospectus_id', e.target.value)
+                            setData("prospectus_id", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     >
                         {prospectuses.map((p) => (
                             <option key={p.id} value={p.id}>
@@ -69,12 +69,12 @@ export default function Create({ programs, prospectuses }) {
                         type="text"
                         value={data.subject_code}
                         onChange={(e) =>
-                            setData('subject_code', e.target.value)
+                            setData("subject_code", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                     {errors.subject_code && (
-                        <span style={{ color: 'red' }}>
+                        <span style={{ color: "red" }}>
                             {errors.subject_code}
                         </span>
                     )}
@@ -85,9 +85,9 @@ export default function Create({ programs, prospectuses }) {
                         type="text"
                         value={data.subject_title}
                         onChange={(e) =>
-                            setData('subject_title', e.target.value)
+                            setData("subject_title", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                 </div>
                 <div>
@@ -97,21 +97,21 @@ export default function Create({ programs, prospectuses }) {
                         step="0.5"
                         value={data.credit_units}
                         onChange={(e) =>
-                            setData('credit_units', e.target.value)
+                            setData("credit_units", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: "flex", gap: "10px" }}>
                     <button
                         type="submit"
                         disabled={processing}
                         style={{
-                            padding: '8px 16px',
-                            background: '#2563eb',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: 'pointer',
+                            padding: "8px 16px",
+                            background: "#2563eb",
+                            color: "#fff",
+                            border: "none",
+                            cursor: "pointer",
                         }}
                     >
                         Save
@@ -119,10 +119,10 @@ export default function Create({ programs, prospectuses }) {
                     <Link
                         href="/course-subjects"
                         style={{
-                            padding: '8px 16px',
-                            background: '#e5e7eb',
-                            textDecoration: 'none',
-                            color: '#000',
+                            padding: "8px 16px",
+                            background: "#e5e7eb",
+                            textDecoration: "none",
+                            color: "#000",
                         }}
                     >
                         Cancel

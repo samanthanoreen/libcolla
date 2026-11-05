@@ -1,15 +1,15 @@
-import React from 'react';
-import { useForm, Link } from '@inertiajs/react';
+import React from "react";
+import { useForm, Link } from "@inertiajs/react";
 
 export default function Update({ program }) {
     const { data, setData, put, processing, errors } = useForm({
-        program_code: program.program_code || '',
-        program_name: program.program_name || '',
-        college: program.college || '',
-        major: program.major || '',
-        level: program.level || 'Bachelor',
+        program_code: program.program_code || "",
+        program_name: program.program_name || "",
+        college: program.college || "",
+        major: program.major || "",
+        level: program.level || "Bachelor",
         duration: program.duration || 4,
-        status: program.status || 'active',
+        status: program.status || "active",
     });
 
     const handleSubmit = (e) => {
@@ -20,18 +20,18 @@ export default function Update({ program }) {
     return (
         <div
             style={{
-                maxWidth: '600px',
-                margin: '40px auto',
-                fontFamily: 'sans-serif',
+                maxWidth: "600px",
+                margin: "40px auto",
+                fontFamily: "sans-serif",
             }}
         >
             <h1>Edit Program: {program.program_code}</h1>
             <form
                 onSubmit={handleSubmit}
                 style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px',
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "12px",
                 }}
             >
                 <div>
@@ -40,12 +40,12 @@ export default function Update({ program }) {
                         type="text"
                         value={data.program_code}
                         onChange={(e) =>
-                            setData('program_code', e.target.value)
+                            setData("program_code", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                     {errors.program_code && (
-                        <span style={{ color: 'red' }}>
+                        <span style={{ color: "red" }}>
                             {errors.program_code}
                         </span>
                     )}
@@ -56,12 +56,12 @@ export default function Update({ program }) {
                         type="text"
                         value={data.program_name}
                         onChange={(e) =>
-                            setData('program_name', e.target.value)
+                            setData("program_name", e.target.value)
                         }
-                        style={{ width: '100%', padding: '8px' }}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                     {errors.program_name && (
-                        <span style={{ color: 'red' }}>
+                        <span style={{ color: "red" }}>
                             {errors.program_name}
                         </span>
                     )}
@@ -71,23 +71,23 @@ export default function Update({ program }) {
                     <input
                         type="text"
                         value={data.college}
-                        onChange={(e) => setData('college', e.target.value)}
-                        style={{ width: '100%', padding: '8px' }}
+                        onChange={(e) => setData("college", e.target.value)}
+                        style={{ width: "100%", padding: "8px" }}
                     />
                     {errors.college && (
-                        <span style={{ color: 'red' }}>{errors.college}</span>
+                        <span style={{ color: "red" }}>{errors.college}</span>
                     )}
                 </div>
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div style={{ display: "flex", gap: "10px" }}>
                     <button
                         type="submit"
                         disabled={processing}
                         style={{
-                            padding: '8px 16px',
-                            background: '#2563eb',
-                            color: '#fff',
-                            border: 'none',
-                            cursor: 'pointer',
+                            padding: "8px 16px",
+                            background: "#2563eb",
+                            color: "#fff",
+                            border: "none",
+                            cursor: "pointer",
                         }}
                     >
                         Update
@@ -95,10 +95,10 @@ export default function Update({ program }) {
                     <Link
                         href="/programs"
                         style={{
-                            padding: '8px 16px',
-                            background: '#e5e7eb',
-                            textDecoration: 'none',
-                            color: '#000',
+                            padding: "8px 16px",
+                            background: "#e5e7eb",
+                            textDecoration: "none",
+                            color: "#000",
                         }}
                     >
                         Cancel

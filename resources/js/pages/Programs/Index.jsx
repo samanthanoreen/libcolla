@@ -1,4 +1,4 @@
-import { Link, router, useForm } from '@inertiajs/react';
+import { Link, router, useForm } from "@inertiajs/react";
 import {
     GraduationCap,
     Pencil,
@@ -6,8 +6,8 @@ import {
     Search,
     Trash2,
     TriangleAlert,
-} from 'lucide-react';
-import React, { useEffect, useRef, useState } from 'react';
+} from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Field,
     Modal,
@@ -16,19 +16,19 @@ import {
     btnPrimary,
     btnSecondary,
     inputCls,
-} from '@/components/crud-ui';
-import { libcollaTheme, serif } from '@/lib/libcollaTheme';
-import { LEVELS, PROGRAM_CATALOG } from '@/lib/programCatalog';
+} from "@/components/crud-ui";
+import { libcollaTheme, serif } from "@/lib/libcollaTheme";
+import { LEVELS, PROGRAM_CATALOG } from "@/lib/programCatalog";
 
 export default function Index({ programs, filters = {} }) {
-    const [search, setSearch] = useState(filters.search || '');
-    const [field, setField] = useState(filters.field || 'all');
+    const [search, setSearch] = useState(filters.search || "");
+    const [field, setField] = useState(filters.field || "all");
     const [perPage, setPerPage] = useState(filters.per_page || 10);
     const mounted = useRef(false);
 
     const visit = () =>
         router.get(
-            '/programs',
+            "/programs",
             { search, field, per_page: perPage },
             { preserveState: true, preserveScroll: true, replace: true },
         );
@@ -45,10 +45,10 @@ export default function Index({ programs, filters = {} }) {
     const [formOpen, setFormOpen] = useState(false);
     const [editing, setEditing] = useState(null);
     const form = useForm({
-        college: '',
-        program_name: '',
-        major: '',
-        level: 'Bachelor',
+        college: "",
+        program_name: "",
+        major: "",
+        level: "Bachelor",
     });
 
     const closeForm = () => {
@@ -59,10 +59,10 @@ export default function Index({ programs, filters = {} }) {
     const openAdd = () => {
         setEditing(null);
         form.setData({
-            college: '',
-            program_name: '',
-            major: '',
-            level: 'Bachelor',
+            college: "",
+            program_name: "",
+            major: "",
+            level: "Bachelor",
         });
         form.clearErrors();
         setFormOpen(true);
@@ -71,10 +71,10 @@ export default function Index({ programs, filters = {} }) {
     const openEdit = (p) => {
         setEditing(p);
         form.setData({
-            college: p.college || '',
-            program_name: p.program_name || '',
-            major: p.major || '',
-            level: p.level || 'Bachelor',
+            college: p.college || "",
+            program_name: p.program_name || "",
+            major: p.major || "",
+            level: p.level || "Bachelor",
         });
         form.clearErrors();
         setFormOpen(true);
@@ -84,7 +84,7 @@ export default function Index({ programs, filters = {} }) {
         e.preventDefault();
         const opts = { preserveScroll: true, onSuccess: closeForm };
         if (editing) form.put(`/programs/${editing.id}`, opts);
-        else form.post('/programs', opts);
+        else form.post("/programs", opts);
     };
 
     const withCurrent = (list, current) =>
@@ -260,7 +260,7 @@ export default function Index({ programs, filters = {} }) {
                                             colSpan={6}
                                             className="text-muted-foreground px-4 py-10 text-center"
                                         >
-                                            No programs found.{' '}
+                                            No programs found.{" "}
                                             <button
                                                 type="button"
                                                 onClick={openAdd}
@@ -298,8 +298,8 @@ export default function Index({ programs, filters = {} }) {
                                 {programs.links.map((link, i) => {
                                     const cls = `rounded-md border px-3 py-1.5 text-xs transition ${
                                         link.active
-                                            ? 'border-primary bg-primary text-primary-foreground font-bold'
-                                            : 'bg-background text-foreground hover:bg-muted'
+                                            ? "border-primary bg-primary text-primary-foreground font-bold"
+                                            : "bg-background text-foreground hover:bg-muted"
                                     }`;
 
                                     return link.url ? (
@@ -331,7 +331,7 @@ export default function Index({ programs, filters = {} }) {
             <Modal open={formOpen} onClose={closeForm}>
                 <form onSubmit={submit}>
                     <ModalHeader
-                        title={editing ? 'Edit Program' : 'Add Program'}
+                        title={editing ? "Edit Program" : "Add Program"}
                         onClose={closeForm}
                     />
 
@@ -347,8 +347,8 @@ export default function Index({ programs, filters = {} }) {
                                     form.setData({
                                         ...form.data,
                                         college: e.target.value,
-                                        program_name: '',
-                                        major: '',
+                                        program_name: "",
+                                        major: "",
                                     })
                                 }
                                 className={`${inputCls} w-full`}
@@ -374,15 +374,15 @@ export default function Index({ programs, filters = {} }) {
                                     form.setData({
                                         ...form.data,
                                         program_name: e.target.value,
-                                        major: '',
+                                        major: "",
                                     })
                                 }
                                 className={`${inputCls} w-full`}
                             >
                                 <option value="">
                                     {form.data.college
-                                        ? 'Select Program'
-                                        : 'Select College first'}
+                                        ? "Select Program"
+                                        : "Select College first"}
                                 </option>
                                 {programOptions.map((p) => (
                                     <option key={p} value={p}>
@@ -400,14 +400,14 @@ export default function Index({ programs, filters = {} }) {
                                 value={form.data.major}
                                 disabled={!form.data.program_name}
                                 onChange={(e) =>
-                                    form.setData('major', e.target.value)
+                                    form.setData("major", e.target.value)
                                 }
                                 className={`${inputCls} w-full`}
                             >
                                 <option value="">
                                     {form.data.program_name
-                                        ? 'No major / general'
-                                        : 'Select Program first'}
+                                        ? "No major / general"
+                                        : "Select Program first"}
                                 </option>
                                 {majorOptions.map((m) => (
                                     <option key={m} value={m}>
@@ -421,7 +421,7 @@ export default function Index({ programs, filters = {} }) {
                             <select
                                 value={form.data.level}
                                 onChange={(e) =>
-                                    form.setData('level', e.target.value)
+                                    form.setData("level", e.target.value)
                                 }
                                 className={`${inputCls} w-full`}
                             >
@@ -447,7 +447,7 @@ export default function Index({ programs, filters = {} }) {
                             disabled={form.processing}
                             className={btnPrimary}
                         >
-                            {form.processing ? 'SAVING...' : 'SAVE PROGRAM'}
+                            {form.processing ? "SAVING..." : "SAVE PROGRAM"}
                         </button>
                     </div>
                 </form>
@@ -464,10 +464,10 @@ export default function Index({ programs, filters = {} }) {
                     </div>
                     <h3 className="text-lg font-semibold">Delete Program?</h3>
                     <p className="text-muted-foreground mt-2 mb-6 text-sm">
-                        This will permanently remove{' '}
+                        This will permanently remove{" "}
                         <strong className="text-foreground">
                             {deleting?.program_name}
-                        </strong>{' '}
+                        </strong>{" "}
                         and its prospectus, subjects, and books.
                     </p>
                     <div className="flex justify-center gap-3">
@@ -484,7 +484,7 @@ export default function Index({ programs, filters = {} }) {
                             onClick={confirmDelete}
                             className={btnDanger}
                         >
-                            {deleteBusy ? 'DELETING...' : 'CONFIRM'}
+                            {deleteBusy ? "DELETING..." : "CONFIRM"}
                         </button>
                     </div>
                 </div>

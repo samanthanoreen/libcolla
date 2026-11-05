@@ -1,10 +1,10 @@
-import { Link, usePage } from '@inertiajs/react';
-import { ChevronRight } from 'lucide-react';
+import { Link, usePage } from "@inertiajs/react";
+import { ChevronRight } from "lucide-react";
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+} from "@/components/ui/collapsible";
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -14,19 +14,19 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-} from '@/components/ui/sidebar';
-import type { NavItem } from '@/types';
+} from "@/components/ui/sidebar";
+import type { NavItem } from "@/types";
 
 function toHrefString(href: string | { url?: string } | null | undefined) {
-    if (typeof href === 'string') {
+    if (typeof href === "string") {
         return href;
     }
 
-    if (href && typeof href === 'object' && 'url' in href && href.url) {
+    if (href && typeof href === "object" && "url" in href && href.url) {
         return href.url;
     }
 
-    return '';
+    return "";
 }
 
 function isRouteActive(
@@ -62,7 +62,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                                     isActive={isActive}
                                     tooltip={item.title}
                                 >
-                                    <Link href={item.href || '#'}>
+                                    <Link href={item.href || "#"}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
                                     </Link>
@@ -108,7 +108,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                                                 >
                                                     <Link
                                                         href={
-                                                            subItem.href || '#'
+                                                            subItem.href || "#"
                                                         }
                                                     >
                                                         <span>

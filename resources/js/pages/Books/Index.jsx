@@ -1,4 +1,4 @@
-import { router, useForm } from '@inertiajs/react';
+import { router, useForm } from "@inertiajs/react";
 import {
     ChevronLeft,
     ChevronRight,
@@ -6,8 +6,8 @@ import {
     FolderTree,
     Plus,
     Search,
-} from 'lucide-react';
-import React, { useMemo, useState } from 'react';
+} from "lucide-react";
+import React, { useMemo, useState } from "react";
 import {
     Field,
     Modal,
@@ -15,11 +15,11 @@ import {
     btnPrimary,
     btnSecondary,
     inputCls,
-} from '@/components/crud-ui';
-import { libcollaTheme, serif } from '@/lib/libcollaTheme';
+} from "@/components/crud-ui";
+import { libcollaTheme, serif } from "@/lib/libcollaTheme";
 
 const programLabel = (p) =>
-    `${p.program_code} - ${p.program_name}${p.major ? ` (${p.major})` : ''}`;
+    `${p.program_code} - ${p.program_name}${p.major ? ` (${p.major})` : ""}`;
 
 export default function Index({
     programs,
@@ -27,13 +27,13 @@ export default function Index({
     allPrograms = [],
     subjects = [],
 }) {
-    const [search, setSearch] = useState(filters.search || '');
-    const [field, setField] = useState(filters.field || 'all');
+    const [search, setSearch] = useState(filters.search || "");
+    const [field, setField] = useState(filters.field || "all");
     const perPage = filters.per_page || 15;
 
     const visit = (extra = {}) =>
         router.get(
-            '/books',
+            "/books",
             { search, field, per_page: perPage, ...extra },
             { preserveState: true, preserveScroll: true, replace: true },
         );
@@ -46,13 +46,13 @@ export default function Index({
     // Add Book modal
     const [addOpen, setAddOpen] = useState(false);
     const form = useForm({
-        program_id: '',
-        subject_id: '',
-        title: '',
-        call_no: '',
-        author: '',
-        year: '',
-        copies: '',
+        program_id: "",
+        subject_id: "",
+        title: "",
+        call_no: "",
+        author: "",
+        year: "",
+        copies: "",
     });
 
     const programSubjects = useMemo(
@@ -71,7 +71,7 @@ export default function Index({
 
     const submitAdd = (e) => {
         e.preventDefault();
-        form.post('/books', { preserveScroll: true, onSuccess: closeAdd });
+        form.post("/books", { preserveScroll: true, onSuccess: closeAdd });
     };
 
     const light = `${inputCls} w-full`;
@@ -177,19 +177,21 @@ export default function Index({
                                                     {p.program_name}
                                                 </td>
                                                 <td className="p-4 text-[#64748b]">
-                                                    {p.major || '—'}
+                                                    {p.major || "—"}
                                                 </td>
                                                 <td className="p-4 text-center text-[#475569]">
-                                                    {p.course_subjects_count ?? 0}
+                                                    {p.course_subjects_count ??
+                                                        0}
                                                 </td>
                                                 <td className="p-4 text-center font-semibold">
                                                     {p.books_count ?? 0}
                                                 </td>
                                                 <td className="p-4 text-center text-[#475569]">
-                                                    {p.books_sum_total_copies ?? 0}
+                                                    {p.books_sum_total_copies ??
+                                                        0}
                                                 </td>
                                                 <td className="p-4 text-center">
-                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#f1f5f9] px-4 py-1.5 whitespace-nowrap text-xs font-semibold tracking-wider text-[#475569] uppercase transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
+                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#f1f5f9] px-4 py-1.5 text-xs font-semibold tracking-wider whitespace-nowrap text-[#475569] uppercase transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
                                                         <FolderOpen className="size-3.5" />
                                                         View Books
                                                     </span>
@@ -215,10 +217,10 @@ export default function Index({
                         {/* Pagination */}
                         <div className="flex flex-wrap items-center justify-center gap-6 border-t border-[#f1f5f9] px-6 py-8 text-sm text-[#475569]">
                             <span>
-                                Showing{' '}
+                                Showing{" "}
                                 {total === 0
                                     ? 0
-                                    : `${programs?.from ?? 0}–${programs?.to ?? 0}`}{' '}
+                                    : `${programs?.from ?? 0}–${programs?.to ?? 0}`}{" "}
                                 of {total}
                             </span>
                             <label className="flex items-center gap-2">
@@ -284,7 +286,7 @@ export default function Index({
                                     form.setData({
                                         ...form.data,
                                         program_id: e.target.value,
-                                        subject_id: '',
+                                        subject_id: "",
                                     })
                                 }
                                 className={light}
@@ -310,16 +312,16 @@ export default function Index({
                                     programSubjects.length === 0
                                 }
                                 onChange={(e) =>
-                                    form.setData('subject_id', e.target.value)
+                                    form.setData("subject_id", e.target.value)
                                 }
                                 className={light}
                             >
                                 <option value="">
                                     {!form.data.program_id
-                                        ? 'Select a Program First...'
+                                        ? "Select a Program First..."
                                         : programSubjects.length === 0
-                                          ? 'No subjects found for this program'
-                                          : 'Select Subject...'}
+                                          ? "No subjects found for this program"
+                                          : "Select Subject..."}
                                 </option>
                                 {programSubjects.map((s) => (
                                     <option key={s.id} value={s.id}>
@@ -338,7 +340,7 @@ export default function Index({
                                 type="text"
                                 value={form.data.title}
                                 onChange={(e) =>
-                                    form.setData('title', e.target.value)
+                                    form.setData("title", e.target.value)
                                 }
                                 className={light}
                             />
@@ -354,7 +356,7 @@ export default function Index({
                                     type="text"
                                     value={form.data.call_no}
                                     onChange={(e) =>
-                                        form.setData('call_no', e.target.value)
+                                        form.setData("call_no", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -368,7 +370,7 @@ export default function Index({
                                     type="text"
                                     value={form.data.author}
                                     onChange={(e) =>
-                                        form.setData('author', e.target.value)
+                                        form.setData("author", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -382,7 +384,7 @@ export default function Index({
                                     type="number"
                                     value={form.data.year}
                                     onChange={(e) =>
-                                        form.setData('year', e.target.value)
+                                        form.setData("year", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -397,7 +399,7 @@ export default function Index({
                                     min="1"
                                     value={form.data.copies}
                                     onChange={(e) =>
-                                        form.setData('copies', e.target.value)
+                                        form.setData("copies", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -418,7 +420,7 @@ export default function Index({
                             disabled={form.processing}
                             className={btnPrimary}
                         >
-                            {form.processing ? 'SAVING...' : 'SAVE BOOK'}
+                            {form.processing ? "SAVING..." : "SAVE BOOK"}
                         </button>
                     </div>
                 </form>

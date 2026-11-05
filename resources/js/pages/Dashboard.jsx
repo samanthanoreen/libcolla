@@ -1,4 +1,4 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from "@inertiajs/react";
 import {
     BookOpen,
     ClipboardCheck,
@@ -7,8 +7,8 @@ import {
     TrendingUp,
     Users,
     Zap,
-} from 'lucide-react';
-import React from 'react';
+} from "lucide-react";
+import React from "react";
 
 const serif = {
     fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
@@ -45,7 +45,7 @@ function QuickAction({ href, label, Icon }) {
             <div
                 className="mx-auto mb-7 flex size-16 items-center justify-center rounded-3xl"
                 style={{
-                    background: 'linear-gradient(135deg, #9f1239, #c8102e)',
+                    background: "linear-gradient(135deg, #9f1239, #c8102e)",
                 }}
             >
                 <Icon className="size-7 text-white" />
@@ -54,7 +54,7 @@ function QuickAction({ href, label, Icon }) {
         </>
     );
     const cls =
-        'block rounded-[2rem] border border-white/10 bg-white/[0.06] px-7 py-9 text-center backdrop-blur-xl transition duration-300 hover:-translate-y-1.5 hover:bg-white/10';
+        "block rounded-[2rem] border border-white/10 bg-white/[0.06] px-7 py-9 text-center backdrop-blur-xl transition duration-300 hover:-translate-y-1.5 hover:bg-white/10";
 
     return href ? (
         <Link href={href} className={cls}>
@@ -69,7 +69,7 @@ function QuickAction({ href, label, Icon }) {
 
 export default function Dashboard({ stats }) {
     const { auth } = usePage().props;
-    const name = auth?.user?.name ?? 'User';
+    const name = auth?.user?.name ?? "User";
     const fmt = (n) => Number(n ?? 0).toLocaleString();
 
     return (
@@ -101,8 +101,8 @@ export default function Dashboard({ stats }) {
                     value={fmt(stats?.total_reports)}
                     note={
                         Number(stats?.total_reports ?? 0) === 0
-                            ? 'No reports saved yet'
-                            : 'Saved to system'
+                            ? "No reports saved yet"
+                            : "Saved to system"
                     }
                     Icon={FileBarChart}
                 />

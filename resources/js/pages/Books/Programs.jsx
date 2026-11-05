@@ -1,4 +1,4 @@
-import { Link, router, useForm } from '@inertiajs/react';
+import { Link, router, useForm } from "@inertiajs/react";
 import {
     ArrowLeft,
     BookPlus,
@@ -10,8 +10,8 @@ import {
     Plus,
     SquarePen,
     Trash2,
-} from 'lucide-react';
-import React, { useState } from 'react';
+} from "lucide-react";
+import React, { useState } from "react";
 import {
     Field,
     Modal,
@@ -19,21 +19,21 @@ import {
     btnPrimary,
     btnSecondary,
     inputCls,
-} from '@/components/crud-ui';
-import { libcollaTheme } from '@/lib/libcollaTheme';
+} from "@/components/crud-ui";
+import { libcollaTheme } from "@/lib/libcollaTheme";
 
 const th =
-    'px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#64748b] uppercase border-b border-[#e2e8f0]';
+    "px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#64748b] uppercase border-b border-[#e2e8f0]";
 
 // A table cell that looks like plain text and edits in place, committing on blur / Enter.
 function EditableCell({
     book,
     field,
     onCommit,
-    align = 'left',
-    className = '',
+    align = "left",
+    className = "",
 }) {
-    const original = String(book[field] ?? '');
+    const original = String(book[field] ?? "");
     return (
         <input
             key={`${book.id}-${field}-${original}`}
@@ -43,16 +43,16 @@ function EditableCell({
                 if (value !== original)
                     onCommit({ book, field, original, value, input: e.target });
             }}
-            onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
+            onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
             className={`min-w-10 rounded border border-dashed border-transparent bg-transparent px-1.5 py-1 outline-none hover:cursor-text hover:border-[#cbd5e1] hover:bg-white focus:border-[#9f1239] focus:bg-white focus:ring-2 focus:ring-[#9f1239]/10 ${
-                align === 'center' ? 'text-center' : ''
+                align === "center" ? "text-center" : ""
             } ${className}`}
         />
     );
 }
 
 export default function Program({ program, subjects = [], books = [] }) {
-    const [subjectId, setSubjectId] = useState(subjects[0]?.id ?? '');
+    const [subjectId, setSubjectId] = useState(subjects[0]?.id ?? "");
     const subject = subjects.find((s) => String(s.id) === String(subjectId));
     const rows = books.filter(
         (b) => String(b.subject_id) === String(subjectId),
@@ -63,23 +63,23 @@ export default function Program({ program, subjects = [], books = [] }) {
     const [confirmAdd, setConfirmAdd] = useState(false);
     const form = useForm({
         program_id: program.id,
-        subject_id: '',
-        title: '',
-        call_no: '',
-        author: '',
-        year: '',
-        copies: '',
+        subject_id: "",
+        title: "",
+        call_no: "",
+        author: "",
+        year: "",
+        copies: "",
     });
 
     const openAdd = () => {
         form.setData({
             program_id: program.id,
-            subject_id: subjectId || '',
-            title: '',
-            call_no: '',
-            author: '',
-            year: '',
-            copies: '',
+            subject_id: subjectId || "",
+            title: "",
+            call_no: "",
+            author: "",
+            year: "",
+            copies: "",
         });
         form.clearErrors();
         setAddOpen(true);
@@ -100,13 +100,13 @@ export default function Program({ program, subjects = [], books = [] }) {
             !d.year ||
             !d.copies
         ) {
-            form.setError('title', 'Please fill in all fields');
+            form.setError("title", "Please fill in all fields");
             return;
         }
         setConfirmAdd(true);
     };
     const executeAdd = () => {
-        form.post('/books', {
+        form.post("/books", {
             preserveScroll: true,
             onSuccess: () => {
                 setSubjectId(form.data.subject_id);
@@ -119,12 +119,12 @@ export default function Program({ program, subjects = [], books = [] }) {
     // ---- Inline edit (with confirmation) ----
     const [edit, setEdit] = useState(null);
     const [editBusy, setEditBusy] = useState(false);
-    const [editError, setEditError] = useState('');
+    const [editError, setEditError] = useState("");
 
     const cancelEdit = () => {
         if (edit) edit.input.value = edit.original;
         setEdit(null);
-        setEditError('');
+        setEditError("");
     };
     const executeEdit = () => {
         const { book, field, value } = edit;
@@ -141,7 +141,7 @@ export default function Program({ program, subjects = [], books = [] }) {
             onStart: () => setEditBusy(true),
             onSuccess: () => setEdit(null),
             onError: (errors) =>
-                setEditError(Object.values(errors)[0] || 'Update failed.'),
+                setEditError(Object.values(errors)[0] || "Update failed."),
             onFinish: () => setEditBusy(false),
         });
     };
@@ -165,21 +165,21 @@ export default function Program({ program, subjects = [], books = [] }) {
     const downloadCsv = () => {
         setMenuOpen(false);
         if (!rows.length) return;
-        const esc = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+        const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
         const csv = [
-            'Call No,Title,Author,Year,Copies',
+            "Call No,Title,Author,Year,Copies",
             ...rows.map((b) =>
                 [b.call_no, b.title, b.author, b.year, b.copies]
                     .map(esc)
-                    .join(','),
+                    .join(","),
             ),
-        ].join('\n');
+        ].join("\n");
         const url = URL.createObjectURL(
-            new Blob([csv], { type: 'text/csv;charset=utf-8;' }),
+            new Blob([csv], { type: "text/csv;charset=utf-8;" }),
         );
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
-        a.download = `books_${subject?.subject_code ?? 'subject'}.csv`;
+        a.download = `books_${subject?.subject_code ?? "subject"}.csv`;
         a.click();
         URL.revokeObjectURL(url);
     };
@@ -202,18 +202,18 @@ export default function Program({ program, subjects = [], books = [] }) {
             <div className="overflow-hidden rounded-[10px] border border-[#eef2f6] bg-white shadow-sm">
                 <div className="border-b border-[#eef2f6] bg-[#fafbfc] px-4 py-2.5">
                     <h2 className="flex items-center text-[0.85rem] font-bold tracking-wider text-[#1e293b] uppercase">
-                        <FolderOpen className="mr-2 size-4 text-[#9f1239]" />{' '}
+                        <FolderOpen className="mr-2 size-4 text-[#9f1239]" />{" "}
                         Academic Program Details
                     </h2>
                 </div>
                 <table className="w-full border-collapse text-[0.8rem]">
                     <thead>
                         <tr>
-                            {['College', 'Program Name', 'Major'].map(
+                            {["College", "Program Name", "Major"].map(
                                 (h, i) => (
                                     <th
                                         key={h}
-                                        className={`border-b border-[#eef2f6] bg-[#f8fafc] px-4 py-2 text-[0.65rem] font-bold text-[#64748b] uppercase ${i === 2 ? 'text-center' : 'text-left'}`}
+                                        className={`border-b border-[#eef2f6] bg-[#f8fafc] px-4 py-2 text-[0.65rem] font-bold text-[#64748b] uppercase ${i === 2 ? "text-center" : "text-left"}`}
                                     >
                                         {h}
                                     </th>
@@ -230,7 +230,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 {program.program_name}
                             </td>
                             <td className="border-b border-[#f1f5f9] px-4 py-2.5 text-center text-[#334155]">
-                                {program.major || '—'}
+                                {program.major || "—"}
                             </td>
                         </tr>
                     </tbody>
@@ -272,11 +272,11 @@ export default function Program({ program, subjects = [], books = [] }) {
             <div className="overflow-hidden rounded-[10px] border border-[#eef2f6] bg-white shadow-sm">
                 <div className="bg-[#9f1239] px-4 py-2">
                     <h3 className="text-[0.8rem] font-semibold text-white">
-                        Course Subject:{' '}
+                        Course Subject:{" "}
                         <span className="font-bold">
                             {subject
                                 ? `${subject.subject_code} - ${subject.subject_title}`
-                                : 'Select a Subject'}
+                                : "Select a Subject"}
                         </span>
                     </h3>
                 </div>
@@ -377,7 +377,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                         onClick={() => setMenuOpen((o) => !o)}
                         className="inline-flex items-center gap-2 rounded-lg bg-[#1e293b] px-[18px] py-2 text-xs font-semibold text-white transition hover:bg-[#0f172a]"
                     >
-                        <Download className="size-3.5" /> Download{' '}
+                        <Download className="size-3.5" /> Download{" "}
                         <ChevronDown className="size-3" />
                     </button>
                     {menuOpen && (
@@ -392,7 +392,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                     onClick={downloadCsv}
                                     className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-xs font-medium text-[#475569] hover:bg-[#f8fafc] hover:text-[#1e293b]"
                                 >
-                                    <FileSpreadsheet className="size-4 text-[#059669]" />{' '}
+                                    <FileSpreadsheet className="size-4 text-[#059669]" />{" "}
                                     Download as CSV
                                 </button>
                             </div>
@@ -421,7 +421,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             <select
                                 value={form.data.subject_id}
                                 onChange={(e) =>
-                                    form.setData('subject_id', e.target.value)
+                                    form.setData("subject_id", e.target.value)
                                 }
                                 className={light}
                             >
@@ -443,7 +443,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 placeholder="Enter book title"
                                 value={form.data.title}
                                 onChange={(e) =>
-                                    form.setData('title', e.target.value)
+                                    form.setData("title", e.target.value)
                                 }
                                 className={light}
                             />
@@ -459,7 +459,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                     placeholder="e.g., QA 76.9"
                                     value={form.data.call_no}
                                     onChange={(e) =>
-                                        form.setData('call_no', e.target.value)
+                                        form.setData("call_no", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -474,7 +474,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                     placeholder="Author name"
                                     value={form.data.author}
                                     onChange={(e) =>
-                                        form.setData('author', e.target.value)
+                                        form.setData("author", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -489,7 +489,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                     placeholder="YYYY"
                                     value={form.data.year}
                                     onChange={(e) =>
-                                        form.setData('year', e.target.value)
+                                        form.setData("year", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -505,7 +505,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                     placeholder="1"
                                     value={form.data.copies}
                                     onChange={(e) =>
-                                        form.setData('copies', e.target.value)
+                                        form.setData("copies", e.target.value)
                                     }
                                     className={light}
                                 />
@@ -556,7 +556,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             onClick={executeAdd}
                             className="inline-flex items-center justify-center rounded-lg bg-[#10b981] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:bg-[#059669] disabled:cursor-wait disabled:opacity-60"
                         >
-                            {form.processing ? 'SAVING...' : 'CONFIRM'}
+                            {form.processing ? "SAVING..." : "CONFIRM"}
                         </button>
                     </div>
                 </div>
@@ -574,12 +574,12 @@ export default function Program({ program, subjects = [], books = [] }) {
                     </p>
                     <div className="mb-5 space-y-2 rounded-lg bg-[#f8fafc] p-3 text-left text-sm">
                         <div>
-                            <strong>Original:</strong>{' '}
-                            {edit?.original === '' ? '(Empty)' : edit?.original}
+                            <strong>Original:</strong>{" "}
+                            {edit?.original === "" ? "(Empty)" : edit?.original}
                         </div>
                         <div>
-                            <strong>New:</strong>{' '}
-                            {edit?.value === '' ? '(Empty)' : edit?.value}
+                            <strong>New:</strong>{" "}
+                            {edit?.value === "" ? "(Empty)" : edit?.value}
                         </div>
                     </div>
                     {editError && (
@@ -601,7 +601,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             onClick={executeEdit}
                             className={btnPrimary}
                         >
-                            {editBusy ? 'SAVING...' : 'UPDATE'}
+                            {editBusy ? "SAVING..." : "UPDATE"}
                         </button>
                     </div>
                 </div>
@@ -638,7 +638,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             onClick={executeDelete}
                             className="inline-flex items-center justify-center rounded-lg bg-[#dc2626] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:bg-[#b91c1c] disabled:cursor-wait disabled:opacity-60"
                         >
-                            {deleteBusy ? 'DELETING...' : 'DELETE'}
+                            {deleteBusy ? "DELETING..." : "DELETE"}
                         </button>
                     </div>
                 </div>
