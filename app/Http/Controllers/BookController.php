@@ -64,13 +64,13 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'program_id'          => 'required|exists:programs,id',
-            'subject_id'          => 'required|exists:course_subjects,id',
-            'title'               => 'required|string|max:300',
-            'isbn'                => 'nullable|string|max:20',
-            'publication_year'    => 'required|integer',
-            'publisher'           => 'required|string|max:150',
-            'total_copies'        => 'required|integer|min:1',
+            'program_id' => 'required|exists:programs,id',
+            'subject_id' => 'required|exists:course_subjects,id',
+            'title' => 'required|string|max:300',
+            'isbn' => 'nullable|string|max:20',
+            'publication_year' => 'required|integer',
+            'publisher' => 'required|string|max:150',
+            'total_copies' => 'required|integer|min:1',
             'availability_status' => 'required|string',
         ]);
 
@@ -82,7 +82,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         return Inertia::render('Books/Update', [
-            'book'     => $book,
+            'book' => $book,
             'programs' => Program::all(),
             'subjects' => CourseSubject::all(),
         ]);
@@ -91,13 +91,13 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $validated = $request->validate([
-            'program_id'          => 'required|exists:programs,id',
-            'subject_id'          => 'required|exists:course_subjects,id',
-            'title'               => 'required|string|max:300',
-            'isbn'                => 'nullable|string|max:20',
-            'publication_year'    => 'required|integer',
-            'publisher'           => 'required|string|max:150',
-            'total_copies'        => 'required|integer|min:1',
+            'program_id' => 'required|exists:programs,id',
+            'subject_id' => 'required|exists:course_subjects,id',
+            'title' => 'required|string|max:300',
+            'isbn' => 'nullable|string|max:20',
+            'publication_year' => 'required|integer',
+            'publisher' => 'required|string|max:150',
+            'total_copies' => 'required|integer|min:1',
             'availability_status' => 'required|string',
         ]);
 

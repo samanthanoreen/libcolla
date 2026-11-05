@@ -29,7 +29,9 @@ export function Modal({ open, onClose, children, size = 'max-w-lg' }) {
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
             onMouseDown={(e) => e.target === e.currentTarget && onClose()}
         >
-            <div className={`w-full ${size} rounded-xl border border-border bg-card text-card-foreground shadow-xl`}>
+            <div
+                className={`w-full ${size} border-border bg-card text-card-foreground rounded-xl border shadow-xl`}
+            >
                 {children}
             </div>
         </div>
@@ -38,9 +40,13 @@ export function Modal({ open, onClose, children, size = 'max-w-lg' }) {
 
 export function ModalHeader({ title, onClose }) {
     return (
-        <div className="flex items-center justify-between border-b border-border px-6 py-4">
+        <div className="border-border flex items-center justify-between border-b px-6 py-4">
             <h3 className="text-lg font-semibold">{title}</h3>
-            <button type="button" onClick={onClose} className="rounded-md p-1 text-muted-foreground hover:bg-muted">
+            <button
+                type="button"
+                onClick={onClose}
+                className="text-muted-foreground hover:bg-muted rounded-md p-1"
+            >
                 <X className="size-5" />
             </button>
         </div>
@@ -50,11 +56,12 @@ export function ModalHeader({ title, onClose }) {
 export function Field({ label, required, error, children }) {
     return (
         <div className="space-y-1.5">
-            <label className="text-xs font-bold tracking-wide text-muted-foreground uppercase">
-                {label} {required && <span className="text-destructive">*</span>}
+            <label className="text-muted-foreground text-xs font-bold tracking-wide uppercase">
+                {label}{' '}
+                {required && <span className="text-destructive">*</span>}
             </label>
             {children}
-            {error && <p className="text-xs text-destructive">{error}</p>}
+            {error && <p className="text-destructive text-xs">{error}</p>}
         </div>
     );
 }

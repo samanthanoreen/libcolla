@@ -116,7 +116,9 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                             {rightNavItems.map((item) => (
                                                 <a
                                                     key={item.title}
-                                                    href={toUrl(item.href ?? '')}
+                                                    href={toUrl(
+                                                        item.href ?? '',
+                                                    )}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex items-center space-x-2 font-medium"
@@ -169,9 +171,10 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                             )}
                                             {item.title}
                                         </Link>
-                                        {item.href && isCurrentUrl(item.href) && (
-                                            <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                                        )}
+                                        {item.href &&
+                                            isCurrentUrl(item.href) && (
+                                                <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                                            )}
                                     </NavigationMenuItem>
                                 ))}
                             </NavigationMenuList>

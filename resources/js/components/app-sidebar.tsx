@@ -1,13 +1,13 @@
 import { Link } from '@inertiajs/react';
-import { 
-    BookOpen, 
-    Database, 
-    FileText, 
-    FolderGit2, 
-    HelpCircle, 
-    LayoutGrid, 
-    Users, 
-    Wrench 
+import {
+    BookOpen,
+    Database,
+    FileText,
+    FolderGit2,
+    HelpCircle,
+    LayoutGrid,
+    Users,
+    Wrench,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
 import { NavFooter } from '@/components/nav-footer';

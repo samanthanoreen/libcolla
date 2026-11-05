@@ -1,7 +1,22 @@
 import { Link, router, useForm } from '@inertiajs/react';
-import { GraduationCap, Pencil, Plus, Search, Trash2, TriangleAlert } from 'lucide-react';
+import {
+    GraduationCap,
+    Pencil,
+    Plus,
+    Search,
+    Trash2,
+    TriangleAlert,
+} from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
-import { Field, Modal, ModalHeader, btnDanger, btnPrimary, btnSecondary, inputCls } from '@/components/crud-ui';
+import {
+    Field,
+    Modal,
+    ModalHeader,
+    btnDanger,
+    btnPrimary,
+    btnSecondary,
+    inputCls,
+} from '@/components/crud-ui';
 import { LEVELS, PROGRAM_CATALOG } from '@/lib/programCatalog';
 
 // Scopes the PHP LibCollaLayout look (white card, maroon accents) to this page only.
@@ -27,7 +42,9 @@ const libcollaTheme = {
     '--color-ring': '#9f1239',
 };
 
-const serif = { fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif' };
+const serif = {
+    fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
+};
 
 export default function Index({ programs, filters = {} }) {
     // Search and filter (debounced)
@@ -56,7 +73,12 @@ export default function Index({ programs, filters = {} }) {
     // Add / edit modal
     const [formOpen, setFormOpen] = useState(false);
     const [editing, setEditing] = useState(null);
-    const form = useForm({ college: '', program_name: '', major: '', level: 'Bachelor' });
+    const form = useForm({
+        college: '',
+        program_name: '',
+        major: '',
+        level: 'Bachelor',
+    });
 
     const closeForm = () => {
         setFormOpen(false);
@@ -65,7 +87,12 @@ export default function Index({ programs, filters = {} }) {
 
     const openAdd = () => {
         setEditing(null);
-        form.setData({ college: '', program_name: '', major: '', level: 'Bachelor' });
+        form.setData({
+            college: '',
+            program_name: '',
+            major: '',
+            level: 'Bachelor',
+        });
         form.clearErrors();
         setFormOpen(true);
     };
@@ -90,10 +117,20 @@ export default function Index({ programs, filters = {} }) {
     };
 
     // Cascading dropdowns. A saved value missing from the catalog is kept so edits never blank it.
-    const withCurrent = (list, current) => (current && !list.includes(current) ? [...list, current] : list);
-    const colleges = withCurrent(Object.keys(PROGRAM_CATALOG), form.data.college);
-    const programOptions = withCurrent(Object.keys(PROGRAM_CATALOG[form.data.college] || {}), form.data.program_name);
-    const majorOptions = withCurrent(PROGRAM_CATALOG[form.data.college]?.[form.data.program_name] || [], form.data.major);
+    const withCurrent = (list, current) =>
+        current && !list.includes(current) ? [...list, current] : list;
+    const colleges = withCurrent(
+        Object.keys(PROGRAM_CATALOG),
+        form.data.college,
+    );
+    const programOptions = withCurrent(
+        Object.keys(PROGRAM_CATALOG[form.data.college] || {}),
+        form.data.program_name,
+    );
+    const majorOptions = withCurrent(
+        PROGRAM_CATALOG[form.data.college]?.[form.data.program_name] || [],
+        form.data.major,
+    );
 
     // Delete modal
     const [deleting, setDeleting] = useState(null);
@@ -117,11 +154,18 @@ export default function Index({ programs, filters = {} }) {
         <div style={libcollaTheme} className="mx-auto w-full max-w-5xl">
             <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#1e293b] shadow-2xl">
                 <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
-                    <h1 className="flex items-center gap-3 text-2xl font-bold" style={serif}>
+                    <h1
+                        className="flex items-center gap-3 text-2xl font-bold"
+                        style={serif}
+                    >
                         <GraduationCap className="size-6" />
                         Academic Programs
                     </h1>
-                    <button type="button" onClick={openAdd} className={btnPrimary}>
+                    <button
+                        type="button"
+                        onClick={openAdd}
+                        className={btnPrimary}
+                    >
                         <Plus className="size-4" />
                         ADD PROGRAM
                     </button>
@@ -142,7 +186,11 @@ export default function Index({ programs, filters = {} }) {
                             onChange={(e) => setSearch(e.target.value)}
                             className={`${inputCls} min-w-[200px] flex-1 rounded-xl py-3`}
                         />
-                        <select value={field} onChange={(e) => setField(e.target.value)} className={`${inputCls} w-40 rounded-xl py-3`}>
+                        <select
+                            value={field}
+                            onChange={(e) => setField(e.target.value)}
+                            className={`${inputCls} w-40 rounded-xl py-3`}
+                        >
                             <option value="all">All Fields</option>
                             <option value="college">College</option>
                             <option value="name">Program Name</option>
@@ -158,11 +206,21 @@ export default function Index({ programs, filters = {} }) {
                         <table className="w-full border-collapse text-left text-sm">
                             <thead>
                                 <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
-                                    <th className="w-32 px-5 py-4 font-bold">College</th>
-                                    <th className="px-5 py-4 font-bold">Program Name</th>
-                                    <th className="w-1/4 px-5 py-4 font-bold">Major / Track</th>
-                                    <th className="w-20 px-5 py-4 text-center font-bold">Level</th>
-                                    <th className="w-20 px-5 py-4 text-center font-bold">Actions</th>
+                                    <th className="w-32 px-5 py-4 font-bold">
+                                        College
+                                    </th>
+                                    <th className="px-5 py-4 font-bold">
+                                        Program Name
+                                    </th>
+                                    <th className="w-1/4 px-5 py-4 font-bold">
+                                        Major / Track
+                                    </th>
+                                    <th className="w-20 px-5 py-4 text-center font-bold">
+                                        Level
+                                    </th>
+                                    <th className="w-20 px-5 py-4 text-center font-bold">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[#f1f5f9]">
@@ -170,15 +228,29 @@ export default function Index({ programs, filters = {} }) {
                                     rows.map((p) => (
                                         <tr
                                             key={p.id}
-                                            onClick={() => router.visit(`/programs/${p.id}/prospectus`)}
+                                            onClick={() =>
+                                                router.visit(
+                                                    `/programs/${p.id}/prospectus`,
+                                                )
+                                            }
                                             className="cursor-pointer transition hover:bg-[#fdf2f8]"
                                         >
-                                            <td className="px-5 py-3 text-sm text-[#475569]">{p.college}</td>
-                                            <td className="px-5 py-3 font-semibold text-[#1e293b]">{p.program_name}</td>
-                                            <td className="px-5 py-3 text-sm text-[#64748b]">
-                                                {p.major || <span className="opacity-50">-</span>}
+                                            <td className="px-5 py-3 text-sm text-[#475569]">
+                                                {p.college}
                                             </td>
-                                            <td className="px-5 py-3 text-center text-sm text-[#64748b]">{p.level}</td>
+                                            <td className="px-5 py-3 font-semibold text-[#1e293b]">
+                                                {p.program_name}
+                                            </td>
+                                            <td className="px-5 py-3 text-sm text-[#64748b]">
+                                                {p.major || (
+                                                    <span className="opacity-50">
+                                                        -
+                                                    </span>
+                                                )}
+                                            </td>
+                                            <td className="px-5 py-3 text-center text-sm text-[#64748b]">
+                                                {p.level}
+                                            </td>
                                             <td className="px-5 py-3">
                                                 <div className="flex justify-center gap-1">
                                                     <button
@@ -209,9 +281,16 @@ export default function Index({ programs, filters = {} }) {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={5} className="px-4 py-10 text-center text-muted-foreground">
+                                        <td
+                                            colSpan={5}
+                                            className="text-muted-foreground px-4 py-10 text-center"
+                                        >
                                             No programs found.{' '}
-                                            <button type="button" onClick={openAdd} className="font-semibold text-foreground underline">
+                                            <button
+                                                type="button"
+                                                onClick={openAdd}
+                                                className="text-foreground font-semibold underline"
+                                            >
                                                 Add one?
                                             </button>
                                         </td>
@@ -222,12 +301,14 @@ export default function Index({ programs, filters = {} }) {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                        <label className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <label className="text-muted-foreground flex items-center gap-2 text-xs">
                             Rows per page
                             <select
                                 value={perPage}
-                                onChange={(e) => setPerPage(Number(e.target.value))}
-                                className="rounded-md border border-input bg-background px-2 py-1 text-xs text-foreground"
+                                onChange={(e) =>
+                                    setPerPage(Number(e.target.value))
+                                }
+                                className="border-input bg-background text-foreground rounded-md border px-2 py-1 text-xs"
                             >
                                 {[10, 15, 25, 50].map((n) => (
                                     <option key={n} value={n}>
@@ -244,10 +325,12 @@ export default function Index({ programs, filters = {} }) {
                                         key={i}
                                         href={link.url || '#'}
                                         preserveScroll
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                         className={`rounded-md border px-3 py-1.5 text-xs transition ${
                                             link.active
-                                                ? 'border-primary bg-primary font-bold text-primary-foreground'
+                                                ? 'border-primary bg-primary text-primary-foreground font-bold'
                                                 : 'bg-background text-foreground hover:bg-muted'
                                         } ${!link.url ? 'pointer-events-none opacity-40' : ''}`}
                                     />
@@ -260,13 +343,27 @@ export default function Index({ programs, filters = {} }) {
 
             <Modal open={formOpen} onClose={closeForm}>
                 <form onSubmit={submit}>
-                    <ModalHeader title={editing ? 'Edit Program' : 'Add Program'} onClose={closeForm} />
+                    <ModalHeader
+                        title={editing ? 'Edit Program' : 'Add Program'}
+                        onClose={closeForm}
+                    />
 
                     <div className="space-y-4 px-6 py-5">
-                        <Field label="College" required error={form.errors.college}>
+                        <Field
+                            label="College"
+                            required
+                            error={form.errors.college}
+                        >
                             <select
                                 value={form.data.college}
-                                onChange={(e) => form.setData({ ...form.data, college: e.target.value, program_name: '', major: '' })}
+                                onChange={(e) =>
+                                    form.setData({
+                                        ...form.data,
+                                        college: e.target.value,
+                                        program_name: '',
+                                        major: '',
+                                    })
+                                }
                                 className={`${inputCls} w-full`}
                             >
                                 <option value="">Select College</option>
@@ -278,14 +375,28 @@ export default function Index({ programs, filters = {} }) {
                             </select>
                         </Field>
 
-                        <Field label="Program Name" required error={form.errors.program_name}>
+                        <Field
+                            label="Program Name"
+                            required
+                            error={form.errors.program_name}
+                        >
                             <select
                                 value={form.data.program_name}
                                 disabled={!form.data.college}
-                                onChange={(e) => form.setData({ ...form.data, program_name: e.target.value, major: '' })}
+                                onChange={(e) =>
+                                    form.setData({
+                                        ...form.data,
+                                        program_name: e.target.value,
+                                        major: '',
+                                    })
+                                }
                                 className={`${inputCls} w-full`}
                             >
-                                <option value="">{form.data.college ? 'Select Program' : 'Select College first'}</option>
+                                <option value="">
+                                    {form.data.college
+                                        ? 'Select Program'
+                                        : 'Select College first'}
+                                </option>
                                 {programOptions.map((p) => (
                                     <option key={p} value={p}>
                                         {p}
@@ -294,14 +405,23 @@ export default function Index({ programs, filters = {} }) {
                             </select>
                         </Field>
 
-                        <Field label="Major / Specialization Track" error={form.errors.major}>
+                        <Field
+                            label="Major / Specialization Track"
+                            error={form.errors.major}
+                        >
                             <select
                                 value={form.data.major}
                                 disabled={!form.data.program_name}
-                                onChange={(e) => form.setData('major', e.target.value)}
+                                onChange={(e) =>
+                                    form.setData('major', e.target.value)
+                                }
                                 className={`${inputCls} w-full`}
                             >
-                                <option value="">{form.data.program_name ? 'No major / general' : 'Select Program first'}</option>
+                                <option value="">
+                                    {form.data.program_name
+                                        ? 'No major / general'
+                                        : 'Select Program first'}
+                                </option>
                                 {majorOptions.map((m) => (
                                     <option key={m} value={m}>
                                         {m}
@@ -313,7 +433,9 @@ export default function Index({ programs, filters = {} }) {
                         <Field label="Level" error={form.errors.level}>
                             <select
                                 value={form.data.level}
-                                onChange={(e) => form.setData('level', e.target.value)}
+                                onChange={(e) =>
+                                    form.setData('level', e.target.value)
+                                }
                                 className={`${inputCls} w-full`}
                             >
                                 {LEVELS.map((l) => (
@@ -325,32 +447,56 @@ export default function Index({ programs, filters = {} }) {
                         </Field>
                     </div>
 
-                    <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
-                        <button type="button" onClick={closeForm} className={btnSecondary}>
+                    <div className="border-border flex justify-end gap-3 border-t px-6 py-4">
+                        <button
+                            type="button"
+                            onClick={closeForm}
+                            className={btnSecondary}
+                        >
                             CANCEL
                         </button>
-                        <button type="submit" disabled={form.processing} className={btnPrimary}>
+                        <button
+                            type="submit"
+                            disabled={form.processing}
+                            className={btnPrimary}
+                        >
                             {form.processing ? 'SAVING...' : 'SAVE PROGRAM'}
                         </button>
                     </div>
                 </form>
             </Modal>
 
-            <Modal open={!!deleting} onClose={() => setDeleting(null)} size="max-w-sm">
+            <Modal
+                open={!!deleting}
+                onClose={() => setDeleting(null)}
+                size="max-w-sm"
+            >
                 <div className="p-6 text-center">
                     <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#fee2e2]">
                         <TriangleAlert className="size-7 text-[#ef4444]" />
                     </div>
                     <h3 className="text-lg font-semibold">Delete Program?</h3>
-                    <p className="mt-2 mb-6 text-sm text-muted-foreground">
-                        This will permanently remove <strong className="text-foreground">{deleting?.program_name}</strong>{' '}
+                    <p className="text-muted-foreground mt-2 mb-6 text-sm">
+                        This will permanently remove{' '}
+                        <strong className="text-foreground">
+                            {deleting?.program_name}
+                        </strong>{' '}
                         and its prospectus, subjects, and books.
                     </p>
                     <div className="flex justify-center gap-3">
-                        <button type="button" onClick={() => setDeleting(null)} className={btnSecondary}>
+                        <button
+                            type="button"
+                            onClick={() => setDeleting(null)}
+                            className={btnSecondary}
+                        >
                             CANCEL
                         </button>
-                        <button type="button" disabled={deleteBusy} onClick={confirmDelete} className={btnDanger}>
+                        <button
+                            type="button"
+                            disabled={deleteBusy}
+                            onClick={confirmDelete}
+                            className={btnDanger}
+                        >
                             {deleteBusy ? 'DELETING...' : 'CONFIRM'}
                         </button>
                     </div>

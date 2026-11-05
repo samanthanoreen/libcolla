@@ -1,12 +1,32 @@
 import { router, useForm } from '@inertiajs/react';
-import { ChevronLeft, ChevronRight, FolderOpen, FolderTree, Plus, Search } from 'lucide-react';
+import {
+    ChevronLeft,
+    ChevronRight,
+    FolderOpen,
+    FolderTree,
+    Plus,
+    Search,
+} from 'lucide-react';
 import React, { useMemo, useState } from 'react';
-import { Field, Modal, ModalHeader, btnPrimary, btnSecondary, inputCls } from '@/components/crud-ui';
+import {
+    Field,
+    Modal,
+    ModalHeader,
+    btnPrimary,
+    btnSecondary,
+    inputCls,
+} from '@/components/crud-ui';
 import { libcollaTheme, serif } from '@/lib/libcollaTheme';
 
-const programLabel = (p) => `${p.program_code} - ${p.program_name}${p.major ? ` (${p.major})` : ''}`;
+const programLabel = (p) =>
+    `${p.program_code} - ${p.program_name}${p.major ? ` (${p.major})` : ''}`;
 
-export default function Index({ programs, filters = {}, allPrograms = [], subjects = [] }) {
+export default function Index({
+    programs,
+    filters = {},
+    allPrograms = [],
+    subjects = [],
+}) {
     const [search, setSearch] = useState(filters.search || '');
     const [field, setField] = useState(filters.field || 'all');
     const perPage = filters.per_page || 15;
@@ -25,10 +45,21 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
 
     // Add Book modal
     const [addOpen, setAddOpen] = useState(false);
-    const form = useForm({ program_id: '', subject_id: '', title: '', call_no: '', author: '', year: '', copies: '' });
+    const form = useForm({
+        program_id: '',
+        subject_id: '',
+        title: '',
+        call_no: '',
+        author: '',
+        year: '',
+        copies: '',
+    });
 
     const programSubjects = useMemo(
-        () => subjects.filter((s) => String(s.program_id) === String(form.data.program_id)),
+        () =>
+            subjects.filter(
+                (s) => String(s.program_id) === String(form.data.program_id),
+            ),
         [subjects, form.data.program_id],
     );
 
@@ -50,11 +81,18 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
             <div className="overflow-hidden rounded-[2rem] bg-white text-[#1e293b] shadow-2xl">
                 {/* Header */}
                 <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
-                    <h1 className="flex items-center gap-3 text-2xl font-bold" style={serif}>
+                    <h1
+                        className="flex items-center gap-3 text-2xl font-bold"
+                        style={serif}
+                    >
                         <FolderTree className="size-6" />
                         Program Library
                     </h1>
-                    <button type="button" onClick={() => setAddOpen(true)} className={btnPrimary}>
+                    <button
+                        type="button"
+                        onClick={() => setAddOpen(true)}
+                        className={btnPrimary}
+                    >
                         <Plus className="size-4" />
                         ADD BOOK
                     </button>
@@ -97,10 +135,18 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                             <table className="w-full border-collapse text-left text-sm">
                                 <thead>
                                     <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
-                                        <th className="p-4 font-bold">College</th>
-                                        <th className="p-4 font-bold">Program Name</th>
-                                        <th className="p-4 font-bold">Major / Track</th>
-                                        <th className="p-4 text-center font-bold">Action</th>
+                                        <th className="p-4 font-bold">
+                                            College
+                                        </th>
+                                        <th className="p-4 font-bold">
+                                            Program Name
+                                        </th>
+                                        <th className="p-4 font-bold">
+                                            Major / Track
+                                        </th>
+                                        <th className="p-4 text-center font-bold">
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-[#f1f5f9] bg-white">
@@ -108,12 +154,22 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                                         rows.map((p) => (
                                             <tr
                                                 key={p.id}
-                                                onClick={() => router.visit(`/books/program/${p.id}`)}
+                                                onClick={() =>
+                                                    router.visit(
+                                                        `/books/program/${p.id}`,
+                                                    )
+                                                }
                                                 className="group cursor-pointer transition-colors hover:bg-[#fef2f2]"
                                             >
-                                                <td className="p-4 text-[#475569]">{p.college}</td>
-                                                <td className="p-4 font-bold text-[#1e293b]">{p.program_name}</td>
-                                                <td className="p-4 text-[#64748b]">{p.major || '—'}</td>
+                                                <td className="p-4 text-[#475569]">
+                                                    {p.college}
+                                                </td>
+                                                <td className="p-4 font-bold text-[#1e293b]">
+                                                    {p.program_name}
+                                                </td>
+                                                <td className="p-4 text-[#64748b]">
+                                                    {p.major || '—'}
+                                                </td>
                                                 <td className="p-4 text-center">
                                                     <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#f1f5f9] px-4 py-1.5 text-xs font-semibold tracking-wider text-[#475569] uppercase transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
                                                         <FolderOpen className="size-3.5" />
@@ -124,9 +180,13 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                                         ))
                                     ) : (
                                         <tr>
-                                            <td colSpan={4} className="py-12 text-center text-[#94a3b8]">
+                                            <td
+                                                colSpan={4}
+                                                className="py-12 text-center text-[#94a3b8]"
+                                            >
                                                 <FolderOpen className="mx-auto mb-4 size-12 opacity-30" />
-                                                No active academic programs found.
+                                                No active academic programs
+                                                found.
                                             </td>
                                         </tr>
                                     )}
@@ -137,13 +197,22 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                         {/* Pagination */}
                         <div className="flex flex-wrap items-center justify-center gap-6 border-t border-[#f1f5f9] px-6 py-8 text-sm text-[#475569]">
                             <span>
-                                Showing {total === 0 ? 0 : `${programs?.from ?? 0}–${programs?.to ?? 0}`} of {total}
+                                Showing{' '}
+                                {total === 0
+                                    ? 0
+                                    : `${programs?.from ?? 0}–${programs?.to ?? 0}`}{' '}
+                                of {total}
                             </span>
                             <label className="flex items-center gap-2">
                                 Show
                                 <select
                                     value={perPage}
-                                    onChange={(e) => visit({ per_page: Number(e.target.value), page: 1 })}
+                                    onChange={(e) =>
+                                        visit({
+                                            per_page: Number(e.target.value),
+                                            page: 1,
+                                        })
+                                    }
                                     className="rounded-md border border-[#e2e8f0] bg-white px-2 py-1 text-sm font-semibold text-[#9f1239]"
                                 >
                                     {[10, 15, 25, 50].map((n) => (
@@ -186,10 +255,20 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                     <ModalHeader title="Add New Book" onClose={closeAdd} />
 
                     <div className="space-y-4 px-6 py-5">
-                        <Field label="Assign to Academic Program" required error={form.errors.program_id}>
+                        <Field
+                            label="Assign to Academic Program"
+                            required
+                            error={form.errors.program_id}
+                        >
                             <select
                                 value={form.data.program_id}
-                                onChange={(e) => form.setData({ ...form.data, program_id: e.target.value, subject_id: '' })}
+                                onChange={(e) =>
+                                    form.setData({
+                                        ...form.data,
+                                        program_id: e.target.value,
+                                        subject_id: '',
+                                    })
+                                }
                                 className={light}
                             >
                                 <option value="">Select Program...</option>
@@ -201,11 +280,20 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                             </select>
                         </Field>
 
-                        <Field label="Assign to Subject" required error={form.errors.subject_id}>
+                        <Field
+                            label="Assign to Subject"
+                            required
+                            error={form.errors.subject_id}
+                        >
                             <select
                                 value={form.data.subject_id}
-                                disabled={!form.data.program_id || programSubjects.length === 0}
-                                onChange={(e) => form.setData('subject_id', e.target.value)}
+                                disabled={
+                                    !form.data.program_id ||
+                                    programSubjects.length === 0
+                                }
+                                onChange={(e) =>
+                                    form.setData('subject_id', e.target.value)
+                                }
                                 className={light}
                             >
                                 <option value="">
@@ -223,46 +311,76 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                             </select>
                         </Field>
 
-                        <Field label="Title of Book" required error={form.errors.title}>
+                        <Field
+                            label="Title of Book"
+                            required
+                            error={form.errors.title}
+                        >
                             <input
                                 type="text"
                                 value={form.data.title}
-                                onChange={(e) => form.setData('title', e.target.value)}
+                                onChange={(e) =>
+                                    form.setData('title', e.target.value)
+                                }
                                 className={light}
                             />
                         </Field>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <Field label="Call No." required error={form.errors.call_no}>
+                            <Field
+                                label="Call No."
+                                required
+                                error={form.errors.call_no}
+                            >
                                 <input
                                     type="text"
                                     value={form.data.call_no}
-                                    onChange={(e) => form.setData('call_no', e.target.value)}
+                                    onChange={(e) =>
+                                        form.setData('call_no', e.target.value)
+                                    }
                                     className={light}
                                 />
                             </Field>
-                            <Field label="Author" required error={form.errors.author}>
+                            <Field
+                                label="Author"
+                                required
+                                error={form.errors.author}
+                            >
                                 <input
                                     type="text"
                                     value={form.data.author}
-                                    onChange={(e) => form.setData('author', e.target.value)}
+                                    onChange={(e) =>
+                                        form.setData('author', e.target.value)
+                                    }
                                     className={light}
                                 />
                             </Field>
-                            <Field label="Year of Pub" required error={form.errors.year}>
+                            <Field
+                                label="Year of Pub"
+                                required
+                                error={form.errors.year}
+                            >
                                 <input
                                     type="number"
                                     value={form.data.year}
-                                    onChange={(e) => form.setData('year', e.target.value)}
+                                    onChange={(e) =>
+                                        form.setData('year', e.target.value)
+                                    }
                                     className={light}
                                 />
                             </Field>
-                            <Field label="Copies" required error={form.errors.copies}>
+                            <Field
+                                label="Copies"
+                                required
+                                error={form.errors.copies}
+                            >
                                 <input
                                     type="number"
                                     min="1"
                                     value={form.data.copies}
-                                    onChange={(e) => form.setData('copies', e.target.value)}
+                                    onChange={(e) =>
+                                        form.setData('copies', e.target.value)
+                                    }
                                     className={light}
                                 />
                             </Field>
@@ -270,10 +388,18 @@ export default function Index({ programs, filters = {}, allPrograms = [], subjec
                     </div>
 
                     <div className="flex justify-end gap-3 border-t border-[#e2e8f0] px-6 py-4">
-                        <button type="button" onClick={closeAdd} className={btnSecondary}>
+                        <button
+                            type="button"
+                            onClick={closeAdd}
+                            className={btnSecondary}
+                        >
                             CANCEL
                         </button>
-                        <button type="submit" disabled={form.processing} className={btnPrimary}>
+                        <button
+                            type="submit"
+                            disabled={form.processing}
+                            className={btnPrimary}
+                        >
                             {form.processing ? 'SAVING...' : 'SAVE BOOK'}
                         </button>
                     </div>

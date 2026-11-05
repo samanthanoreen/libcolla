@@ -29,7 +29,7 @@ function toHrefString(href: string | { url?: string } | null | undefined) {
     return '';
 }
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
+export function NavMain({ items }: { items: NavItem[] }) {
     const { url } = usePage();
 
     return (
@@ -38,15 +38,22 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
             <SidebarMenu>
                 {items.map((item) => {
                     const hasSubItems = item.items && item.items.length > 0;
-                    const isActive = item.href ? url.startsWith(toHrefString(item.href)) : false;
+                    const isActive = item.href
+                        ? url.startsWith(toHrefString(item.href))
+                        : false;
                     const isSubActive = item.items?.some(
-                        (sub) => sub.href && url.startsWith(toHrefString(sub.href)),
+                        (sub) =>
+                            sub.href && url.startsWith(toHrefString(sub.href)),
                     );
 
                     if (!hasSubItems) {
                         return (
                             <SidebarMenuItem key={item.title}>
-                                <SidebarMenuButton asChild isActive={isActive} tooltip={item.title}>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={isActive}
+                                    tooltip={item.title}
+                                >
                                     <Link href={item.href || '#'}>
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
@@ -65,7 +72,10 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                         >
                             <SidebarMenuItem>
                                 <CollapsibleTrigger asChild>
-                                    <SidebarMenuButton tooltip={item.title} isActive={isSubActive}>
+                                    <SidebarMenuButton
+                                        tooltip={item.title}
+                                        isActive={isSubActive}
+                                    >
                                         {item.icon && <item.icon />}
                                         <span>{item.title}</span>
                                         <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -74,13 +84,29 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
                                         {item.items?.map((subItem) => (
-                                            <SidebarMenuSubItem key={subItem.title}>
+                                            <SidebarMenuSubItem
+                                                key={subItem.title}
+                                            >
                                                 <SidebarMenuSubButton
                                                     asChild
-                                                    isActive={subItem.href ? url.startsWith(toHrefString(subItem.href)) : false}
+                                                    isActive={
+                                                        subItem.href
+                                                            ? url.startsWith(
+                                                                  toHrefString(
+                                                                      subItem.href,
+                                                                  ),
+                                                              )
+                                                            : false
+                                                    }
                                                 >
-                                                    <Link href={subItem.href || '#'}>
-                                                        <span>{subItem.title}</span>
+                                                    <Link
+                                                        href={
+                                                            subItem.href || '#'
+                                                        }
+                                                    >
+                                                        <span>
+                                                            {subItem.title}
+                                                        </span>
                                                     </Link>
                                                 </SidebarMenuSubButton>
                                             </SidebarMenuSubItem>

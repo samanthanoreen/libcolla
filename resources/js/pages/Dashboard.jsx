@@ -1,16 +1,31 @@
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, ClipboardCheck, FileBarChart, FileOutput, TrendingUp, Users, Zap } from 'lucide-react';
+import {
+    BookOpen,
+    ClipboardCheck,
+    FileBarChart,
+    FileOutput,
+    TrendingUp,
+    Users,
+    Zap,
+} from 'lucide-react';
 import React from 'react';
 
-const serif = { fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif' };
+const serif = {
+    fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
+};
 
 function StatCard({ label, value, note, Icon }) {
     return (
-        <div className="rounded-[2rem] border border-white/10 border-t-[3px] border-t-[#d4a017] bg-white/[0.06] px-9 pt-9 pb-7 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(159,18,57,0.25)]">
+        <div className="rounded-[2rem] border border-t-[3px] border-white/10 border-t-[#d4a017] bg-white/[0.06] px-9 pt-9 pb-7 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(159,18,57,0.25)]">
             <div className="flex justify-between">
                 <div>
-                    <p className="text-base font-medium text-white/70">{label}</p>
-                    <p className="mt-2 text-[3.1rem] leading-tight font-bold text-white" style={serif}>
+                    <p className="text-base font-medium text-white/70">
+                        {label}
+                    </p>
+                    <p
+                        className="mt-2 text-[3.1rem] leading-tight font-bold text-white"
+                        style={serif}
+                    >
                         {value}
                     </p>
                 </div>
@@ -29,7 +44,9 @@ function QuickAction({ href, label, Icon }) {
         <>
             <div
                 className="mx-auto mb-7 flex size-16 items-center justify-center rounded-3xl"
-                style={{ background: 'linear-gradient(135deg, #9f1239, #c8102e)' }}
+                style={{
+                    background: 'linear-gradient(135deg, #9f1239, #c8102e)',
+                }}
             >
                 <Icon className="size-7 text-white" />
             </div>
@@ -61,28 +78,55 @@ export default function Dashboard({ stats }) {
                 <h2 className="text-3xl font-semibold" style={serif}>
                     Welcome back, {name}! <span aria-hidden>👋</span>
                 </h2>
-                <p className="mt-3 text-white/70">Here's an overview of your library collection today</p>
+                <p className="mt-3 text-white/70">
+                    Here's an overview of your library collection today
+                </p>
             </div>
 
             <div className="mx-auto grid max-w-[60rem] grid-cols-1 gap-8 md:grid-cols-3">
-                <StatCard label="Total Books" value={fmt(stats?.total_books)} note="Currently in catalog" Icon={BookOpen} />
+                <StatCard
+                    label="Total Books"
+                    value={fmt(stats?.total_books)}
+                    note="Currently in catalog"
+                    Icon={BookOpen}
+                />
                 <StatCard
                     label="Assessed Collections"
                     value={`${stats?.assessed_percentage ?? 0}%`}
                     note={`${stats?.assessed_count ?? 0} subjects evaluated`}
                     Icon={ClipboardCheck}
                 />
-                <StatCard label="Reports Generated" value={fmt(stats?.total_reports)} note="Saved to system" Icon={FileBarChart} />
+                <StatCard
+                    label="Reports Generated"
+                    value={fmt(stats?.total_reports)}
+                    note="Saved to system"
+                    Icon={FileBarChart}
+                />
             </div>
 
             <div className="mt-16">
-                <h3 className="mb-8 flex items-center gap-2 text-xl font-semibold" style={serif}>
+                <h3
+                    className="mb-8 flex items-center gap-2 text-xl font-semibold"
+                    style={serif}
+                >
                     <Zap className="size-5" /> Quick Actions
                 </h3>
                 <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-4">
-                    <QuickAction href="/reports/generate" label="New Assessment" Icon={ClipboardCheck} />
-                    <QuickAction href="/reports/manage" label="Manage Reports" Icon={FileOutput} />
-                    <QuickAction href="/books" label="Manage Books" Icon={BookOpen} />
+                    <QuickAction
+                        href="/reports/generate"
+                        label="New Assessment"
+                        Icon={ClipboardCheck}
+                    />
+                    <QuickAction
+                        href="/reports/manage"
+                        label="Manage Reports"
+                        Icon={FileOutput}
+                    />
+                    <QuickAction
+                        href="/books"
+                        label="Manage Books"
+                        Icon={BookOpen}
+                    />
                     <QuickAction label="Manage Users" Icon={Users} />
                 </div>
             </div>

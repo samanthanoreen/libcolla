@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AssessmentReport;
 use App\Http\Requests\StoreAssessmentReportRequest;
 use App\Http\Requests\UpdateAssessmentReportRequest;
+use App\Models\AssessmentReport;
 
 class AssessmentReportController extends Controller
 {

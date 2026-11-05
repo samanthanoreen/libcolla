@@ -21,13 +21,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         return inertia('Dashboard', [
             'stats' => [
-                'total_programs'      => Program::count(),
-                'total_prospectuses'  => Prospectus::count(),
-                'total_subjects'      => $totalSubjects,
-                'total_books'         => Book::count(),
+                'total_programs' => Program::count(),
+                'total_prospectuses' => Prospectus::count(),
+                'total_subjects' => $totalSubjects,
+                'total_books' => Book::count(),
                 'assessed_percentage' => $totalSubjects > 0 ? round(($assessedSubjects / $totalSubjects) * 100) : 0,
-                'assessed_count'      => $assessedSubjects,
-                'total_reports'       => AssessmentReport::count(),
+                'assessed_count' => $assessedSubjects,
+                'total_reports' => AssessmentReport::count(),
             ],
         ]);
     })->name('dashboard');

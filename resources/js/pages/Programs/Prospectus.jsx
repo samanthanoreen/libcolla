@@ -1,7 +1,15 @@
 import { Link, router, useForm } from '@inertiajs/react';
 import { ArrowLeft, Pencil, Plus, Trash2, TriangleAlert } from 'lucide-react';
 import React, { useState } from 'react';
-import { Field, Modal, ModalHeader, btnDanger, btnPrimary, btnSecondary, inputCls } from '@/components/crud-ui';
+import {
+    Field,
+    Modal,
+    ModalHeader,
+    btnDanger,
+    btnPrimary,
+    btnSecondary,
+    inputCls,
+} from '@/components/crud-ui';
 
 const SECTIONS = [
     ['FIRST YEAR — 1st Semester', '1st Year — 1st Sem'],
@@ -75,7 +83,10 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
     const openAddSubject = () => {
         setEditingSubject(null);
-        subjectForm.setData({ ...emptySubject, year_semester: SECTION_ORDER[yearIdx * 2] || SECTION_ORDER[0] });
+        subjectForm.setData({
+            ...emptySubject,
+            year_semester: SECTION_ORDER[yearIdx * 2] || SECTION_ORDER[0],
+        });
         subjectForm.clearErrors();
         setSubjectOpen(true);
     };
@@ -88,7 +99,8 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             subject_title: s.subject_title || '',
             lec_hours: s.lec_hours ?? '',
             lab_hours: s.lab_hours ?? '',
-            credit_units: s.credit_units !== null ? String(num(s.credit_units)) : '',
+            credit_units:
+                s.credit_units !== null ? String(num(s.credit_units)) : '',
             pre_requisite: s.pre_requisite || 'None',
         });
         subjectForm.clearErrors();
@@ -98,7 +110,8 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
     const submitSubject = (e) => {
         e.preventDefault();
         const opts = { preserveScroll: true, onSuccess: closeSubject };
-        if (editingSubject) subjectForm.put(`${base}/subjects/${editingSubject.id}`, opts);
+        if (editingSubject)
+            subjectForm.put(`${base}/subjects/${editingSubject.id}`, opts);
         else subjectForm.post(`${base}/subjects`, opts);
     };
 
@@ -134,7 +147,10 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
     const submitProspectus = (e) => {
         e.preventDefault();
-        prospectusForm.put(base, { preserveScroll: true, onSuccess: () => setProspectusOpen(false) });
+        prospectusForm.put(base, {
+            preserveScroll: true,
+            onSuccess: () => setProspectusOpen(false),
+        });
     };
 
     // Group the active year's subjects by semester
@@ -151,42 +167,54 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
     return (
         <div className="p-6 md:p-10">
-            <div className="mx-auto max-w-6xl overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm">
+            <div className="border-border bg-card text-card-foreground mx-auto max-w-6xl overflow-hidden rounded-xl border shadow-sm">
                 {/* Program band */}
-                <div className="flex items-stretch border-b border-border">
-                    <div className="flex min-w-[100px] items-center justify-center border-r border-border bg-muted px-5 py-4 text-lg font-extrabold">
+                <div className="border-border flex items-stretch border-b">
+                    <div className="border-border bg-muted flex min-w-[100px] items-center justify-center border-r px-5 py-4 text-lg font-extrabold">
                         {abbr(program.college)}
                     </div>
                     <div className="flex flex-1 flex-col justify-center gap-1 px-5 py-4">
-                        <div className="text-lg font-bold">{program.program_name}</div>
-                        <div className="text-sm text-muted-foreground">
-                            {program.major ? `Major: ${program.major}` : program.college}
+                        <div className="text-lg font-bold">
+                            {program.program_name}
+                        </div>
+                        <div className="text-muted-foreground text-sm">
+                            {program.major
+                                ? `Major: ${program.major}`
+                                : program.college}
                         </div>
                     </div>
-                    <div className="flex items-center border-l border-border px-5">
-                        <span className="rounded-md bg-muted px-3 py-1.5 text-xs font-bold text-muted-foreground">
+                    <div className="border-border flex items-center border-l px-5">
+                        <span className="bg-muted text-muted-foreground rounded-md px-3 py-1.5 text-xs font-bold">
                             {program.level || 'Bachelor'}
                         </span>
                     </div>
                 </div>
 
                 {/* Prospectus subheader */}
-                <div className="flex items-center justify-between gap-4 border-b border-border px-6 py-5">
+                <div className="border-border flex items-center justify-between gap-4 border-b px-6 py-5">
                     <div>
-                        <div className="text-xl font-extrabold tracking-wide uppercase">Prospectus</div>
-                        <div className="mt-1 text-sm text-muted-foreground italic">
+                        <div className="text-xl font-extrabold tracking-wide uppercase">
+                            Prospectus
+                        </div>
+                        <div className="text-muted-foreground mt-1 text-sm italic">
                             {title}
-                            {prospectus?.academic_year ? ` (SY ${prospectus.academic_year})` : ''}
+                            {prospectus?.academic_year
+                                ? ` (SY ${prospectus.academic_year})`
+                                : ''}
                         </div>
                     </div>
-                    <button type="button" onClick={openAddSubject} className={btnPrimary}>
+                    <button
+                        type="button"
+                        onClick={openAddSubject}
+                        className={btnPrimary}
+                    >
                         <Plus className="size-4" />
                         ADD SUBJECT
                     </button>
                 </div>
 
                 {/* Year tabs */}
-                <div className="flex gap-2 overflow-x-auto border-b border-border bg-muted/40 px-6 py-3">
+                <div className="border-border bg-muted/40 flex gap-2 overflow-x-auto border-b px-6 py-3">
                     {YEAR_TABS.map((label, i) => (
                         <button
                             key={label}
@@ -207,22 +235,44 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse text-left text-sm">
                         <thead>
-                            <tr className="border-b border-border bg-muted text-xs tracking-wide text-muted-foreground uppercase">
-                                <th className="w-28 px-4 py-3 font-bold">Code</th>
-                                <th className="px-4 py-3 font-bold">Course Subject Name</th>
-                                <th className="w-16 px-4 py-3 text-center font-bold">Lec</th>
-                                <th className="w-16 px-4 py-3 text-center font-bold">Lab</th>
-                                <th className="w-20 px-4 py-3 text-center font-bold">Units</th>
-                                <th className="w-36 px-4 py-3 font-bold">Pre/Co-Req</th>
-                                <th className="w-24 px-4 py-3 text-center font-bold">Actions</th>
+                            <tr className="border-border bg-muted text-muted-foreground border-b text-xs tracking-wide uppercase">
+                                <th className="w-28 px-4 py-3 font-bold">
+                                    Code
+                                </th>
+                                <th className="px-4 py-3 font-bold">
+                                    Course Subject Name
+                                </th>
+                                <th className="w-16 px-4 py-3 text-center font-bold">
+                                    Lec
+                                </th>
+                                <th className="w-16 px-4 py-3 text-center font-bold">
+                                    Lab
+                                </th>
+                                <th className="w-20 px-4 py-3 text-center font-bold">
+                                    Units
+                                </th>
+                                <th className="w-36 px-4 py-3 font-bold">
+                                    Pre/Co-Req
+                                </th>
+                                <th className="w-24 px-4 py-3 text-center font-bold">
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {sections.length === 0 ? (
                                 <tr>
-                                    <td colSpan={7} className="px-4 py-10 text-center text-muted-foreground">
-                                        No subjects yet for {YEAR_TABS[yearIdx]}.{' '}
-                                        <button type="button" onClick={openAddSubject} className="font-semibold text-foreground underline">
+                                    <td
+                                        colSpan={7}
+                                        className="text-muted-foreground px-4 py-10 text-center"
+                                    >
+                                        No subjects yet for {YEAR_TABS[yearIdx]}
+                                        .{' '}
+                                        <button
+                                            type="button"
+                                            onClick={openAddSubject}
+                                            className="text-foreground font-semibold underline"
+                                        >
                                             Add one?
                                         </button>
                                     </td>
@@ -230,40 +280,67 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             ) : (
                                 sections.map((section) => {
                                     const items = groups[section];
-                                    const total = items.reduce((sum, s) => sum + num(s.credit_units), 0);
+                                    const total = items.reduce(
+                                        (sum, s) => sum + num(s.credit_units),
+                                        0,
+                                    );
                                     return (
                                         <React.Fragment key={section}>
                                             <tr>
                                                 <td
                                                     colSpan={7}
-                                                    className="border-b border-border bg-muted/60 px-4 py-2 text-xs font-bold tracking-widest uppercase"
+                                                    className="border-border bg-muted/60 border-b px-4 py-2 text-xs font-bold tracking-widest uppercase"
                                                 >
                                                     {section}
                                                 </td>
                                             </tr>
                                             {items.map((s) => (
-                                                <tr key={s.id} className="border-b border-border transition hover:bg-muted/50">
-                                                    <td className="px-4 py-3 font-mono text-xs font-semibold">{s.subject_code}</td>
-                                                    <td className="px-4 py-3">{s.subject_title}</td>
-                                                    <td className="px-4 py-3 text-center text-muted-foreground">{s.lec_hours ?? 0}</td>
-                                                    <td className="px-4 py-3 text-center text-muted-foreground">{s.lab_hours ?? 0}</td>
-                                                    <td className="px-4 py-3 text-center font-bold">{num(s.credit_units)}</td>
-                                                    <td className="px-4 py-3 text-xs text-muted-foreground">{s.pre_requisite || 'None'}</td>
+                                                <tr
+                                                    key={s.id}
+                                                    className="border-border hover:bg-muted/50 border-b transition"
+                                                >
+                                                    <td className="px-4 py-3 font-mono text-xs font-semibold">
+                                                        {s.subject_code}
+                                                    </td>
+                                                    <td className="px-4 py-3">
+                                                        {s.subject_title}
+                                                    </td>
+                                                    <td className="text-muted-foreground px-4 py-3 text-center">
+                                                        {s.lec_hours ?? 0}
+                                                    </td>
+                                                    <td className="text-muted-foreground px-4 py-3 text-center">
+                                                        {s.lab_hours ?? 0}
+                                                    </td>
+                                                    <td className="px-4 py-3 text-center font-bold">
+                                                        {num(s.credit_units)}
+                                                    </td>
+                                                    <td className="text-muted-foreground px-4 py-3 text-xs">
+                                                        {s.pre_requisite ||
+                                                            'None'}
+                                                    </td>
                                                     <td className="px-4 py-3">
                                                         <div className="flex justify-center gap-1.5">
                                                             <button
                                                                 type="button"
                                                                 title="Edit"
-                                                                onClick={() => openEditSubject(s)}
-                                                                className="rounded-md bg-muted p-2 text-muted-foreground transition hover:bg-accent hover:text-foreground"
+                                                                onClick={() =>
+                                                                    openEditSubject(
+                                                                        s,
+                                                                    )
+                                                                }
+                                                                className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition"
                                                             >
                                                                 <Pencil className="size-3.5" />
                                                             </button>
                                                             <button
                                                                 type="button"
                                                                 title="Delete"
-                                                                onClick={() => setDeletingSubject(s)}
-                                                                className="rounded-md bg-muted p-2 text-muted-foreground transition hover:bg-accent hover:text-foreground"
+                                                                onClick={() =>
+                                                                    setDeletingSubject(
+                                                                        s,
+                                                                    )
+                                                                }
+                                                                className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition"
                                                             >
                                                                 <Trash2 className="size-3.5" />
                                                             </button>
@@ -271,11 +348,16 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                                     </td>
                                                 </tr>
                                             ))}
-                                            <tr className="border-b-2 border-border bg-muted/30 text-xs font-bold tracking-wide text-muted-foreground uppercase">
-                                                <td colSpan={4} className="px-4 py-2 text-right">
+                                            <tr className="border-border bg-muted/30 text-muted-foreground border-b-2 text-xs font-bold tracking-wide uppercase">
+                                                <td
+                                                    colSpan={4}
+                                                    className="px-4 py-2 text-right"
+                                                >
                                                     Total Units
                                                 </td>
-                                                <td className="px-4 py-2 text-center text-sm text-foreground">{total}</td>
+                                                <td className="text-foreground px-4 py-2 text-center text-sm">
+                                                    {total}
+                                                </td>
                                                 <td colSpan={2} />
                                             </tr>
                                         </React.Fragment>
@@ -287,12 +369,16 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                 </div>
 
                 {/* Footer */}
-                <div className="flex justify-end gap-3 border-t border-border bg-muted/30 px-6 py-4">
+                <div className="border-border bg-muted/30 flex justify-end gap-3 border-t px-6 py-4">
                     <Link href="/programs" className={btnSecondary}>
                         <ArrowLeft className="size-4" />
                         BACK
                     </Link>
-                    <button type="button" onClick={openProspectus} className={btnSecondary}>
+                    <button
+                        type="button"
+                        onClick={openProspectus}
+                        className={btnSecondary}
+                    >
                         <Pencil className="size-4" />
                         EDIT PROSPECTUS
                     </button>
@@ -302,12 +388,23 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             {/* Add / edit subject */}
             <Modal open={subjectOpen} onClose={closeSubject}>
                 <form onSubmit={submitSubject}>
-                    <ModalHeader title={editingSubject ? 'Edit Subject' : 'Add Subject'} onClose={closeSubject} />
+                    <ModalHeader
+                        title={editingSubject ? 'Edit Subject' : 'Add Subject'}
+                        onClose={closeSubject}
+                    />
                     <div className="space-y-4 px-6 py-5">
-                        <Field label="Year & Semester" error={subjectForm.errors.year_semester}>
+                        <Field
+                            label="Year & Semester"
+                            error={subjectForm.errors.year_semester}
+                        >
                             <select
                                 value={subjectForm.data.year_semester}
-                                onChange={(e) => subjectForm.setData('year_semester', e.target.value)}
+                                onChange={(e) =>
+                                    subjectForm.setData(
+                                        'year_semester',
+                                        e.target.value,
+                                    )
+                                }
                                 className={`${inputCls} w-full`}
                             >
                                 {SECTIONS.map(([value, label]) => (
@@ -319,98 +416,176 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                         </Field>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <Field label="Subject Code" required error={subjectForm.errors.subject_code}>
+                            <Field
+                                label="Subject Code"
+                                required
+                                error={subjectForm.errors.subject_code}
+                            >
                                 <input
                                     value={subjectForm.data.subject_code}
-                                    onChange={(e) => subjectForm.setData('subject_code', e.target.value)}
+                                    onChange={(e) =>
+                                        subjectForm.setData(
+                                            'subject_code',
+                                            e.target.value,
+                                        )
+                                    }
                                     placeholder="e.g. IC 111"
                                     className={`${inputCls} w-full`}
                                 />
                             </Field>
-                            <Field label="Units" required error={subjectForm.errors.credit_units}>
+                            <Field
+                                label="Units"
+                                required
+                                error={subjectForm.errors.credit_units}
+                            >
                                 <input
                                     type="number"
                                     min="0"
                                     max="9"
                                     step="0.5"
                                     value={subjectForm.data.credit_units}
-                                    onChange={(e) => subjectForm.setData('credit_units', e.target.value)}
+                                    onChange={(e) =>
+                                        subjectForm.setData(
+                                            'credit_units',
+                                            e.target.value,
+                                        )
+                                    }
                                     placeholder="3"
                                     className={`${inputCls} w-full`}
                                 />
                             </Field>
                         </div>
 
-                        <Field label="Course Title" required error={subjectForm.errors.subject_title}>
+                        <Field
+                            label="Course Title"
+                            required
+                            error={subjectForm.errors.subject_title}
+                        >
                             <input
                                 value={subjectForm.data.subject_title}
-                                onChange={(e) => subjectForm.setData('subject_title', e.target.value)}
+                                onChange={(e) =>
+                                    subjectForm.setData(
+                                        'subject_title',
+                                        e.target.value,
+                                    )
+                                }
                                 placeholder="e.g. Programming Paradigm 1"
                                 className={`${inputCls} w-full`}
                             />
                         </Field>
 
                         <div className="grid grid-cols-2 gap-4">
-                            <Field label="Lec Hours" error={subjectForm.errors.lec_hours}>
+                            <Field
+                                label="Lec Hours"
+                                error={subjectForm.errors.lec_hours}
+                            >
                                 <input
                                     type="number"
                                     min="0"
                                     max="9"
                                     value={subjectForm.data.lec_hours}
-                                    onChange={(e) => subjectForm.setData('lec_hours', e.target.value)}
+                                    onChange={(e) =>
+                                        subjectForm.setData(
+                                            'lec_hours',
+                                            e.target.value,
+                                        )
+                                    }
                                     placeholder="3"
                                     className={`${inputCls} w-full`}
                                 />
                             </Field>
-                            <Field label="Lab Hours" error={subjectForm.errors.lab_hours}>
+                            <Field
+                                label="Lab Hours"
+                                error={subjectForm.errors.lab_hours}
+                            >
                                 <input
                                     type="number"
                                     min="0"
                                     max="9"
                                     value={subjectForm.data.lab_hours}
-                                    onChange={(e) => subjectForm.setData('lab_hours', e.target.value)}
+                                    onChange={(e) =>
+                                        subjectForm.setData(
+                                            'lab_hours',
+                                            e.target.value,
+                                        )
+                                    }
                                     placeholder="0"
                                     className={`${inputCls} w-full`}
                                 />
                             </Field>
                         </div>
 
-                        <Field label="Pre / Co-Requisite" error={subjectForm.errors.pre_requisite}>
+                        <Field
+                            label="Pre / Co-Requisite"
+                            error={subjectForm.errors.pre_requisite}
+                        >
                             <input
                                 value={subjectForm.data.pre_requisite}
-                                onChange={(e) => subjectForm.setData('pre_requisite', e.target.value)}
+                                onChange={(e) =>
+                                    subjectForm.setData(
+                                        'pre_requisite',
+                                        e.target.value,
+                                    )
+                                }
                                 placeholder="None"
                                 className={`${inputCls} w-full`}
                             />
                         </Field>
                     </div>
-                    <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
-                        <button type="button" onClick={closeSubject} className={btnSecondary}>
+                    <div className="border-border flex justify-end gap-3 border-t px-6 py-4">
+                        <button
+                            type="button"
+                            onClick={closeSubject}
+                            className={btnSecondary}
+                        >
                             CANCEL
                         </button>
-                        <button type="submit" disabled={subjectForm.processing} className={btnPrimary}>
-                            {subjectForm.processing ? 'SAVING...' : 'SAVE SUBJECT'}
+                        <button
+                            type="submit"
+                            disabled={subjectForm.processing}
+                            className={btnPrimary}
+                        >
+                            {subjectForm.processing
+                                ? 'SAVING...'
+                                : 'SAVE SUBJECT'}
                         </button>
                     </div>
                 </form>
             </Modal>
 
             {/* Delete subject */}
-            <Modal open={!!deletingSubject} onClose={() => setDeletingSubject(null)} size="max-w-sm">
+            <Modal
+                open={!!deletingSubject}
+                onClose={() => setDeletingSubject(null)}
+                size="max-w-sm"
+            >
                 <div className="p-6 text-center">
-                    <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-muted">
-                        <TriangleAlert className="size-6 text-foreground" />
+                    <div className="bg-muted mx-auto mb-4 flex size-12 items-center justify-center rounded-full">
+                        <TriangleAlert className="text-foreground size-6" />
                     </div>
                     <h3 className="text-lg font-semibold">Remove Subject?</h3>
-                    <p className="mt-2 mb-6 text-sm text-muted-foreground">
-                        Remove <strong className="text-foreground">{deletingSubject?.subject_title}</strong> from the
-                        prospectus? Books linked to it will be removed too.
+                    <p className="text-muted-foreground mt-2 mb-6 text-sm">
+                        Remove{' '}
+                        <strong className="text-foreground">
+                            {deletingSubject?.subject_title}
+                        </strong>{' '}
+                        from the prospectus? Books linked to it will be removed
+                        too.
                     </p>
                     <div className="flex justify-center gap-3">
-                        <button type="button" onClick={() => setDeletingSubject(null)} className={btnSecondary}>
+                        <button
+                            type="button"
+                            onClick={() => setDeletingSubject(null)}
+                            className={btnSecondary}
+                        >
                             CANCEL
                         </button>
-                        <button type="button" disabled={deleteBusy} onClick={confirmDeleteSubject} className={btnDanger}>
+                        <button
+                            type="button"
+                            disabled={deleteBusy}
+                            onClick={confirmDeleteSubject}
+                            className={btnDanger}
+                        >
                             {deleteBusy ? 'REMOVING...' : 'REMOVE'}
                         </button>
                     </div>
@@ -418,32 +593,64 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             </Modal>
 
             {/* Edit prospectus */}
-            <Modal open={prospectusOpen} onClose={() => setProspectusOpen(false)}>
+            <Modal
+                open={prospectusOpen}
+                onClose={() => setProspectusOpen(false)}
+            >
                 <form onSubmit={submitProspectus}>
-                    <ModalHeader title="Edit Prospectus" onClose={() => setProspectusOpen(false)} />
+                    <ModalHeader
+                        title="Edit Prospectus"
+                        onClose={() => setProspectusOpen(false)}
+                    />
                     <div className="space-y-4 px-6 py-5">
-                        <Field label="Prospectus Title" required error={prospectusForm.errors.title}>
+                        <Field
+                            label="Prospectus Title"
+                            required
+                            error={prospectusForm.errors.title}
+                        >
                             <input
                                 value={prospectusForm.data.title}
-                                onChange={(e) => prospectusForm.setData('title', e.target.value)}
+                                onChange={(e) =>
+                                    prospectusForm.setData(
+                                        'title',
+                                        e.target.value,
+                                    )
+                                }
                                 placeholder="e.g. BSIT Prospectus"
                                 className={`${inputCls} w-full`}
                             />
                         </Field>
-                        <Field label="Academic Year" required error={prospectusForm.errors.academic_year}>
+                        <Field
+                            label="Academic Year"
+                            required
+                            error={prospectusForm.errors.academic_year}
+                        >
                             <input
                                 value={prospectusForm.data.academic_year}
-                                onChange={(e) => prospectusForm.setData('academic_year', e.target.value)}
+                                onChange={(e) =>
+                                    prospectusForm.setData(
+                                        'academic_year',
+                                        e.target.value,
+                                    )
+                                }
                                 placeholder="2024-2025"
                                 className={`${inputCls} w-full`}
                             />
                         </Field>
                     </div>
-                    <div className="flex justify-end gap-3 border-t border-border px-6 py-4">
-                        <button type="button" onClick={() => setProspectusOpen(false)} className={btnSecondary}>
+                    <div className="border-border flex justify-end gap-3 border-t px-6 py-4">
+                        <button
+                            type="button"
+                            onClick={() => setProspectusOpen(false)}
+                            className={btnSecondary}
+                        >
                             CANCEL
                         </button>
-                        <button type="submit" disabled={prospectusForm.processing} className={btnPrimary}>
+                        <button
+                            type="submit"
+                            disabled={prospectusForm.processing}
+                            className={btnPrimary}
+                        >
                             {prospectusForm.processing ? 'SAVING...' : 'SAVE'}
                         </button>
                     </div>

@@ -19,4 +19,6 @@ export const libcollaTheme = {
     '--color-ring': '#9f1239',
 };
 
-export const serif = { fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif' };
+export const serif = {
+    fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
+};
