@@ -1,5 +1,6 @@
-import { router, useForm } from '@inertiajs/react';
+import { Link, router, useForm } from '@inertiajs/react';
 import {
+    ArrowLeft,
     BookPlus,
     ChevronDown,
     CircleCheck,
@@ -190,6 +191,13 @@ export default function Program({ program, subjects = [], books = [] }) {
             style={libcollaTheme}
             className="mx-auto w-full max-w-7xl space-y-5 p-4"
         >
+            <Link
+                href="/books"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/80 transition hover:text-white"
+            >
+                <ArrowLeft className="size-3.5" /> Back to Program Library
+            </Link>
+
             {/* Program info */}
             <div className="overflow-hidden rounded-[10px] border border-[#eef2f6] bg-white shadow-sm">
                 <div className="border-b border-[#eef2f6] bg-[#fafbfc] px-4 py-2.5">
@@ -232,7 +240,7 @@ export default function Program({ program, subjects = [], books = [] }) {
             {/* Controls */}
             <div className="flex flex-wrap items-end gap-4">
                 <div className="flex-1">
-                    <label className="mb-1 block text-[0.65rem] font-bold text-[#64748b] uppercase">
+                    <label className="mb-1 block text-[0.65rem] font-bold text-white/80 uppercase">
                         Course Subject
                     </label>
                     <select
@@ -273,7 +281,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                     </h3>
                 </div>
                 <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-xs">
+                    <table className="w-full min-w-[640px] border-collapse text-xs">
                         <thead>
                             <tr className="bg-[#f8fafc]">
                                 <th className={th}>Call No</th>

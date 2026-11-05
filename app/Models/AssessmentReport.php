@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AssessmentReport extends Model
 {
@@ -12,15 +13,28 @@ class AssessmentReport extends Model
     protected $fillable = [
         'user_id',
         'program_id',
-        'prospectus_id',
-        'target_recency_years',
+        'college',
+        'program_name',
+        'major',
         'summary_data',
         'references_data',
-        'compliance_percentage',
-        'report_file_path',
-        'status',
-        'approved_by',
-        'approval_date',
-        'notes',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'summary_data' => 'array',
+            'references_data' => 'array',
+        ];
+    }
+
+    public function program(): BelongsTo
+    {
+        return $this->belongsTo(Program::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -19,6 +19,7 @@ class ProgramController extends Controller
             : 10;
 
         $programs = Program::query()
+            ->withCount('courseSubjects')
             ->when($search, function ($query) use ($search, $field) {
                 $like = "%{$search}%";
 
@@ -82,11 +83,13 @@ class ProgramController extends Controller
 
     public function destroy(Program $program)
     {
+        $fromProspectus = str_contains(url()->previous(), "/programs/{$program->id}/prospectus");
+
         $program->delete();
 
         Inertia::flash('toast', ['type' => 'info', 'message' => 'Program deleted.']);
 
-        return back();
+        return $fromProspectus ? redirect()->route('programs.index') : back();
     }
 
     private function rules(): array

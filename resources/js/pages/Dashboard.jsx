@@ -91,15 +91,19 @@ export default function Dashboard({ stats }) {
                     Icon={BookOpen}
                 />
                 <StatCard
-                    label="Assessed Collections"
+                    label="Collection Coverage"
                     value={`${stats?.assessed_percentage ?? 0}%`}
-                    note={`${stats?.assessed_count ?? 0} subjects evaluated`}
+                    note={`${stats?.assessed_count ?? 0} of ${fmt(stats?.total_subjects)} subjects have books`}
                     Icon={ClipboardCheck}
                 />
                 <StatCard
                     label="Reports Generated"
                     value={fmt(stats?.total_reports)}
-                    note="Saved to system"
+                    note={
+                        Number(stats?.total_reports ?? 0) === 0
+                            ? 'No reports saved yet'
+                            : 'Saved to system'
+                    }
                     Icon={FileBarChart}
                 />
             </div>

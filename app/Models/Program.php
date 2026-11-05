@@ -35,4 +35,12 @@ class Program extends Model
     {
         return $this->hasMany(CourseSubject::class);
     }
+
+    /**
+     * Get the books assigned to the program.
+     */
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 }

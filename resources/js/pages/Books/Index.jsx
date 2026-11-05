@@ -82,16 +82,16 @@ export default function Index({
                 {/* Header */}
                 <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
                     <h1
-                        className="flex items-center gap-3 text-2xl font-bold"
+                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl"
                         style={serif}
                     >
                         <FolderTree className="size-6" />
-                        Program Library
+                        Books by Program
                     </h1>
                     <button
                         type="button"
                         onClick={() => setAddOpen(true)}
-                        className={btnPrimary}
+                        className={`${btnPrimary} shrink-0 whitespace-nowrap`}
                     >
                         <Plus className="size-4" />
                         ADD BOOK
@@ -132,7 +132,7 @@ export default function Index({
                     {/* Table */}
                     <div className="mt-6 overflow-hidden rounded-xl border border-[#e2e8f0]">
                         <div className="overflow-x-auto">
-                            <table className="w-full border-collapse text-left text-sm">
+                            <table className="w-full min-w-[820px] border-collapse text-left text-sm">
                                 <thead>
                                     <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
                                         <th className="p-4 font-bold">
@@ -143,6 +143,15 @@ export default function Index({
                                         </th>
                                         <th className="p-4 font-bold">
                                             Major / Track
+                                        </th>
+                                        <th className="p-4 text-center font-bold">
+                                            Subjects
+                                        </th>
+                                        <th className="p-4 text-center font-bold">
+                                            Titles
+                                        </th>
+                                        <th className="p-4 text-center font-bold">
+                                            Copies
                                         </th>
                                         <th className="p-4 text-center font-bold">
                                             Action
@@ -170,8 +179,17 @@ export default function Index({
                                                 <td className="p-4 text-[#64748b]">
                                                     {p.major || '—'}
                                                 </td>
+                                                <td className="p-4 text-center text-[#475569]">
+                                                    {p.course_subjects_count ?? 0}
+                                                </td>
+                                                <td className="p-4 text-center font-semibold">
+                                                    {p.books_count ?? 0}
+                                                </td>
+                                                <td className="p-4 text-center text-[#475569]">
+                                                    {p.books_sum_total_copies ?? 0}
+                                                </td>
                                                 <td className="p-4 text-center">
-                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#f1f5f9] px-4 py-1.5 text-xs font-semibold tracking-wider text-[#475569] uppercase transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
+                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#f1f5f9] px-4 py-1.5 whitespace-nowrap text-xs font-semibold tracking-wider text-[#475569] uppercase transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
                                                         <FolderOpen className="size-3.5" />
                                                         View Books
                                                     </span>
@@ -181,7 +199,7 @@ export default function Index({
                                     ) : (
                                         <tr>
                                             <td
-                                                colSpan={4}
+                                                colSpan={7}
                                                 className="py-12 text-center text-[#94a3b8]"
                                             >
                                                 <FolderOpen className="mx-auto mb-4 size-12 opacity-30" />

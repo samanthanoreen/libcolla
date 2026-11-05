@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssessmentReportController;
 use App\Http\Controllers\BookLibraryController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramProspectusController;
@@ -9,7 +10,6 @@ use App\Models\CourseSubject;
 use App\Models\Program;
 use App\Models\Prospectus;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -34,13 +34,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Collection Assessment Report Routes
     Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/generate', function () {
-            return Inertia::render('Reports/Generate');
-        })->name('generate');
-
-        Route::get('/manage', function () {
-            return Inertia::render('Reports/Manage');
-        })->name('manage');
+        Route::get('/generate', [AssessmentReportController::class, 'generate'])->name('generate');
+        Route::get('/manage', [AssessmentReportController::class, 'manage'])->name('manage');
+        Route::get('/preview/{program}', [AssessmentReportController::class, 'preview'])->name('preview');
+        Route::post('/', [AssessmentReportController::class, 'store'])->name('store');
+        Route::get('/{report}', [AssessmentReportController::class, 'show'])->name('show');
+        Route::delete('/{report}', [AssessmentReportController::class, 'destroy'])->name('destroy');
     });
 
     // Prospectus and subjects, managed from inside a program

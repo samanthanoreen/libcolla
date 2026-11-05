@@ -98,12 +98,22 @@ const PAGES: {
     {
         match: 'Books',
         title: 'Books',
-        trail: [{ label: 'Database', href: '/programs' }],
+        trail: [{ label: 'Database', href: '/books' }],
     },
     {
         match: 'Reports/Generate',
         title: 'Generate Report',
         trail: [{ label: 'Collection Assessment', href: '/reports/generate' }],
+    },
+    {
+        match: 'Reports/Preview',
+        title: 'Report Preview',
+        trail: [{ label: 'Collection Assessment', href: '/reports/generate' }],
+    },
+    {
+        match: 'Reports/View',
+        title: 'View Report',
+        trail: [{ label: 'Collection Assessment', href: '/reports/manage' }],
     },
     {
         match: 'Reports/Manage',

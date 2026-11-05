@@ -17,32 +17,8 @@ import {
     btnSecondary,
     inputCls,
 } from '@/components/crud-ui';
+import { libcollaTheme, serif } from '@/lib/libcollaTheme';
 import { LEVELS, PROGRAM_CATALOG } from '@/lib/programCatalog';
-
-const libcollaTheme = {
-    colorScheme: 'light',
-    color: '#1e293b',
-    '--color-background': '#ffffff',
-    '--color-foreground': '#1e293b',
-    '--color-card': '#ffffff',
-    '--color-card-foreground': '#1e293b',
-    '--color-popover': '#ffffff',
-    '--color-popover-foreground': '#1e293b',
-    '--color-primary': '#9f1239',
-    '--color-primary-foreground': '#ffffff',
-    '--color-muted': '#f1f5f9',
-    '--color-muted-foreground': '#64748b',
-    '--color-accent': '#e2e8f0',
-    '--color-accent-foreground': '#1e293b',
-    '--color-destructive': '#dc2626',
-    '--color-border': '#e2e8f0',
-    '--color-input': '#cbd5e1',
-    '--color-ring': '#9f1239',
-};
-
-const serif = {
-    fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
-};
 
 export default function Index({ programs, filters = {} }) {
     const [search, setSearch] = useState(filters.search || '');
@@ -148,7 +124,7 @@ export default function Index({ programs, filters = {} }) {
             <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#1e293b] shadow-2xl">
                 <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
                     <h1
-                        className="flex items-center gap-3 text-2xl font-bold"
+                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl"
                         style={serif}
                     >
                         <GraduationCap className="size-6" />
@@ -157,7 +133,7 @@ export default function Index({ programs, filters = {} }) {
                     <button
                         type="button"
                         onClick={openAdd}
-                        className={btnPrimary}
+                        className={`${btnPrimary} shrink-0 whitespace-nowrap`}
                     >
                         <Plus className="size-4" />
                         ADD PROGRAM
@@ -196,10 +172,10 @@ export default function Index({ programs, filters = {} }) {
                     </form>
 
                     <div className="overflow-x-auto">
-                        <table className="w-full border-collapse text-left text-sm">
+                        <table className="w-full min-w-[720px] border-collapse text-left text-sm">
                             <thead>
                                 <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
-                                    <th className="w-32 px-5 py-4 font-bold">
+                                    <th className="w-48 px-5 py-4 font-bold">
                                         College
                                     </th>
                                     <th className="px-5 py-4 font-bold">
@@ -210,6 +186,9 @@ export default function Index({ programs, filters = {} }) {
                                     </th>
                                     <th className="w-20 px-5 py-4 text-center font-bold">
                                         Level
+                                    </th>
+                                    <th className="w-24 px-5 py-4 text-center font-bold">
+                                        Subjects
                                     </th>
                                     <th className="w-20 px-5 py-4 text-center font-bold">
                                         Actions
@@ -244,6 +223,9 @@ export default function Index({ programs, filters = {} }) {
                                             <td className="px-5 py-3 text-center text-sm text-[#64748b]">
                                                 {p.level}
                                             </td>
+                                            <td className="px-5 py-3 text-center text-sm text-[#64748b]">
+                                                {p.course_subjects_count ?? 0}
+                                            </td>
                                             <td className="px-5 py-3">
                                                 <div className="flex justify-center gap-1">
                                                     <button
@@ -275,7 +257,7 @@ export default function Index({ programs, filters = {} }) {
                                 ) : (
                                     <tr>
                                         <td
-                                            colSpan={5}
+                                            colSpan={6}
                                             className="text-muted-foreground px-4 py-10 text-center"
                                         >
                                             No programs found.{' '}
@@ -313,21 +295,33 @@ export default function Index({ programs, filters = {} }) {
 
                         {programs?.links && programs.links.length > 3 && (
                             <div className="flex items-center gap-1">
-                                {programs.links.map((link, i) => (
-                                    <Link
-                                        key={i}
-                                        href={link.url || '#'}
-                                        preserveScroll
-                                        dangerouslySetInnerHTML={{
-                                            __html: link.label,
-                                        }}
-                                        className={`rounded-md border px-3 py-1.5 text-xs transition ${
-                                            link.active
-                                                ? 'border-primary bg-primary text-primary-foreground font-bold'
-                                                : 'bg-background text-foreground hover:bg-muted'
-                                        } ${!link.url ? 'pointer-events-none opacity-40' : ''}`}
-                                    />
-                                ))}
+                                {programs.links.map((link, i) => {
+                                    const cls = `rounded-md border px-3 py-1.5 text-xs transition ${
+                                        link.active
+                                            ? 'border-primary bg-primary text-primary-foreground font-bold'
+                                            : 'bg-background text-foreground hover:bg-muted'
+                                    }`;
+
+                                    return link.url ? (
+                                        <Link
+                                            key={i}
+                                            href={link.url}
+                                            preserveScroll
+                                            dangerouslySetInnerHTML={{
+                                                __html: link.label,
+                                            }}
+                                            className={cls}
+                                        />
+                                    ) : (
+                                        <span
+                                            key={i}
+                                            dangerouslySetInnerHTML={{
+                                                __html: link.label,
+                                            }}
+                                            className={`${cls} opacity-40`}
+                                        />
+                                    );
+                                })}
                             </div>
                         )}
                     </div>

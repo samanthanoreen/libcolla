@@ -1,6 +1,14 @@
 import { Link, router, useForm } from '@inertiajs/react';
-import { ArrowLeft, Pencil, Plus, Trash2, TriangleAlert } from 'lucide-react';
+import {
+    ArrowLeft,
+    FileDown,
+    Pencil,
+    Plus,
+    Trash2,
+    TriangleAlert,
+} from 'lucide-react';
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 import {
     Field,
     Modal,
@@ -10,6 +18,7 @@ import {
     btnSecondary,
     inputCls,
 } from '@/components/crud-ui';
+import { libcollaTheme } from '@/lib/libcollaTheme';
 
 const SECTIONS = [
     ['FIRST YEAR — 1st Semester', '1st Year — 1st Sem'],
@@ -57,6 +66,29 @@ const num = (v) => {
     return Number.isNaN(n) ? 0 : n;
 };
 
+// Sums like 1.5 + 1.5 should not show floating point noise.
+const fmtUnits = (n) => String(Math.round(n * 10) / 10);
+
+const JSPDF_SRC =
+    'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+
+// jsPDF is only needed when the PDF button is pressed, so it is loaded on demand.
+function loadJsPdf() {
+    if (window.jspdf?.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+    return new Promise((resolve, reject) => {
+        const el = document.createElement('script');
+        el.src = JSPDF_SRC;
+        el.async = true;
+        el.onload = () =>
+            window.jspdf?.jsPDF
+                ? resolve(window.jspdf.jsPDF)
+                : reject(new Error('jsPDF is not available'));
+        el.onerror = () =>
+            reject(new Error('Could not load the PDF library. Check your internet connection.'));
+        document.head.appendChild(el);
+    });
+}
+
 const emptySubject = {
     year_semester: SECTION_ORDER[0],
     subject_code: '',
@@ -85,7 +117,9 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
         setEditingSubject(null);
         subjectForm.setData({
             ...emptySubject,
-            year_semester: SECTION_ORDER[yearIdx * 2] || SECTION_ORDER[0],
+            year_semester:
+                SECTION_ORDER.find((label) => yearIndex(label) === yearIdx) ||
+                SECTION_ORDER[0],
         });
         subjectForm.clearErrors();
         setSubjectOpen(true);
@@ -153,6 +187,228 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
         });
     };
 
+    // Delete the whole program (prospectus, subjects and books go with it)
+    const [deleteProgramOpen, setDeleteProgramOpen] = useState(false);
+    const [deleteProgramBusy, setDeleteProgramBusy] = useState(false);
+
+    const confirmDeleteProgram = () => {
+        router.delete(`/programs/${program.id}`, {
+            onStart: () => setDeleteProgramBusy(true),
+            onFinish: () => {
+                setDeleteProgramBusy(false);
+                setDeleteProgramOpen(false);
+            },
+        });
+    };
+
+    // Download the prospectus as a PDF
+    const [pdfBusy, setPdfBusy] = useState(false);
+
+    const downloadPdf = async () => {
+        setPdfBusy(true);
+        try {
+            const JsPdf = await loadJsPdf();
+            const doc = new JsPdf({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: 'a4',
+            });
+            const pw = doc.internal.pageSize.getWidth();
+            const ph = doc.internal.pageSize.getHeight();
+            const margin = 14;
+            let y = 36;
+
+            doc.setFillColor(159, 18, 57);
+            doc.rect(0, 0, pw, 28, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(16);
+            doc.setFont('helvetica', 'bold');
+            doc.text('LibColla', margin, 12);
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'normal');
+            doc.text('Academic Program Prospectus', margin, 19);
+            doc.setFontSize(8);
+            doc.text(
+                'Generated: ' +
+                    new Date().toLocaleDateString('en-PH', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    }),
+                pw - margin,
+                19,
+                { align: 'right' },
+            );
+
+            doc.setTextColor(30, 41, 59);
+            doc.setFontSize(13);
+            doc.setFont('helvetica', 'bold');
+            doc.text(program.program_name, margin, y);
+            y += 6;
+            if (program.major) {
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'italic');
+                doc.setTextColor(100, 116, 139);
+                doc.text('Major/Track: ' + program.major, margin, y);
+                y += 5;
+            }
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            doc.setTextColor(100, 116, 139);
+            doc.text(
+                'College: ' +
+                    program.college +
+                    '   |   Level: ' +
+                    (program.level || 'Bachelor'),
+                margin,
+                y,
+            );
+            y += 4;
+            const heading = prospectus?.academic_year
+                ? `${title} (SY ${prospectus.academic_year})`
+                : title;
+            const headingLines = doc.splitTextToSize(heading, pw - margin * 2);
+            doc.text(headingLines, margin, y);
+            y += headingLines.length * 4;
+            doc.setDrawColor(226, 232, 240);
+            doc.setLineWidth(0.3);
+            doc.line(margin, y, pw - margin, y);
+            y += 6;
+
+            const colW = [24, 84, 10, 10, 13, 30];
+            const hdrs = [
+                'Code',
+                'Course Subject Name',
+                'Lec',
+                'Lab',
+                'Units',
+                'Pre/Co-Req',
+            ];
+            const rowH = 5.5;
+            const drawHeader = () => {
+                doc.setFillColor(241, 245, 249);
+                doc.rect(margin, y, pw - margin * 2, rowH + 1, 'F');
+                doc.setDrawColor(30, 41, 59);
+                doc.setLineWidth(0.4);
+                doc.rect(margin, y, pw - margin * 2, rowH + 1);
+                doc.setFontSize(6);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(71, 85, 105);
+                let cx = margin + 2;
+                hdrs.forEach((h, i) => {
+                    doc.text(h, cx, y + rowH - 0.8);
+                    cx += colW[i];
+                });
+                y += rowH + 1;
+            };
+            drawHeader();
+
+            const byLabel = {};
+            subjects.forEach((s) => {
+                (byLabel[s.year_semester] ||= []).push(s);
+            });
+            const order = [
+                ...SECTION_ORDER.filter((label) => byLabel[label]),
+                ...Object.keys(byLabel).filter(
+                    (label) => !SECTION_ORDER.includes(label),
+                ),
+            ];
+
+            order.forEach((label) => {
+                if (y > ph - 18) {
+                    doc.addPage();
+                    y = margin;
+                    drawHeader();
+                }
+                doc.setFillColor(51, 65, 85);
+                doc.rect(margin, y, pw - margin * 2, rowH, 'F');
+                doc.setFontSize(6);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(255, 255, 255);
+                doc.text(label, margin + 2, y + rowH - 1.5);
+                y += rowH;
+
+                let total = 0;
+                byLabel[label].forEach((s) => {
+                    if (y > ph - 18) {
+                        doc.addPage();
+                        y = margin;
+                        drawHeader();
+                    }
+                    total += num(s.credit_units);
+                    doc.setFillColor(255, 255, 255);
+                    doc.rect(margin, y, pw - margin * 2, rowH - 1, 'F');
+                    doc.setFontSize(6);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(30, 41, 59);
+                    const cells = [
+                        s.subject_code,
+                        s.subject_title,
+                        String(s.lec_hours ?? 0),
+                        String(s.lab_hours ?? 0),
+                        String(num(s.credit_units)),
+                        s.pre_requisite || 'None',
+                    ];
+                    let cx = margin + 2;
+                    cells.forEach((c, i) => {
+                        const t = doc.splitTextToSize(
+                            String(c || ''),
+                            colW[i] - 2,
+                        );
+                        doc.text(t[0], cx, y + rowH - 2);
+                        cx += colW[i];
+                    });
+                    doc.setDrawColor(226, 232, 240);
+                    doc.setLineWidth(0.2);
+                    doc.line(margin, y + rowH - 1, pw - margin, y + rowH - 1);
+                    y += rowH;
+                });
+
+                doc.setFillColor(248, 250, 252);
+                doc.rect(margin, y, pw - margin * 2, rowH - 1, 'F');
+                doc.setFontSize(6.5);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(159, 18, 57);
+                doc.text(
+                    'TOTAL UNITS: ' + fmtUnits(total),
+                    pw - margin - 2,
+                    y + rowH - 2.5,
+                    { align: 'right' },
+                );
+                doc.setDrawColor(203, 213, 225);
+                doc.setLineWidth(0.3);
+                doc.line(margin, y + rowH - 1, pw - margin, y + rowH - 1);
+                y += rowH;
+            });
+
+            const pages = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pages; i++) {
+                doc.setPage(i);
+                doc.setFillColor(248, 250, 252);
+                doc.rect(0, ph - 10, pw, 10, 'F');
+                doc.setFontSize(7);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(148, 163, 184);
+                doc.text('LibColla - ' + program.college, margin, ph - 4);
+                doc.text('Page ' + i + ' of ' + pages, pw - margin, ph - 4, {
+                    align: 'right',
+                });
+            }
+
+            const fileName =
+                (program.college + '_' + program.program_name)
+                    .replace(/\s+/g, '_')
+                    .replace(/[^a-zA-Z0-9_]/g, '') + '_Prospectus.pdf';
+            doc.save(fileName);
+            toast.success('PDF downloaded!');
+        } catch (e) {
+            console.error(e);
+            toast.error(e?.message || 'PDF generation failed.');
+        } finally {
+            setPdfBusy(false);
+        }
+    };
+
     // Group the active year's subjects by semester
     const groups = {};
     subjects.forEach((s) => {
@@ -164,13 +420,17 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
     ].filter((s) => yearIndex(s) === yearIdx);
 
     const title = prospectus?.title || `${program.program_name} Prospectus`;
+    const yearSuffix =
+        prospectus?.academic_year && !title.includes(prospectus.academic_year)
+            ? ` (SY ${prospectus.academic_year})`
+            : '';
 
     return (
-        <div className="p-6 md:p-10">
+        <div style={libcollaTheme} className="md:p-6">
             <div className="border-border bg-card text-card-foreground mx-auto max-w-6xl overflow-hidden rounded-xl border shadow-sm">
                 {/* Program band */}
-                <div className="border-border flex items-stretch border-b">
-                    <div className="border-border bg-muted flex min-w-[100px] items-center justify-center border-r px-5 py-4 text-lg font-extrabold">
+                <div className="border-border flex flex-col border-b-2 border-b-[#d4a017] sm:flex-row sm:items-stretch">
+                    <div className="border-border bg-muted flex items-center justify-center border-b px-5 py-4 text-lg font-extrabold sm:min-w-[100px] sm:border-r sm:border-b-0">
                         {abbr(program.college)}
                     </div>
                     <div className="flex flex-1 flex-col justify-center gap-1 px-5 py-4">
@@ -183,7 +443,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 : program.college}
                         </div>
                     </div>
-                    <div className="border-border flex items-center border-l px-5">
+                    <div className="border-border flex items-center border-t px-5 py-3 sm:border-t-0 sm:border-l sm:py-0">
                         <span className="bg-muted text-muted-foreground rounded-md px-3 py-1.5 text-xs font-bold">
                             {program.level || 'Bachelor'}
                         </span>
@@ -191,16 +451,14 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                 </div>
 
                 {/* Prospectus subheader */}
-                <div className="border-border flex items-center justify-between gap-4 border-b px-6 py-5">
+                <div className="border-border flex flex-wrap items-center justify-between gap-4 border-b px-6 py-5">
                     <div>
                         <div className="text-xl font-extrabold tracking-wide uppercase">
                             Prospectus
                         </div>
                         <div className="text-muted-foreground mt-1 text-sm italic">
                             {title}
-                            {prospectus?.academic_year
-                                ? ` (SY ${prospectus.academic_year})`
-                                : ''}
+                            {yearSuffix}
                         </div>
                     </div>
                     <button
@@ -233,7 +491,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
                 {/* Subjects table */}
                 <div className="overflow-x-auto">
-                    <table className="w-full border-collapse text-left text-sm">
+                    <table className="w-full min-w-[720px] border-collapse text-left text-sm">
                         <thead>
                             <tr className="border-border bg-muted text-muted-foreground border-b text-xs tracking-wide uppercase">
                                 <th className="w-28 px-4 py-3 font-bold">
@@ -356,7 +614,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                                     Total Units
                                                 </td>
                                                 <td className="text-foreground px-4 py-2 text-center text-sm">
-                                                    {total}
+                                                    {fmtUnits(total)}
                                                 </td>
                                                 <td colSpan={2} />
                                             </tr>
@@ -369,7 +627,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                 </div>
 
                 {/* Footer */}
-                <div className="border-border bg-muted/30 flex justify-end gap-3 border-t px-6 py-4">
+                <div className="border-border bg-muted/30 flex flex-wrap justify-end gap-3 border-t px-6 py-4">
                     <Link href="/programs" className={btnSecondary}>
                         <ArrowLeft className="size-4" />
                         BACK
@@ -381,6 +639,23 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     >
                         <Pencil className="size-4" />
                         EDIT PROSPECTUS
+                    </button>
+                    <button
+                        type="button"
+                        onClick={downloadPdf}
+                        disabled={pdfBusy || subjects.length === 0}
+                        className={btnPrimary}
+                    >
+                        <FileDown className="size-4" />
+                        {pdfBusy ? 'GENERATING...' : 'DOWNLOAD PDF'}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setDeleteProgramOpen(true)}
+                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#fee2e2] px-5 py-3 text-xs font-bold tracking-wide text-[#ef4444] transition hover:bg-[#fecaca]"
+                    >
+                        <Trash2 className="size-4" />
+                        DELETE PROGRAM
                     </button>
                 </div>
             </div>
@@ -587,6 +862,44 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             className={btnDanger}
                         >
                             {deleteBusy ? 'REMOVING...' : 'REMOVE'}
+                        </button>
+                    </div>
+                </div>
+            </Modal>
+
+            {/* Delete program */}
+            <Modal
+                open={deleteProgramOpen}
+                onClose={() => setDeleteProgramOpen(false)}
+                size="max-w-sm"
+            >
+                <div className="p-6 text-center">
+                    <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#fee2e2]">
+                        <TriangleAlert className="size-7 text-[#ef4444]" />
+                    </div>
+                    <h3 className="text-lg font-semibold">Delete Program?</h3>
+                    <p className="text-muted-foreground mt-2 mb-6 text-sm">
+                        This will permanently remove{' '}
+                        <strong className="text-foreground">
+                            {program.program_name}
+                        </strong>{' '}
+                        and its prospectus, subjects, and books.
+                    </p>
+                    <div className="flex justify-center gap-3">
+                        <button
+                            type="button"
+                            onClick={() => setDeleteProgramOpen(false)}
+                            className={btnSecondary}
+                        >
+                            CANCEL
+                        </button>
+                        <button
+                            type="button"
+                            disabled={deleteProgramBusy}
+                            onClick={confirmDeleteProgram}
+                            className={btnDanger}
+                        >
+                            {deleteProgramBusy ? 'DELETING...' : 'CONFIRM'}
                         </button>
                     </div>
                 </div>

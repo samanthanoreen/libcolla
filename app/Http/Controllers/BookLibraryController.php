@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 /**
@@ -24,6 +25,8 @@ class BookLibraryController extends Controller
             : 15;
 
         $programs = Program::query()
+            ->withCount(['courseSubjects', 'books'])
+            ->withSum('books', 'total_copies')
             ->when($search !== '', function ($query) use ($search, $field) {
                 $like = "%{$search}%";
 
@@ -62,7 +65,7 @@ class BookLibraryController extends Controller
 
     public function program(Program $program)
     {
-        return Inertia::render('Books/Program', [
+        return Inertia::render('Books/Programs', [
             'program' => $program->only(['id', 'program_code', 'college', 'program_name', 'major']),
             'subjects' => $program->courseSubjects()
                 ->orderBy('year_semester')
@@ -80,7 +83,10 @@ class BookLibraryController extends Controller
     {
         $data = $request->validate([
             'program_id' => ['required', 'exists:programs,id'],
-            'subject_id' => ['required', 'exists:course_subjects,id'],
+            'subject_id' => [
+                'required',
+                Rule::exists('course_subjects', 'id')->where('program_id', $request->input('program_id')),
+            ],
         ] + $this->rules());
 
         Book::create([
