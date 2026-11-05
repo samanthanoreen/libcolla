@@ -4,6 +4,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Field, Modal, ModalHeader, btnDanger, btnPrimary, btnSecondary, inputCls } from '@/components/crud-ui';
 import { LEVELS, PROGRAM_CATALOG } from '@/lib/programCatalog';
 
+// Scopes the PHP LibCollaLayout look (white card, maroon accents) to this page only.
+// Overriding the --color-* tokens recolors every shared crud-ui piece inside it, including the modals.
+const libcollaTheme = {
+    colorScheme: 'light',
+    color: '#1e293b',
+    '--color-background': '#ffffff',
+    '--color-foreground': '#1e293b',
+    '--color-card': '#ffffff',
+    '--color-card-foreground': '#1e293b',
+    '--color-popover': '#ffffff',
+    '--color-popover-foreground': '#1e293b',
+    '--color-primary': '#9f1239',
+    '--color-primary-foreground': '#ffffff',
+    '--color-muted': '#f1f5f9',
+    '--color-muted-foreground': '#64748b',
+    '--color-accent': '#e2e8f0',
+    '--color-accent-foreground': '#1e293b',
+    '--color-destructive': '#dc2626',
+    '--color-border': '#e2e8f0',
+    '--color-input': '#cbd5e1',
+    '--color-ring': '#9f1239',
+};
+
+const serif = { fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif' };
+
 export default function Index({ programs, filters = {} }) {
     // Search and filter (debounced)
     const [search, setSearch] = useState(filters.search || '');
@@ -89,10 +114,10 @@ export default function Index({ programs, filters = {} }) {
     const rows = programs?.data ?? [];
 
     return (
-        <div className="p-6 md:p-10">
-            <div className="mx-auto max-w-5xl overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-sm">
-                <div className="flex items-center justify-between border-b border-border px-8 py-6">
-                    <h1 className="flex items-center gap-3 text-2xl font-semibold tracking-tight">
+        <div style={libcollaTheme} className="mx-auto w-full max-w-5xl">
+            <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#1e293b] shadow-2xl">
+                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
+                    <h1 className="flex items-center gap-3 text-2xl font-bold" style={serif}>
                         <GraduationCap className="size-6" />
                         Academic Programs
                     </h1>
@@ -108,16 +133,16 @@ export default function Index({ programs, filters = {} }) {
                             e.preventDefault();
                             visit();
                         }}
-                        className="flex flex-wrap items-center gap-3 rounded-xl bg-muted/50 p-5"
+                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#f8fafc] p-5 ring-1 ring-[#f1f5f9]"
                     >
                         <input
                             type="text"
                             placeholder="Search programs..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className={`${inputCls} min-w-[200px] flex-1`}
+                            className={`${inputCls} min-w-[200px] flex-1 rounded-xl py-3`}
                         />
-                        <select value={field} onChange={(e) => setField(e.target.value)} className={`${inputCls} w-40`}>
+                        <select value={field} onChange={(e) => setField(e.target.value)} className={`${inputCls} w-40 rounded-xl py-3`}>
                             <option value="all">All Fields</option>
                             <option value="college">College</option>
                             <option value="name">Program Name</option>
@@ -132,30 +157,30 @@ export default function Index({ programs, filters = {} }) {
                     <div className="overflow-x-auto">
                         <table className="w-full border-collapse text-left text-sm">
                             <thead>
-                                <tr className="border-b border-border bg-muted text-xs tracking-wide text-muted-foreground uppercase">
-                                    <th className="px-4 py-3 font-bold">College</th>
-                                    <th className="px-4 py-3 font-bold">Program Name</th>
-                                    <th className="px-4 py-3 font-bold">Major / Track</th>
-                                    <th className="px-4 py-3 text-center font-bold">Level</th>
-                                    <th className="px-4 py-3 text-center font-bold">Actions</th>
+                                <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
+                                    <th className="w-32 px-5 py-4 font-bold">College</th>
+                                    <th className="px-5 py-4 font-bold">Program Name</th>
+                                    <th className="w-1/4 px-5 py-4 font-bold">Major / Track</th>
+                                    <th className="w-20 px-5 py-4 text-center font-bold">Level</th>
+                                    <th className="w-20 px-5 py-4 text-center font-bold">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-border">
+                            <tbody className="divide-y divide-[#f1f5f9]">
                                 {rows.length > 0 ? (
                                     rows.map((p) => (
                                         <tr
                                             key={p.id}
                                             onClick={() => router.visit(`/programs/${p.id}/prospectus`)}
-                                            className="cursor-pointer transition hover:bg-muted/50"
+                                            className="cursor-pointer transition hover:bg-[#fdf2f8]"
                                         >
-                                            <td className="px-4 py-4 text-muted-foreground">{p.college}</td>
-                                            <td className="px-4 py-4 font-semibold text-foreground">{p.program_name}</td>
-                                            <td className="px-4 py-4 text-muted-foreground">
+                                            <td className="px-5 py-3 text-sm text-[#475569]">{p.college}</td>
+                                            <td className="px-5 py-3 font-semibold text-[#1e293b]">{p.program_name}</td>
+                                            <td className="px-5 py-3 text-sm text-[#64748b]">
                                                 {p.major || <span className="opacity-50">-</span>}
                                             </td>
-                                            <td className="px-4 py-4 text-center text-muted-foreground">{p.level}</td>
-                                            <td className="px-4 py-4">
-                                                <div className="flex justify-center gap-1.5">
+                                            <td className="px-5 py-3 text-center text-sm text-[#64748b]">{p.level}</td>
+                                            <td className="px-5 py-3">
+                                                <div className="flex justify-center gap-1">
                                                     <button
                                                         type="button"
                                                         title="Edit"
@@ -163,7 +188,7 @@ export default function Index({ programs, filters = {} }) {
                                                             e.stopPropagation();
                                                             openEdit(p);
                                                         }}
-                                                        className="rounded-md bg-muted p-2 text-muted-foreground transition hover:bg-accent hover:text-foreground"
+                                                        className="rounded-md bg-[#f1f5f9] p-2 text-[#475569] transition hover:bg-[#fef3c7] hover:text-[#d97706]"
                                                     >
                                                         <Pencil className="size-3.5" />
                                                     </button>
@@ -174,7 +199,7 @@ export default function Index({ programs, filters = {} }) {
                                                             e.stopPropagation();
                                                             setDeleting(p);
                                                         }}
-                                                        className="rounded-md bg-muted p-2 text-muted-foreground transition hover:bg-accent hover:text-foreground"
+                                                        className="rounded-md bg-[#f1f5f9] p-2 text-[#475569] transition hover:bg-[#fee2e2] hover:text-[#ef4444]"
                                                     >
                                                         <Trash2 className="size-3.5" />
                                                     </button>
@@ -313,8 +338,8 @@ export default function Index({ programs, filters = {} }) {
 
             <Modal open={!!deleting} onClose={() => setDeleting(null)} size="max-w-sm">
                 <div className="p-6 text-center">
-                    <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-muted">
-                        <TriangleAlert className="size-7 text-foreground" />
+                    <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#fee2e2]">
+                        <TriangleAlert className="size-7 text-[#ef4444]" />
                     </div>
                     <h3 className="text-lg font-semibold">Delete Program?</h3>
                     <p className="mt-2 mb-6 text-sm text-muted-foreground">

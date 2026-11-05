@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookLibraryController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramProspectusController;
 use App\Models\AssessmentReport;
@@ -54,7 +54,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // LibColla Entities CRUD Routes
     Route::resource('programs', ProgramController::class)->except(['create', 'show', 'edit']);
-    Route::resource('books', BookController::class);
+
+    // Program Library and the book records of each program
+    Route::get('books', [BookLibraryController::class, 'index'])->name('books.index');
+    Route::get('books/program/{program}', [BookLibraryController::class, 'program'])->name('books.program');
+    Route::post('books', [BookLibraryController::class, 'store'])->name('books.store');
+    Route::put('books/{book}', [BookLibraryController::class, 'update'])->name('books.update');
+    Route::delete('books/{book}', [BookLibraryController::class, 'destroy'])->name('books.destroy');
 });
 
 require __DIR__.'/settings.php';
