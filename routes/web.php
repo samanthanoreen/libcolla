@@ -60,6 +60,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('books', [BookLibraryController::class, 'store'])->name('books.store');
     Route::put('books/{book}', [BookLibraryController::class, 'update'])->name('books.update');
     Route::delete('books/{book}', [BookLibraryController::class, 'destroy'])->name('books.destroy');
+
+    // User Management Routes
+    Route::get('/users/manage', [UserController::class, 'index'])->name('users.manage');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    
 });
 
 require __DIR__.'/settings.php';
