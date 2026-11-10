@@ -65,7 +65,7 @@ const NAV: NavEntry[] = [
         type: 'group',
         label: 'USERS',
         Icon: Users,
-        children: [{ label: 'Manage Users' }],
+        children: [{ label: 'Manage Users', href: '/users' }],
     },
 ];
 
@@ -121,6 +121,11 @@ const PAGES: {
         trail: [{ label: 'Collection Assessment', href: '/reports/generate' }],
     },
     { match: 'settings', title: 'Settings', trail: [] },
+    {
+        match: 'Users',
+        title: 'Manage Users',
+        trail: [{ label: 'Users', href: '/users' }],
+    },
 ];
 
 function readCollapsed() {
