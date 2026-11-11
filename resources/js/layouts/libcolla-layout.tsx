@@ -333,11 +333,20 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                     </ul>
                 </nav>
 
-                <div className="flex items-center justify-center border-t border-white/10 p-7">
+                <div className="flex items-center justify-between border-t border-white/10 px-5 py-4">
+                    <button
+                        type="button"
+                        onClick={logout}
+                        className="flex items-center gap-3 rounded-2xl px-3 py-2 text-white/80 transition hover:bg-white/10 hover:text-white"
+                        title="Logout"
+                    >
+                        <LogOut className="size-5 text-rose-300 shrink-0" />
+                        {!collapsed && <span className="text-sm font-medium">Logout</span>}
+                    </button>
                     <button
                         type="button"
                         onClick={toggleCollapse}
-                        className="hidden size-12 items-center justify-center rounded-2xl text-white/70 transition hover:bg-white/10 hover:text-white lg:flex"
+                        className="hidden size-10 items-center justify-center rounded-2xl text-white/70 transition hover:bg-white/10 hover:text-white lg:flex"
                     >
                         <ChevronLeft
                             className={`size-5 transition ${collapsed ? 'rotate-180' : ''}`}

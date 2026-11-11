@@ -11,10 +11,22 @@ use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
 use App\Models\Prospectus;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Main')->name('home');
 Route::inertia('/main', 'Main')->name('main');
+
+// Support GET /logout directly (for browser navigation or simple links)
+Route::get('/logout', function (Request $request) {
+    Auth::guard('web')->logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/login')->with('status', 'You have been logged out successfully.');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dynamic Dashboard Route
