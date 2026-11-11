@@ -15,6 +15,7 @@ import {
     User,
     Users,
     Wrench,
+    X,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
@@ -194,8 +195,26 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
         }
     };
 
+    const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+    const [loggingOut, setLoggingOut] = useState(false);
+
     const logout = () => {
-        if (confirm('Are you sure you want to logout?')) router.post('/logout');
+        setUserMenuOpen(false);
+        setShowLogoutConfirm(true);
+    };
+
+    const handleConfirmLogout = () => {
+        setLoggingOut(true);
+        router.post(
+            '/logout',
+            {},
+            {
+                onFinish: () => {
+                    setLoggingOut(false);
+                    setShowLogoutConfirm(false);
+                },
+            },
+        );
     };
 
     const itemBase =
@@ -513,6 +532,65 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                     {children}
                 </main>
             </div>
+
+            {/* Floating Logout Confirmation Notification */}
+            {showLogoutConfirm && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+                    onClick={() => !loggingOut && setShowLogoutConfirm(false)}
+                >
+                    <div
+                        className="w-full max-w-sm rounded-3xl bg-[#1e0a0e] border border-white/20 p-6 shadow-2xl shadow-black/80 text-white animate-in zoom-in-95 duration-200 relative overflow-hidden"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Ambient top light */}
+                        <div className="absolute -top-12 -left-12 w-32 h-32 bg-[#c8102e]/30 rounded-full blur-2xl pointer-events-none" />
+
+                        {/* Close button */}
+                        <button
+                            type="button"
+                            onClick={() => setShowLogoutConfirm(false)}
+                            disabled={loggingOut}
+                            className="absolute right-4 top-4 text-white/50 hover:text-white transition-colors cursor-pointer"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+
+                        <div className="flex items-start gap-4">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#9f1239] to-[#c8102e] flex items-center justify-center shrink-0 shadow-lg shadow-rose-950/60">
+                                <LogOut className="w-6 h-6 text-white" />
+                            </div>
+                            <div className="space-y-1 pr-4">
+                                <h3 className="text-lg font-bold text-white tracking-tight">
+                                    Log Out of LibColla?
+                                </h3>
+                                <p className="text-sm text-white/70 leading-relaxed">
+                                    Are you sure you want to log out? You will need to sign back in to access the system.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center justify-end gap-3 pt-5 border-t border-white/10 mt-5">
+                            <button
+                                type="button"
+                                onClick={() => setShowLogoutConfirm(false)}
+                                disabled={loggingOut}
+                                className="px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleConfirmLogout}
+                                disabled={loggingOut}
+                                className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#9f1239] to-[#c8102e] text-white shadow-lg shadow-rose-950/50 hover:opacity-95 transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50"
+                            >
+                                {loggingOut ? 'Logging out...' : 'Yes, Log Out'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
