@@ -60,7 +60,7 @@ const NAV: NavEntry[] = [
         type: 'group',
         label: 'SUPPORT',
         Icon: Headset,
-        children: [{ label: 'Contact Form' }],
+        children: [{ label: 'Contact Form', href: '/support/contact' }],
     },
     {
         type: 'group',
@@ -126,6 +126,11 @@ const PAGES: {
         match: 'Users',
         title: 'Manage Users',
         trail: [{ label: 'Users', href: '/users' }],
+    },
+    {
+        match: 'Support',
+        title: 'Support',
+        trail: [{ label: 'Support', href: '/support/contact' }],
     },
 ];
 
@@ -401,12 +406,13 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <button
-                            type="button"
+                        <Link
+                            href="/support/contact?tab=inbox"
+                            title="Message Inbox"
                             className="flex size-10 items-center justify-center rounded-2xl text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                         >
                             <Bell className="size-5" />
-                        </button>
+                        </Link>
 
                         <div className="relative">
                             <div

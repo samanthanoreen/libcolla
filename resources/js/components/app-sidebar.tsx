@@ -67,7 +67,12 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Support',
         icon: HelpCircle,
-        items: [],
+        items: [
+            {
+                title: 'Contact Form',
+                href: '/support/contact',
+            },
+        ],
     },
     {
         title: 'Users',
