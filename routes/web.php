@@ -13,7 +13,8 @@ use App\Models\Program;
 use App\Models\Prospectus;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'welcome')->name('home');
+Route::inertia('/', 'Main')->name('home');
+Route::inertia('/main', 'Main')->name('main');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dynamic Dashboard Route
