@@ -1,0 +1,121 @@
+/* ============================================
+   RETRACTABLE SIDEBAR - COMPLETE
+   ============================================ */
+
+/* Desktop Hamburger Button */
+.toggle-sidebar-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: background 0.15s;
+    display: none;
+}
+
+.toggle-sidebar-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* DESKTOP (1024px and above) */
+@media (min-width: 1024px) {
+    /* Show desktop toggle button, hide mobile button */
+    .toggle-sidebar-btn {
+        display: inline-flex !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    /* Sidebar transition */
+    .sidebar {
+        width: 292px;
+        transition: width 0.2s ease-in-out;
+        transform: translateX(0) !important;
+    }
+    
+    /* When collapsed - shrink to icon width */
+    body.sidebar-collapsed .sidebar {
+        width: 96px;
+    }
+    
+    /* Hide text when collapsed */
+    body.sidebar-collapsed .sidebar .university-name,
+    body.sidebar-collapsed .sidebar .university-motto,
+    body.sidebar-collapsed .sidebar .menu-item span,
+    body.sidebar-collapsed .sidebar .dropdown-content,
+    body.sidebar-collapsed .sidebar .menu-item-dropdown i:last-child,
+    body.sidebar-collapsed .sidebar .sidebar-footer span {
+        display: none !important;
+    }
+    
+    /* Center icons when collapsed */
+    body.sidebar-collapsed .sidebar .menu-item {
+        justify-content: center !important;
+        padding: 12px !important;
+    }
+    
+    body.sidebar-collapsed .sidebar .menu-item i {
+        margin: 0 !important;
+        font-size: 1.2rem !important;
+    }
+    
+    body.sidebar-collapsed .sidebar .sidebar-header {
+        justify-content: center !important;
+        padding: 20px 0 !important;
+    }
+    
+    body.sidebar-collapsed .sidebar .sidebar-logo,
+    body.sidebar-collapsed .sidebar .sidebar-crest {
+        margin: 0 auto !important;
+    }
+    
+    body.sidebar-collapsed .sidebar .sidebar-footer {
+        text-align: center !important;
+        padding: 20px 0 !important;
+    }
+    
+    /* Chevron rotation */
+    .sidebar-collapse-btn i {
+        transition: transform 0.2s ease;
+    }
+    
+    body.sidebar-collapsed .sidebar-collapse-btn i {
+        transform: rotate(180deg);
+    }
+    
+    /* Main content shifts when sidebar collapses */
+    #main-content {
+        left: 292px !important;
+        width: auto !important;
+        transition: left 0.2s ease-in-out;
+    }
+    
+    body.sidebar-collapsed #main-content {
+        left: 96px !important;
+    }
+}
+
+/* MOBILE (below 1024px) */
+@media (max-width: 1023px) {
+    /* Show mobile button, hide desktop toggle button */
+    .toggle-sidebar-btn {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: inline-flex !important;
+    }
+    
+    /* Reset any collapsed state on mobile */
+    body.sidebar-collapsed .sidebar {
+        width: 292px !important;
+    }
+    
+    body.sidebar-collapsed #main-content {
+        left: 0 !important;
+    }
+}

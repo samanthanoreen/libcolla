@@ -23,7 +23,7 @@ import {
 import { libcollaTheme } from '@/lib/libcollaTheme';
 
 const th =
-    'px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#64748b] uppercase border-b border-[#e2e8f0]';
+    'px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#9299A5] uppercase border-b border-[#E2E5E9]';
 
 // A table cell that looks like plain text and edits in place, committing on blur / Enter.
 function EditableCell({
@@ -44,7 +44,7 @@ function EditableCell({
                     onCommit({ book, field, original, value, input: e.target });
             }}
             onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
-            className={`min-w-10 rounded border border-dashed border-transparent bg-transparent px-1.5 py-1 outline-none hover:cursor-text hover:border-[#cbd5e1] hover:bg-white focus:border-[#9f1239] focus:bg-white focus:ring-2 focus:ring-[#9f1239]/10 ${
+            className={`min-w-10 rounded border border-dashed border-transparent bg-transparent px-1.5 py-1 outline-none hover:cursor-text hover:border-[#cbd5e1] hover:bg-white focus:border-[#701F35] focus:bg-white focus:ring-2 focus:ring-[#701F35]/10 ${
                 align === 'center' ? 'text-center' : ''
             } ${className}`}
         />
@@ -199,10 +199,10 @@ export default function Program({ program, subjects = [], books = [] }) {
             </Link>
 
             {/* Program info */}
-            <div className="overflow-hidden rounded-[10px] border border-[#eef2f6] bg-white shadow-sm">
-                <div className="border-b border-[#eef2f6] bg-[#fafbfc] px-4 py-2.5">
-                    <h2 className="flex items-center text-[0.85rem] font-bold tracking-wider text-[#1e293b] uppercase">
-                        <FolderOpen className="mr-2 size-4 text-[#9f1239]" />{' '}
+            <div className="overflow-hidden rounded-[10px] border border-[#E2E5E9] bg-white shadow-sm">
+                <div className="border-b border-[#E2E5E9] bg-[#F4F5F7] px-4 py-2.5">
+                    <h2 className="flex items-center text-[0.85rem] font-bold tracking-wider text-[#343A40] uppercase">
+                        <FolderOpen className="mr-2 size-4 text-[#701F35]" />{' '}
                         Academic Program Details
                     </h2>
                 </div>
@@ -213,7 +213,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 (h, i) => (
                                     <th
                                         key={h}
-                                        className={`border-b border-[#eef2f6] bg-[#f8fafc] px-4 py-2 text-[0.65rem] font-bold text-[#64748b] uppercase ${i === 2 ? 'text-center' : 'text-left'}`}
+                                        className={`border-b border-[#E2E5E9] bg-[#F4F5F7] px-4 py-2 text-[0.65rem] font-bold text-[#9299A5] uppercase ${i === 2 ? 'text-center' : 'text-left'}`}
                                     >
                                         {h}
                                     </th>
@@ -246,7 +246,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                     <select
                         value={subjectId}
                         onChange={(e) => setSubjectId(e.target.value)}
-                        className="w-full rounded-lg border border-[#e2e8f0] bg-white px-3 py-2 text-[0.8rem] text-[#1e293b] outline-none focus:border-[#9f1239] focus:ring-2 focus:ring-[#9f1239]/10"
+                        className="w-full rounded-lg border border-[#E2E5E9] bg-white px-3 py-2 text-[0.8rem] text-[#343A40] outline-none focus:border-[#701F35] focus:ring-2 focus:ring-[#701F35]/10"
                     >
                         {subjects.length === 0 && (
                             <option value="">No subjects yet</option>
@@ -262,15 +262,15 @@ export default function Program({ program, subjects = [], books = [] }) {
                     type="button"
                     onClick={openAdd}
                     disabled={subjects.length === 0}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-[#9f1239] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#7e0f2e] disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-[#701F35] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#4D1425] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                     <Plus className="size-3.5" /> Add Record
                 </button>
             </div>
 
             {/* Books of the selected subject */}
-            <div className="overflow-hidden rounded-[10px] border border-[#eef2f6] bg-white shadow-sm">
-                <div className="bg-[#9f1239] px-4 py-2">
+            <div className="overflow-hidden rounded-[10px] border border-[#E2E5E9] bg-white shadow-sm">
+                <div className="bg-[#701F35] px-4 py-2">
                     <h3 className="text-[0.8rem] font-semibold text-white">
                         Course Subject:{' '}
                         <span className="font-bold">
@@ -283,7 +283,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                 <div className="overflow-x-auto">
                     <table className="w-full min-w-[640px] border-collapse text-xs">
                         <thead>
-                            <tr className="bg-[#f8fafc]">
+                            <tr className="bg-[#F4F5F7]">
                                 <th className={th}>Call No</th>
                                 <th className={th}>Title of Book</th>
                                 <th className={th}>Author</th>
@@ -297,7 +297,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 <tr>
                                     <td
                                         colSpan={6}
-                                        className="p-8 text-center text-[#94a3b8]"
+                                        className="p-8 text-center text-[#9299A5]"
                                     >
                                         <FolderOpen className="mx-auto mb-2 size-8 opacity-50" />
                                         No books assigned to this subject
@@ -314,7 +314,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="call_no"
                                                 onCommit={setEdit}
-                                                className="w-28 font-mono text-[0.7rem] font-semibold text-[#64748b]"
+                                                className="w-28 font-mono text-[0.7rem] font-semibold text-[#9299A5]"
                                             />
                                         </td>
                                         <td className="px-3 py-2">
@@ -322,7 +322,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="title"
                                                 onCommit={setEdit}
-                                                className="w-full font-semibold text-[#1e293b]"
+                                                className="w-full font-semibold text-[#343A40]"
                                             />
                                         </td>
                                         <td className="px-3 py-2">
@@ -348,14 +348,14 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 field="copies"
                                                 onCommit={setEdit}
                                                 align="center"
-                                                className="w-16 bg-[#f1f5f9] text-[0.7rem] font-bold text-[#475569]"
+                                                className="w-16 bg-[#F4F5F7] text-[0.7rem] font-bold text-[#9299A5]"
                                             />
                                         </td>
                                         <td className="px-3 py-2 text-center">
                                             <button
                                                 type="button"
                                                 onClick={() => setDeleting(b)}
-                                                className="size-7 rounded-md bg-[#fee2e2] text-[#ef4444] transition hover:bg-[#fecaca] hover:text-[#dc2626]"
+                                                className="size-7 rounded-md bg-[#fee2e2] text-[#C44545] transition hover:bg-[#fecaca] hover:text-[#C44545]"
                                                 title="Delete"
                                             >
                                                 <Trash2 className="mx-auto size-3.5" />
@@ -386,11 +386,11 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 className="fixed inset-0 z-40"
                                 onClick={() => setMenuOpen(false)}
                             />
-                            <div className="absolute right-0 bottom-full z-50 mb-2 w-52 overflow-hidden rounded-lg border border-[#e2e8f0] bg-white shadow-lg">
+                            <div className="absolute right-0 bottom-full z-50 mb-2 w-52 overflow-hidden rounded-lg border border-[#E2E5E9] bg-white shadow-lg">
                                 <button
                                     type="button"
                                     onClick={downloadCsv}
-                                    className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-xs font-medium text-[#475569] hover:bg-[#f8fafc] hover:text-[#1e293b]"
+                                    className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-xs font-medium text-[#9299A5] hover:bg-[#F4F5F7] hover:text-[#343A40]"
                                 >
                                     <FileSpreadsheet className="size-4 text-[#059669]" />{' '}
                                     Download as CSV
@@ -512,7 +512,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             </Field>
                         </div>
                     </div>
-                    <div className="flex justify-end gap-3 border-t border-[#e2e8f0] px-6 py-4">
+                    <div className="flex justify-end gap-3 border-t border-[#E2E5E9] px-6 py-4">
                         <button
                             type="button"
                             onClick={closeAdd}
@@ -534,11 +534,11 @@ export default function Program({ program, subjects = [], books = [] }) {
                 size="max-w-[380px]"
             >
                 <div className="p-6 text-center">
-                    <CircleCheck className="mx-auto mb-3 size-10 text-[#10b981]" />
+                    <CircleCheck className="mx-auto mb-3 size-10 text-[#21865A]" />
                     <h3 className="mb-2 text-lg font-semibold">
                         Confirm Addition
                     </h3>
-                    <p className="mb-5 text-sm text-[#64748b]">
+                    <p className="mb-5 text-sm text-[#9299A5]">
                         Are you sure you want to add this book to the selected
                         subject?
                     </p>
@@ -554,7 +554,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             type="button"
                             disabled={form.processing}
                             onClick={executeAdd}
-                            className="inline-flex items-center justify-center rounded-lg bg-[#10b981] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:bg-[#059669] disabled:cursor-wait disabled:opacity-60"
+                            className="inline-flex items-center justify-center rounded-lg bg-[#21865A] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:bg-[#059669] disabled:cursor-wait disabled:opacity-60"
                         >
                             {form.processing ? 'SAVING...' : 'CONFIRM'}
                         </button>
@@ -565,14 +565,14 @@ export default function Program({ program, subjects = [], books = [] }) {
             {/* Confirm inline edit */}
             <Modal open={!!edit} onClose={cancelEdit} size="max-w-[380px]">
                 <div className="p-6 text-center">
-                    <SquarePen className="mx-auto mb-3 size-9 text-[#9f1239]" />
+                    <SquarePen className="mx-auto mb-3 size-9 text-[#701F35]" />
                     <h3 className="mb-2 text-lg font-semibold">
                         Save Changes?
                     </h3>
-                    <p className="mb-4 text-sm text-[#64748b]">
+                    <p className="mb-4 text-sm text-[#9299A5]">
                         Do you want to permanently save this edit?
                     </p>
-                    <div className="mb-5 space-y-2 rounded-lg bg-[#f8fafc] p-3 text-left text-sm">
+                    <div className="mb-5 space-y-2 rounded-lg bg-[#F4F5F7] p-3 text-left text-sm">
                         <div>
                             <strong>Original:</strong>{' '}
                             {edit?.original === '' ? '(Empty)' : edit?.original}
@@ -583,7 +583,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                         </div>
                     </div>
                     {editError && (
-                        <p className="mb-4 text-xs text-[#dc2626]">
+                        <p className="mb-4 text-xs text-[#C44545]">
                             {editError}
                         </p>
                     )}
@@ -615,13 +615,13 @@ export default function Program({ program, subjects = [], books = [] }) {
             >
                 <div className="p-6 text-center">
                     <div className="mx-auto mb-3 flex size-14 items-center justify-center rounded-full bg-[#fee2e2]">
-                        <Trash2 className="size-6 text-[#ef4444]" />
+                        <Trash2 className="size-6 text-[#C44545]" />
                     </div>
                     <h3 className="mb-2 text-lg font-semibold">Delete Book?</h3>
-                    <p className="mb-3 text-sm text-[#64748b]">
+                    <p className="mb-3 text-sm text-[#9299A5]">
                         Are you sure you want to permanently delete this book?
                     </p>
-                    <div className="mb-5 rounded-lg bg-[#fef2f2] p-3 text-sm font-semibold text-[#1e293b]">
+                    <div className="mb-5 rounded-lg bg-[#fef2f2] p-3 text-sm font-semibold text-[#343A40]">
                         {deleting?.title}
                     </div>
                     <div className="flex justify-center gap-3">
@@ -636,7 +636,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             type="button"
                             disabled={deleteBusy}
                             onClick={executeDelete}
-                            className="inline-flex items-center justify-center rounded-lg bg-[#dc2626] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:bg-[#b91c1c] disabled:cursor-wait disabled:opacity-60"
+                            className="inline-flex items-center justify-center rounded-lg bg-[#C44545] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:bg-[#a73535] disabled:cursor-wait disabled:opacity-60"
                         >
                             {deleteBusy ? 'DELETING...' : 'DELETE'}
                         </button>

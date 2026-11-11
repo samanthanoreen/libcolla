@@ -1,318 +1,335 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import {
-    BookOpen,
     Book,
-    BarChart3,
     TrendingUp,
     Users,
     ArrowRight,
+    Menu,
+    X,
     CheckCircle2,
-    ShieldCheck,
-    FileSpreadsheet,
-    GraduationCap,
-    Sparkles,
-    Layers,
-    SearchCheck,
     CalendarCheck,
+    FileSpreadsheet,
+    ShieldCheck,
+    SearchCheck,
+    Layers,
+    GraduationCap,
 } from 'lucide-react';
 
 export default function Main() {
     const { auth } = usePage().props;
     const user = auth?.user;
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-[#2c0f14] via-[#1a0b0e] to-[#120508] text-[#f5e8e8] font-sans selection:bg-[#c8102e] selection:text-white">
+        <div className="min-h-screen bg-gradient-to-br from-[#701F35] to-[#4D1425] text-[#F5E9ED] font-sans selection:bg-[#701F35] selection:text-white">
             <Head>
                 <title>LibColla • Library Collection Assessment System</title>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,500&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap"
                     rel="stylesheet"
                 />
             </Head>
 
-            {/* Custom Inline Keyframes and Font Utility */}
+            {/* Exact Styles from zip file (css/main.css & inc/public_top.php) */}
             <style>{`
-                .logo-font {
-                    font-family: 'Playfair Display', Georgia, serif;
+                .site-navbar {
+                    background: #701F35 !important;
                 }
-                .glow {
-                    text-shadow: 0 0 45px rgba(200, 16, 46, 0.65);
+                .site-footer {
+                    background: #701F35 !important;
                 }
-                .glass-card {
-                    background: rgba(255, 255, 255, 0.05);
+                .uni-title {
+                    font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
+                    font-weight: 700 !important;
+                    font-size: 1.5rem !important;
+                    letter-spacing: 0.015em !important;
+                    color: #ffffff !important;
+                    line-height: 1.25 !important;
+                }
+                .uni-tagline {
+                    font-family: 'Cormorant Garamond', Georgia, serif !important;
+                    font-style: italic !important;
+                    font-weight: 600 !important;
+                    font-size: 1.05rem !important;
+                    letter-spacing: 0.02em !important;
+                    color: #ffd7ba !important;
+                    margin-top: 2px !important;
+                }
+                .hero-bg {
+                    background: linear-gradient(135deg, #701F35 0%, #4D1425 100%);
+                }
+                .glass {
+                    background: rgba(255, 255, 255, 0.06);
                     backdrop-filter: blur(20px);
                     -webkit-backdrop-filter: blur(20px);
                     border: 1px solid rgba(255, 255, 255, 0.1);
                 }
                 .maroon-btn {
-                    background: linear-gradient(90deg, #9f1239, #c8102e);
-                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    background: #701F35;
+                    text-transform: uppercase;
+                    letter-spacing: 0.04em;
+                    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
                 }
                 .maroon-btn:hover {
+                    background: #4D1425;
+                    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.35);
                     transform: translateY(-2px);
-                    box-shadow: 0 18px 30px -6px rgba(159, 18, 57, 0.55);
                 }
                 .nav-link {
                     position: relative;
-                    transition: color 0.3s ease;
+                    transition: all 0.3s ease;
                 }
                 .nav-link::after {
                     content: '';
                     position: absolute;
-                    width: 0%;
+                    width: 0;
                     height: 2px;
                     bottom: -4px;
                     left: 0;
-                    background-color: #c8102e;
+                    background-color: #d4a017;
                     transition: width 0.3s ease;
                 }
                 .nav-link:hover::after {
                     width: 100%;
                 }
-                .hero-visual:hover .hover-rotate {
-                    transform: rotate(12deg) scale(1.08);
+                .glow {
+                    text-shadow: 0 0 40px rgba(200, 16, 46, 0.6);
+                }
+                .book-icon {
+                    transition: transform 0.6s ease;
+                }
+                .hero-card:hover .book-icon {
+                    transform: rotate(12deg) scale(1.1);
                 }
             `}</style>
 
-            {/* Top Navigation Bar */}
-            <header className="sticky top-0 z-50 bg-[#1a0b0e]/85 backdrop-blur-xl border-b border-white/10 transition-colors">
-                <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4.5 flex items-center justify-between">
-                    {/* Brand Logo */}
-                    <Link href="/" className="flex items-center gap-3 group">
-                        <div className="w-11 h-11 bg-gradient-to-br from-[#9f1239] to-[#c8102e] rounded-2xl flex items-center justify-center shadow-lg shadow-rose-950/50 group-hover:scale-105 transition-transform duration-300">
-                            <BookOpen className="w-6 h-6 text-white" />
+            {/* Official USeP Navbar (Matches inc/public_top.php) */}
+            <nav className="site-navbar sticky top-0 z-50 shadow-md">
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 py-5 flex items-center justify-between flex-wrap gap-4">
+                    {/* Institutional Header Brand */}
+                    <Link href="/" className="flex items-center gap-4 group">
+                        <img
+                            src="/images/usep-logo.png"
+                            alt="University of Southeastern Philippines"
+                            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-contain shrink-0 shadow-md group-hover:scale-105 transition-transform"
+                        />
+                        <div className="leading-tight">
+                            <div className="uni-title text-lg sm:text-2xl">
+                                University of Southeastern Philippines
+                            </div>
+                            <div className="uni-tagline">
+                                We Build Dreams Without Limits
+                            </div>
                         </div>
-                        <span className="logo-font text-3xl font-bold tracking-tight text-white group-hover:text-rose-200 transition-colors">
-                            LibColla
-                        </span>
                     </Link>
 
                     {/* Desktop Navigation Links */}
-                    <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-                        <a href="#features" className="nav-link text-white/80 hover:text-white">
+                    <div className="hidden md:flex items-center gap-8 text-sm font-semibold uppercase tracking-wider">
+                        <a href="#features" className="nav-link text-white/90 hover:text-white">
                             Features
                         </a>
-                        <a href="#how-it-works" className="nav-link text-white/80 hover:text-white">
+                        <a href="#how-it-works" className="nav-link text-white/90 hover:text-white">
                             How It Works
                         </a>
-                        <a href="#benefits" className="nav-link text-white/80 hover:text-white">
+                        <a href="#benefits" className="nav-link text-white/90 hover:text-white">
                             Benefits
                         </a>
-                    </nav>
-
-                    {/* Auth Status Action */}
-                    <div className="flex items-center gap-3">
                         {user ? (
                             <Link
                                 href="/dashboard"
-                                className="maroon-btn text-white px-7 py-3 rounded-2xl text-sm font-semibold flex items-center gap-2 shadow-lg shadow-rose-950/40"
+                                className="nav-link text-[#ffd7ba] hover:text-white flex items-center gap-1.5"
                             >
-                                <span>Go to Dashboard</span>
+                                <span>Dashboard</span>
                                 <ArrowRight className="w-4 h-4" />
                             </Link>
                         ) : (
                             <Link
                                 href="/login"
-                                className="maroon-btn text-white px-7 py-3 rounded-2xl text-sm font-semibold flex items-center gap-2 shadow-lg shadow-rose-950/40"
+                                className="maroon-btn text-white px-6 py-2.5 rounded-2xl text-xs font-bold tracking-wider shadow-md flex items-center gap-2"
                             >
-                                <span>Login</span>
-                                <ArrowRight className="w-4 h-4" />
+                                <span>Sign In</span>
+                                <ArrowRight className="w-3.5 h-3.5" />
                             </Link>
                         )}
                     </div>
+
+                    {/* Mobile Menu Toggle Button */}
+                    <button
+                        type="button"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="md:hidden w-11 h-11 flex items-center justify-center text-white text-xl rounded-xl hover:bg-white/10 transition-colors"
+                        aria-label="Toggle Navigation"
+                    >
+                        {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
                 </div>
-            </header>
 
-            {/* Hero Section */}
-            <section className="relative pt-16 pb-24 md:pt-24 md:pb-32 overflow-hidden">
-                {/* Background Ambient Glows */}
-                <div className="absolute top-10 left-1/4 -translate-x-1/2 w-96 h-96 bg-[#c8102e]/15 rounded-full blur-3xl pointer-events-none" />
-                <div className="absolute bottom-10 right-10 w-[30rem] h-[30rem] bg-[#9f1239]/10 rounded-full blur-3xl pointer-events-none" />
+                {/* Mobile Menu Panel */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden flex flex-col gap-1 px-8 pb-6 text-sm font-semibold uppercase tracking-wider bg-[#7a0f20] border-t border-white/10">
+                        <a
+                            href="#features"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block py-3 text-white/90 hover:text-white border-b border-white/10"
+                        >
+                            Features
+                        </a>
+                        <a
+                            href="#how-it-works"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block py-3 text-white/90 hover:text-white border-b border-white/10"
+                        >
+                            How It Works
+                        </a>
+                        <a
+                            href="#benefits"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block py-3 text-white/90 hover:text-white border-b border-white/10"
+                        >
+                            Benefits
+                        </a>
+                        {user ? (
+                            <Link
+                                href="/dashboard"
+                                className="block py-3 text-[#ffd7ba] font-bold"
+                            >
+                                Go to Dashboard →
+                            </Link>
+                        ) : (
+                            <Link
+                                href="/login"
+                                className="block py-3 text-[#ffd7ba] font-bold"
+                            >
+                                Sign In →
+                            </Link>
+                        )}
+                    </div>
+                )}
+            </nav>
 
-                <div className="max-w-7xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
-                    {/* Left Column Content */}
+            {/* Hero Section (Matches 1lib/main.php) */}
+            <section className="hero-bg pt-20 pb-24 md:pt-28 md:pb-32 relative overflow-hidden">
+                <div className="max-w-7xl mx-auto px-6 sm:px-8 grid md:grid-cols-2 gap-12 items-center">
+                    {/* Left Content */}
                     <div className="space-y-8">
-                        {/* Eyebrow Badge */}
-                        <div className="inline-flex items-center gap-2.5 bg-white/10 border border-white/20 px-5 py-2.5 rounded-full text-xs font-semibold tracking-wider text-white uppercase shadow-sm">
-                            <BarChart3 className="w-4 h-4 text-[#ffd7ba]" />
-                            <span>COLLECTION ASSESSMENT</span>
-                        </div>
-
-                        {/* Title */}
-                        <h1 className="logo-font text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.08] tracking-tight glow text-white">
-                            LibColla<br />
+                        <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold leading-none tracking-tighter glow font-['Playfair_Display',Georgia,serif]">
+                            LibColla:<br />
                             <span className="text-[#ffd7ba]">Library Collection</span><br />
                             Assessment System
                         </h1>
 
-                        {/* Description */}
-                        <p className="text-lg md:text-xl text-[#ffd7ba]/90 leading-relaxed max-w-xl">
+                        <p className="text-xl md:text-2xl text-[#ffd7ba] max-w-lg leading-relaxed">
                             Assess, track, and optimize your library resources against approved
                             prospectuses and course subjects. Generate accurate, data-driven
                             collection assessment reports for institutional decision-making and
                             compliance.
                         </p>
 
-                        {/* CTA Buttons */}
-                        <div className="flex flex-wrap items-center gap-4 pt-2">
-                            {user ? (
-                                <Link
-                                    href="/dashboard"
-                                    className="maroon-btn text-white px-9 py-4 rounded-3xl text-base font-semibold flex items-center gap-3 shadow-xl"
-                                >
-                                    <span>Open Dashboard</span>
-                                    <ArrowRight className="w-5 h-5" />
-                                </Link>
-                            ) : (
-                                <>
-                                    <Link
-                                        href="/login"
-                                        className="maroon-btn text-white px-9 py-4 rounded-3xl text-base font-semibold flex items-center gap-3 shadow-xl"
-                                    >
-                                        <span>Get Started</span>
-                                        <ArrowRight className="w-5 h-5" />
-                                    </Link>
-                                    <a
-                                        href="#features"
-                                        className="px-7 py-4 rounded-3xl text-base font-semibold text-white/80 hover:text-white border border-white/20 hover:border-white/40 bg-white/5 transition-all"
-                                    >
-                                        Explore Features
-                                    </a>
-                                </>
-                            )}
+                        <div className="flex flex-wrap gap-4">
+                            <Link
+                                href={user ? '/dashboard' : '/login'}
+                                className="maroon-btn text-white px-10 py-5 rounded-3xl text-lg font-semibold flex items-center gap-3 shadow-xl"
+                            >
+                                <span>{user ? 'Open Dashboard' : 'Get Started'}</span>
+                                <ArrowRight className="w-5 h-5" />
+                            </Link>
                         </div>
                     </div>
 
-                    {/* Right Column Visual (Matches Reference Design) */}
-                    <div className="relative hero-visual">
-                        <div className="glass-card rounded-3xl p-4 sm:p-5 shadow-2xl relative z-10 transition-transform duration-500 hover:scale-[1.01]">
-                            <div className="bg-[#1a0b0e] rounded-2xl overflow-hidden border border-white/10 shadow-inner">
-                                {/* Window Control Bar */}
-                                <div className="bg-[#2c0f14] px-6 py-3.5 flex items-center justify-between border-b border-white/5">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-3 h-3 bg-red-500 rounded-full shadow-sm" />
-                                        <div className="w-3 h-3 bg-yellow-500 rounded-full shadow-sm" />
-                                        <div className="w-3 h-3 bg-green-500 rounded-full shadow-sm" />
+                    {/* Right Visual (Matches 1lib/main.php) */}
+                    <div className="relative hero-card">
+                        <div className="glass rounded-3xl p-4 sm:p-5 shadow-2xl">
+                            <div className="bg-[#4D1425] rounded-3xl overflow-hidden border border-white/10">
+                                {/* Window Control Header Bar */}
+                                <div className="bg-[#340c18] px-6 py-3.5 flex items-center justify-between border-b border-white/5">
+                                    <div className="flex gap-2">
+                                        <div className="w-3 h-3 bg-red-500 rounded-full" />
+                                        <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+                                        <div className="w-3 h-3 bg-green-500 rounded-full" />
                                     </div>
-                                    <div className="text-white/60 text-xs font-medium tracking-wide">
-                                        LibColla Dashboard
+                                    <div className="text-white/60 text-xs font-semibold tracking-wider uppercase">
+                                        Collection Control
                                     </div>
-                                    <div className="w-10" />
+                                    <div className="w-8" />
                                 </div>
 
-                                {/* Preview Card Body */}
-                                <div className="p-8 sm:p-12 text-center space-y-6">
-                                    <div className="flex justify-center items-center gap-10 text-6xl sm:text-7xl text-[#c8102e] py-4">
-                                        <Book className="w-16 h-16 sm:w-20 sm:h-20 text-[#c8102e] hover-rotate transition-transform duration-500" />
+                                {/* Body Icons & Titles */}
+                                <div className="p-8 sm:p-12 text-center">
+                                    <div className="flex justify-center items-center gap-10 text-6xl sm:text-7xl mb-8 text-[#701F35]">
+                                        <Book className="w-16 h-16 sm:w-20 sm:h-20 book-icon text-[#701F35]" />
                                         <TrendingUp className="w-16 h-16 sm:w-20 sm:h-20 text-[#e11d48]" />
-                                        <Users className="w-16 h-16 sm:w-20 sm:h-20 text-[#9f1239]" />
+                                        <Users className="w-16 h-16 sm:w-20 sm:h-20 text-[#701F35]" />
                                     </div>
-
-                                    <div>
-                                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 tracking-tight">
-                                            Complete Collection Control
-                                        </h3>
-                                        <p className="text-base sm:text-lg text-[#ffd7ba] font-medium tracking-wide">
-                                            Assess • Track • Optimize • Report
-                                        </p>
-                                    </div>
-
-                                    {/* System Status Pill */}
-                                    <div className="inline-flex items-center gap-2 bg-[#2c0f14]/80 border border-white/10 px-5 py-2 rounded-full text-xs text-white/70">
-                                        <Sparkles className="w-3.5 h-3.5 text-[#ffd7ba]" />
-                                        <span>CHED & PACUCOA Alignment Ready</span>
-                                    </div>
+                                    <h3 className="text-2xl sm:text-3xl font-semibold mb-3 text-white">
+                                        Complete Collection Control
+                                    </h3>
+                                    <p className="text-lg text-[#ffd7ba] font-medium tracking-wide">
+                                        Assess • Track • Optimize • Report
+                                    </p>
                                 </div>
                             </div>
                         </div>
-
-                        {/* Decorative Floating Accent */}
-                        <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-[#9f1239] to-[#c8102e] rounded-3xl rotate-12 flex items-center justify-center opacity-75 shadow-2xl shadow-rose-950/70 pointer-events-none hover:rotate-6 transition-transform duration-500">
-                            <BookOpen className="w-12 h-12 text-white/90" />
-                        </div>
-
-                        {/* Bottom Glow Accent */}
-                        <div className="absolute -bottom-6 -left-6 w-20 h-20 bg-gradient-to-br from-[#c8102e] to-[#7f1d1d] rounded-2xl -rotate-6 opacity-40 blur-sm pointer-events-none" />
                     </div>
                 </div>
             </section>
 
-            {/* Features Section */}
+            {/* Features Section (Matches 1lib features.php) */}
             <section id="features" className="py-24 border-t border-white/10 relative">
                 <div className="max-w-7xl mx-auto px-6 sm:px-8">
-                    {/* Section Header */}
                     <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                        <div className="inline-flex items-center gap-2 bg-[#9f1239]/20 border border-[#c8102e]/30 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-rose-300 uppercase">
-                            <Layers className="w-3.5 h-3.5" />
+                        <div className="inline-flex items-center gap-2 bg-[#d4a017]/20 border border-[#d4a017]/40 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider text-[#ffd7ba] uppercase">
+                            <Layers className="w-3.5 h-3.5 text-[#d4a017]" />
                             <span>System Capabilities</span>
                         </div>
-                        <h2 className="logo-font text-4xl sm:text-5xl font-bold text-white tracking-tight">
-                            Designed Specifically for Institutional Libraries
+                        <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight font-['Playfair_Display',Georgia,serif]">
+                            Tailored for Institutional Libraries
                         </h2>
-                        <p className="text-[#ffd7ba]/80 text-lg leading-relaxed">
-                            Replace disconnected spreadsheets with a unified system that connects
-                            every title to academic course subjects and accreditation criteria.
+                        <p className="text-[#ffd7ba]/90 text-lg">
+                            Evaluate library holdings directly against approved curriculum prospectuses.
                         </p>
                     </div>
 
-                    {/* Features Grid */}
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Feature 1 */}
-                        <div className="glass-card p-7 rounded-2xl hover:border-[#c8102e]/50 hover:-translate-y-1 transition-all duration-300">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#9f1239] to-[#c8102e] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
+                        <div className="glass p-7 rounded-3xl hover:border-[#d4a017]/50 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#701F35] to-[#4D1425] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
                                 <SearchCheck className="w-6 h-6" />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2.5">
-                                Syllabus Alignment
-                            </h3>
+                            <h3 className="text-xl font-bold text-white mb-2">Syllabus Alignment</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Link book accessions directly to academic course codes and
-                                prospectus subjects to measure syllabus coverage.
+                                Link book accessions directly to academic course codes and prospectus subjects.
                             </p>
                         </div>
 
-                        {/* Feature 2 */}
-                        <div className="glass-card p-7 rounded-2xl hover:border-[#c8102e]/50 hover:-translate-y-1 transition-all duration-300">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#9f1239] to-[#c8102e] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
+                        <div className="glass p-7 rounded-3xl hover:border-[#d4a017]/50 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#701F35] to-[#4D1425] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
                                 <CalendarCheck className="w-6 h-6" />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2.5">
-                                Copyright Currency
-                            </h3>
+                            <h3 className="text-xl font-bold text-white mb-2">Copyright Currency</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Easily track 5-year copyright thresholds to ensure collection
-                                currency meets strict accreditation criteria.
+                                Track 5-year copyright thresholds to ensure collection currency meets accreditation criteria.
                             </p>
                         </div>
 
-                        {/* Feature 3 */}
-                        <div className="glass-card p-7 rounded-2xl hover:border-[#c8102e]/50 hover:-translate-y-1 transition-all duration-300">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#9f1239] to-[#c8102e] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
+                        <div className="glass p-7 rounded-3xl hover:border-[#d4a017]/50 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#701F35] to-[#4D1425] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
                                 <FileSpreadsheet className="w-6 h-6" />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2.5">
-                                One-Click Reporting
-                            </h3>
+                            <h3 className="text-xl font-bold text-white mb-2">Accreditation Reports</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Export official collection assessment reports with title counts,
-                                percentage compliance, and gap summaries instantly.
+                                Generate ready-to-print assessment reports with title counts and ratio compliance.
                             </p>
                         </div>
 
-                        {/* Feature 4 */}
-                        <div className="glass-card p-7 rounded-2xl hover:border-[#c8102e]/50 hover:-translate-y-1 transition-all duration-300">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#9f1239] to-[#c8102e] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
+                        <div className="glass p-7 rounded-3xl hover:border-[#d4a017]/50 hover:-translate-y-1 transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#701F35] to-[#4D1425] flex items-center justify-center text-white mb-5 shadow-lg shadow-rose-950/40">
                                 <ShieldCheck className="w-6 h-6" />
                             </div>
-                            <h3 className="text-xl font-bold text-white mb-2.5">
-                                Multi-Role Security
-                            </h3>
+                            <h3 className="text-xl font-bold text-white mb-2">Role Management</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Role-based access for Administrators, Head Librarians, and Library
-                                Staff with built-in audit trails and communication.
+                                Role-based access for Administrators, Chief Librarians, and Library Staff members.
                             </p>
                         </div>
                     </div>
@@ -320,63 +337,40 @@ export default function Main() {
             </section>
 
             {/* How It Works Section */}
-            <section id="how-it-works" className="py-24 bg-black/20 border-t border-white/10 relative">
+            <section id="how-it-works" className="py-24 bg-black/25 border-t border-white/10 relative">
                 <div className="max-w-7xl mx-auto px-6 sm:px-8">
-                    {/* Section Header */}
                     <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                        <div className="inline-flex items-center gap-2 bg-[#9f1239]/20 border border-[#c8102e]/30 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-rose-300 uppercase">
-                            <TrendingUp className="w-3.5 h-3.5" />
-                            <span>Structured Workflow</span>
+                        <div className="inline-flex items-center gap-2 bg-[#d4a017]/20 border border-[#d4a017]/40 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider text-[#ffd7ba] uppercase">
+                            <TrendingUp className="w-3.5 h-3.5 text-[#d4a017]" />
+                            <span>Workflow</span>
                         </div>
-                        <h2 className="logo-font text-4xl sm:text-5xl font-bold text-white tracking-tight">
-                            How LibColla Works
+                        <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight font-['Playfair_Display',Georgia,serif]">
+                            How It Works
                         </h2>
-                        <p className="text-[#ffd7ba]/80 text-lg leading-relaxed">
-                            A straightforward three-step assessment cycle that streamlines accreditation preparation.
-                        </p>
                     </div>
 
-                    {/* Step Cards */}
-                    <div className="grid md:grid-cols-3 gap-8 relative">
-                        {/* Step 1 */}
-                        <div className="glass-card p-8 rounded-3xl relative">
-                            <div className="text-5xl font-extrabold text-[#c8102e]/30 mb-4 font-mono">
-                                01
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-3">
-                                Setup Prospectuses
-                            </h3>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="glass p-8 rounded-3xl">
+                            <div className="text-5xl font-extrabold text-[#d4a017]/40 mb-4 font-mono">01</div>
+                            <h3 className="text-2xl font-bold text-white mb-3">Setup Prospectus</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Configure academic degree programs and course subjects according to
-                                the institution's approved curriculum prospectus.
+                                Configure academic degree programs and course subjects according to the curriculum prospectus.
                             </p>
                         </div>
 
-                        {/* Step 2 */}
-                        <div className="glass-card p-8 rounded-3xl relative">
-                            <div className="text-5xl font-extrabold text-[#c8102e]/30 mb-4 font-mono">
-                                02
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-3">
-                                Catalog Library Books
-                            </h3>
+                        <div className="glass p-8 rounded-3xl">
+                            <div className="text-5xl font-extrabold text-[#d4a017]/40 mb-4 font-mono">02</div>
+                            <h3 className="text-2xl font-bold text-white mb-3">Catalog Holdings</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Enter book records with call numbers, copyright years, accession codes,
-                                and assign them to corresponding course subjects.
+                                Enter book records with call numbers, copyright years, and assign them to course subjects.
                             </p>
                         </div>
 
-                        {/* Step 3 */}
-                        <div className="glass-card p-8 rounded-3xl relative">
-                            <div className="text-5xl font-extrabold text-[#c8102e]/30 mb-4 font-mono">
-                                03
-                            </div>
-                            <h3 className="text-2xl font-bold text-white mb-3">
-                                Generate Assessment
-                            </h3>
+                        <div className="glass p-8 rounded-3xl">
+                            <div className="text-5xl font-extrabold text-[#d4a017]/40 mb-4 font-mono">03</div>
+                            <h3 className="text-2xl font-bold text-white mb-3">Generate Matrix</h3>
                             <p className="text-white/70 text-sm leading-relaxed">
-                                Automatically calculate compliance metrics, spot deficit areas, and
-                                generate comprehensive reports for institutional decision-making.
+                                Automatically calculate compliance metrics and generate reports for institutional review.
                             </p>
                         </div>
                     </div>
@@ -386,64 +380,39 @@ export default function Main() {
             {/* Benefits Section */}
             <section id="benefits" className="py-24 border-t border-white/10 relative">
                 <div className="max-w-7xl mx-auto px-6 sm:px-8">
-                    <div className="glass-card rounded-3xl p-8 sm:p-14 border border-white/10 bg-gradient-to-br from-[#2c0f14]/80 to-[#1a0b0e]/90">
+                    <div className="glass rounded-3xl p-8 sm:p-14 border border-white/10 bg-gradient-to-br from-[#3a0712]/80 to-[#1f0a0f]/90">
                         <div className="grid lg:grid-cols-3 gap-10 items-center">
-                            <div className="lg:col-span-1 space-y-4">
-                                <div className="inline-flex items-center gap-2 bg-[#9f1239]/20 border border-[#c8102e]/30 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider text-rose-300 uppercase">
-                                    <GraduationCap className="w-3.5 h-3.5" />
-                                    <span>Institutional Impact</span>
+                            <div className="space-y-4">
+                                <div className="inline-flex items-center gap-2 bg-[#d4a017]/20 border border-[#d4a017]/40 px-4 py-1.5 rounded-full text-xs font-bold tracking-wider text-[#ffd7ba] uppercase">
+                                    <GraduationCap className="w-3.5 h-3.5 text-[#d4a017]" />
+                                    <span>Institutional Value</span>
                                 </div>
-                                <h2 className="logo-font text-3xl sm:text-4xl font-bold text-white">
-                                    Benefits Built for Academic Excellence
+                                <h2 className="text-3xl sm:text-4xl font-bold text-white font-['Playfair_Display',Georgia,serif]">
+                                    Why Institutions Rely on LibColla
                                 </h2>
                                 <p className="text-[#ffd7ba]/80 text-sm sm:text-base leading-relaxed">
-                                    Empower library administrators and academic deans with actionable
-                                    intelligence for collection development and budget justification.
+                                    Empower library administrators and academic deans with concrete, verifiable collection data.
                                 </p>
                             </div>
 
                             <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-2.5 text-white font-semibold">
-                                        <CheckCircle2 className="w-5 h-5 text-[#c8102e] shrink-0" />
+                                        <CheckCircle2 className="w-5 h-5 text-[#d4a017] shrink-0" />
                                         <span>Audit-Ready Records</span>
                                     </div>
                                     <p className="text-xs sm:text-sm text-white/70 pl-7.5">
-                                        Instant compliance calculations formatted for CHED, PACUCOA,
-                                        and PAASCU accreditation panels.
+                                        Instant compliance calculations formatted for CHED and PACUCOA accreditation panels.
                                     </p>
                                 </div>
 
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-2.5 text-white font-semibold">
-                                        <CheckCircle2 className="w-5 h-5 text-[#c8102e] shrink-0" />
+                                        <CheckCircle2 className="w-5 h-5 text-[#d4a017] shrink-0" />
                                         <span>Targeted Acquisitions</span>
                                     </div>
                                     <p className="text-xs sm:text-sm text-white/70 pl-7.5">
-                                        Direct your book budget precisely to subjects that need fresh
-                                        titles or recent copyright editions.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-2.5 text-white font-semibold">
-                                        <CheckCircle2 className="w-5 h-5 text-[#c8102e] shrink-0" />
-                                        <span>Time-Saving Automation</span>
-                                    </div>
-                                    <p className="text-xs sm:text-sm text-white/70 pl-7.5">
-                                        Eliminate days of manual inventory audits with continuous,
-                                        automated syllabus cross-referencing.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <div className="flex items-center gap-2.5 text-white font-semibold">
-                                        <CheckCircle2 className="w-5 h-5 text-[#c8102e] shrink-0" />
-                                        <span>Integrated Messaging</span>
-                                    </div>
-                                    <p className="text-xs sm:text-sm text-white/70 pl-7.5">
-                                        Built-in support and staff communication system for smooth
-                                        coordination across campus departments.
+                                        Direct your book budget precisely to subjects that need fresh titles.
                                     </p>
                                 </div>
                             </div>
@@ -452,37 +421,21 @@ export default function Main() {
                 </div>
             </section>
 
-            {/* Footer (Matches Reference Design) */}
-            <footer className="bg-black/50 border-t border-white/10 py-12">
-                <div className="max-w-7xl mx-auto px-6 sm:px-8 text-center space-y-5">
-                    {/* Brand Footer */}
-                    <div className="flex justify-center items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-[#9f1239] to-[#c8102e] rounded-2xl flex items-center justify-center shadow-md">
-                            <BookOpen className="w-5 h-5 text-white" />
-                        </div>
-                        <span className="logo-font text-3xl font-bold text-white tracking-tight">
-                            LibColla
-                        </span>
+            {/* Official USeP Footer (Matches inc/public_bottom.php) */}
+            <footer className="site-footer">
+                <div className="max-w-7xl mx-auto px-8 py-6 flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                        <img
+                            src="/images/usep-logo.png"
+                            alt="University of Southeastern Philippines"
+                            className="w-11 h-11 rounded-full object-contain"
+                        />
+                        <p className="text-white/85 text-sm">
+                            &copy; 2026 University of Southeastern Philippines. All Rights Reserved.
+                        </p>
                     </div>
-
-                    {/* Quick Links */}
-                    <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70 font-medium">
-                        <a href="#features" className="hover:text-white transition-colors">
-                            Features
-                        </a>
-                        <a href="#how-it-works" className="hover:text-white transition-colors">
-                            How It Works
-                        </a>
-                        <a href="#benefits" className="hover:text-white transition-colors">
-                            Benefits
-                        </a>
-                        <Link href="/login" className="hover:text-white transition-colors">
-                            Staff Login
-                        </Link>
-                    </div>
-
-                    <p className="text-white/50 text-xs sm:text-sm">
-                        © 2026 LibColla • Library Collection Assessment System. All rights reserved.
+                    <p className="text-white/60 text-xs uppercase tracking-wider font-medium">
+                        Library Collection Assessment System
                     </p>
                 </div>
             </footer>

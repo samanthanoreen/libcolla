@@ -151,7 +151,7 @@ export default function Contact({
             return <ImageIcon className="size-4 text-blue-500" />;
         }
         if (['xlsx', 'xls', 'csv'].includes(ext)) {
-            return <FileSpreadsheet className="size-4 text-emerald-600" />;
+            return <FileSpreadsheet className="size-4 text-[#21865A]" />;
         }
         return <FileText className="size-4 text-rose-500" />;
     };
@@ -182,20 +182,20 @@ export default function Contact({
         <div className="w-full max-w-4xl mx-auto space-y-6">
             <Head title="Support - Message Center" />
 
-            {/* Header Banner */}
-            <div className="flex justify-between items-center bg-slate-800 p-6 rounded-2xl text-white border border-white/10 shadow-sm">
+            {/* Header Banner (Matches 1lib Design System) */}
+            <div className="flex justify-between items-center bg-white/[0.06] backdrop-blur-xl p-8 rounded-3xl text-white border border-white/10 border-t-[3px] border-t-[#d4a017] shadow-lg">
                 <div>
-                    <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <span className="text-[#c8102e]">✉️</span> Message Center
+                    <h2 className="text-2xl font-bold flex items-center gap-3 font-['Source_Serif_4',Georgia,serif]">
+                        <span className="text-[#d4a017]">✉️</span> Message Center
                     </h2>
-                    <p className="text-white/70 mt-1 text-sm">
+                    <p className="text-white/70 mt-1.5 text-sm">
                         Send direct messages to library staff or view received messages
                     </p>
                 </div>
                 <div className="flex gap-2 text-right">
-                    <div className="bg-white/10 px-4 py-2 rounded-xl text-center">
-                        <div className="text-xs text-white/60">Unread</div>
-                        <div className="text-2xl font-bold text-[#fca5a5]">
+                    <div className="bg-white/10 px-5 py-2.5 rounded-2xl text-center border border-white/10">
+                        <div className="text-xs uppercase tracking-wider font-semibold text-white/60">Unread</div>
+                        <div className="text-2xl font-bold text-[#ffd7ba] font-['Source_Serif_4',Georgia,serif]">
                             {localUnread}
                         </div>
                     </div>

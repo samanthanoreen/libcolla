@@ -1,0 +1,40 @@
+/* Books Page Specific Styles */
+
+/* Search Form */
+.books-search-form {
+    background: var(--slate-50);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+/* Books Table */
+.books-table th,
+.books-table td {
+    padding: var(--space-md) var(--space-lg);
+}
+
+.books-table tbody tr {
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.books-table tbody tr:hover {
+    background-color: #fdf2f8;
+}
+
+.books-table .call-no {
+    font-family: monospace;
+    font-size: 0.8125rem;
+    color: var(--slate-500);
+}
+
+.books-table .copies-badge {
+    background: var(--slate-100);
+    padding: 4px 8px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+    min-width: 40px;
+}

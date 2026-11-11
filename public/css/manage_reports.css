@@ -1,0 +1,40 @@
+/* =========================================
+   Manage Reports Specific Styles
+   ========================================= */
+
+.report-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+}
+
+.report-action-btn.view {
+    background-color: #eff6ff; /* blue-50 */
+    color: #2563eb; /* blue-500 */
+}
+
+.report-action-btn.view:hover {
+    background-color: #dbeafe; /* blue-100 */
+}
+
+.report-action-btn.delete {
+    background-color: #fef2f2; /* red-50 */
+    color: #ef4444; /* red-500 */
+}
+
+.report-action-btn.delete:hover {
+    background-color: #fee2e2; /* red-100 */
+}
+
+.report-action-btn.download {
+    background-color: #f1f5f9; /* slate-100 */
+    color: #475569; /* slate-600 */
+}
+
+.report-action-btn.download:hover {
+    background-color: #e2e8f0; /* slate-200 */
+}

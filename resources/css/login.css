@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap');
+       
+* { font-family: 'Inter', system-ui, sans-serif; }
+
+/* Institutional mark hierarchy: logo (image) > university name > LibColla > tagline */
+.univ-name-font {
+    font-family: 'Cinzel', 'Source Serif 4', serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+}
+.logo-font {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+.tagline-font {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.welcome-font { font-family: 'Inter', system-ui, sans-serif; font-style: normal; font-weight: 700; }
+
+/* This page is standalone (not the app shell), so it should scroll normally
+   instead of inheriting the global html/body overflow:hidden used by the
+   internally-scrolling dashboard pages. */
+html, body {
+    overflow: auto !important;
+    height: auto !important;
+    min-height: 100%;
+}
+body {
+    background: linear-gradient(135deg, #701F35 0%, #4D1425 100%);
+    min-height: 100vh;
+}
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.maroon-btn {
+    background: var(--maroon, #701F35);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.maroon-btn:hover {
+    background: var(--maroon-dark, #4D1425);
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.25);
+}
+.input-field {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.input-field:focus {
+    box-shadow: 0 0 0 4px rgba(112, 31, 53, 0.35), 0 0 0 1px #d4a017;
+    border-color: #701F35;
+}
+select.input-field {
+background: #4D1425;
+color: #f5e8e8;
+appearance: none;
+}
+
+select.input-field option {
+    background: #4D1425;
+    color: #f5e8e8;
+    padding: 12px 16px;
+}
+.relative select.input-field + div i {
+    color: #ffd7ba !important; /* Light orange for better visibility */
+    font-size: 1.1rem;
+}
+
+select.input-field option:hover,
+select.input-field option:checked,
+select.input-field option:focus {
+    background: #701F35 !important;   /* Maroon highlight */
+    color: white !important;
+}

@@ -121,8 +121,8 @@ export default function Index({ programs, filters = {} }) {
 
     return (
         <div style={libcollaTheme} className="mx-auto w-full max-w-5xl">
-            <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#1e293b] shadow-2xl">
-                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
+            <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#343A40] shadow-2xl">
+                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#F4F5F7] px-8 py-6">
                     <h1
                         className="flex items-center gap-3 text-xl font-bold sm:text-2xl"
                         style={serif}
@@ -146,7 +146,7 @@ export default function Index({ programs, filters = {} }) {
                             e.preventDefault();
                             visit();
                         }}
-                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#f8fafc] p-5 ring-1 ring-[#f1f5f9]"
+                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#F4F5F7] p-5 ring-1 ring-[#f1f5f9]"
                     >
                         <input
                             type="text"
@@ -174,7 +174,7 @@ export default function Index({ programs, filters = {} }) {
                     <div className="overflow-x-auto">
                         <table className="w-full min-w-[720px] border-collapse text-left text-sm">
                             <thead>
-                                <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
+                                <tr className="border-b-2 border-[#d4a017] bg-[#F4F5F7] text-xs tracking-wide text-[#334155] uppercase">
                                     <th className="w-48 px-5 py-4 font-bold">
                                         College
                                     </th>
@@ -205,25 +205,25 @@ export default function Index({ programs, filters = {} }) {
                                                     `/programs/${p.id}/prospectus`,
                                                 )
                                             }
-                                            className="cursor-pointer transition hover:bg-[#fdf2f8]"
+                                            className="cursor-pointer transition hover:bg-[#F5E9ED]"
                                         >
-                                            <td className="px-5 py-3 text-sm text-[#475569]">
+                                            <td className="px-5 py-3 text-sm text-[#9299A5]">
                                                 {p.college}
                                             </td>
-                                            <td className="px-5 py-3 font-semibold text-[#1e293b]">
+                                            <td className="px-5 py-3 font-semibold text-[#343A40]">
                                                 {p.program_name}
                                             </td>
-                                            <td className="px-5 py-3 text-sm text-[#64748b]">
+                                            <td className="px-5 py-3 text-sm text-[#9299A5]">
                                                 {p.major || (
                                                     <span className="opacity-50">
                                                         -
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="px-5 py-3 text-center text-sm text-[#64748b]">
+                                            <td className="px-5 py-3 text-center text-sm text-[#9299A5]">
                                                 {p.level}
                                             </td>
-                                            <td className="px-5 py-3 text-center text-sm text-[#64748b]">
+                                            <td className="px-5 py-3 text-center text-sm text-[#9299A5]">
                                                 {p.course_subjects_count ?? 0}
                                             </td>
                                             <td className="px-5 py-3">
@@ -235,7 +235,7 @@ export default function Index({ programs, filters = {} }) {
                                                             e.stopPropagation();
                                                             openEdit(p);
                                                         }}
-                                                        className="rounded-md bg-[#f1f5f9] p-2 text-[#475569] transition hover:bg-[#fef3c7] hover:text-[#d97706]"
+                                                        className="rounded-md bg-[#F4F5F7] p-2 text-[#9299A5] transition hover:bg-[#fef3c7] hover:text-[#d97706]"
                                                     >
                                                         <Pencil className="size-3.5" />
                                                     </button>
@@ -246,7 +246,7 @@ export default function Index({ programs, filters = {} }) {
                                                             e.stopPropagation();
                                                             setDeleting(p);
                                                         }}
-                                                        className="rounded-md bg-[#f1f5f9] p-2 text-[#475569] transition hover:bg-[#fee2e2] hover:text-[#ef4444]"
+                                                        className="rounded-md bg-[#F4F5F7] p-2 text-[#9299A5] transition hover:bg-[#fee2e2] hover:text-[#C44545]"
                                                     >
                                                         <Trash2 className="size-3.5" />
                                                     </button>
@@ -460,7 +460,7 @@ export default function Index({ programs, filters = {} }) {
             >
                 <div className="p-6 text-center">
                     <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#fee2e2]">
-                        <TriangleAlert className="size-7 text-[#ef4444]" />
+                        <TriangleAlert className="size-7 text-[#C44545]" />
                     </div>
                     <h3 className="text-lg font-semibold">Delete Program?</h3>
                     <p className="text-muted-foreground mt-2 mb-6 text-sm">

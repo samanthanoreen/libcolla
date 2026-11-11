@@ -1,0 +1,81 @@
+/* Program Page Specific Styles */
+
+/* Program Table */
+.program-row {
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.program-row:hover {
+    background-color: #fdf2f8;
+}
+
+/* Program Detail */
+.program-detail-header {
+    background: #bbf7d0;
+}
+
+.prospectus-table th,
+.prospectus-table td {
+    padding: var(--space-sm) var(--space-md);
+}
+
+.year-header td {
+    background: var(--slate-100);
+    font-weight: bold;
+    padding: var(--space-sm) var(--space-md);
+}
+
+.sem-header td {
+    background: var(--slate-50);
+    padding: var(--space-xs) var(--space-md) var(--space-xs) var(--space-xl);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+.subject-row {
+    border-bottom: 1px solid var(--slate-100);
+}
+
+.subject-row:hover {
+    background-color: #fdf2f8;
+}
+
+/* Action Buttons in Tables */
+.action-btn {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background: var(--slate-100);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.action-btn.edit:hover {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.action-btn.delete:hover {
+    background: #fee2e2;
+    color: var(--error);
+}
+
+/* PDF Download Button Loading State */
+.btn-pdf.loading {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.btn-pdf.loading i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

@@ -1,0 +1,38 @@
+/* Generate Report Page Specific Styles */
+
+/* Program Selection Table */
+.program-select-table tbody tr {
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.program-select-table tbody tr:hover {
+    background-color: #fdf2f8;
+}
+
+/* Search Section */
+.report-search-section {
+    background: var(--slate-50);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.search-icon-btn {
+    background: var(--maroon);
+    color: white;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition-fast);
+    border: none;
+    cursor: pointer;
+}
+
+.search-icon-btn:hover {
+    background: var(--maroon-dark);
+    box-shadow: 0 0 0 3px var(--gold-bg);
+}

@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'Main')->name('home');
 Route::inertia('/main', 'Main')->name('main');
 
-// Support GET /logout directly (for browser navigation or simple links)
-Route::get('/logout', function (Request $request) {
+// Support GET & POST /logout directly
+Route::match(['get', 'post'], '/logout', function (Request $request) {
     Auth::guard('web')->logout();
 
     $request->session()->invalidate();

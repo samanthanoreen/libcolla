@@ -86,17 +86,17 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
         <div className="w-full max-w-5xl mx-auto space-y-8">
             <Head title="Manage Users" />
 
-            {/* Header Stats Banner */}
-            <div className="users-stats flex justify-between items-center bg-slate-800 p-6 rounded-2xl text-white border border-white/10">
+            {/* Header Stats Banner (Matches 1lib Design System) */}
+            <div className="users-stats flex justify-between items-center bg-white/[0.06] backdrop-blur-xl p-8 rounded-3xl text-white border border-white/10 border-t-[3px] border-t-[#d4a017] shadow-lg">
                 <div>
-                    <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <span className="text-[#c8102e]">👥</span> User Management
+                    <h2 className="text-2xl font-bold flex items-center gap-3 font-['Source_Serif_4',Georgia,serif]">
+                        <span className="text-[#d4a017]">👥</span> User Management
                     </h2>
-                    <p className="text-white/70 mt-1">Add, view and manage library staff accounts</p>
+                    <p className="text-white/70 mt-1.5 text-sm">Add, view and manage library staff accounts</p>
                 </div>
                 <div className="text-right">
-                    <div className="text-sm text-white/60">Total Users</div>
-                    <div id="totalUsers" className="stat-number text-4xl font-bold text-white">
+                    <div className="text-xs uppercase tracking-wider font-semibold text-white/60">Total Users</div>
+                    <div id="totalUsers" className="stat-number text-5xl font-bold text-white font-['Source_Serif_4',Georgia,serif] mt-1">
                         {totalUsersCount}
                     </div>
                 </div>
@@ -398,7 +398,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                             </button>
                             <button
                                 onClick={executeDeleteUser}
-                                className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl hover:bg-red-600"
+                                className="w-full bg-red-500 text-white font-semibold py-3 rounded-xl hover:bg-[#C44545]"
                             >
                                 Delete
                             </button>

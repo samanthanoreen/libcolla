@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap');
+        
+* { 
+    font-family: 'Inter', system-ui, sans-serif; 
+    box-sizing:border-box;
+}
+.logo-font { font-family: 'Playfair Display', serif; }
+
+body {
+    background: linear-gradient(135deg, #4d0714 0%, #2e0710 100%);
+    min-height: 100vh;
+    color: #f5e8e8;
+}
+
+/* Official masthead color — matches usep.edu.ph header banner */
+.site-navbar {
+    background: #8b1226 !important;
+}
+
+.site-footer {
+    background: #8b1226 !important;
+    position: relative;
+}
+
+.uni-title {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-weight: 800;
+    font-size: 1.6rem;
+    font-variant-caps: small-caps;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.uni-tagline {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #ffd7ba;
+    margin-top: 3px;
+}
+
+.hero-bg {
+    background: linear-gradient(135deg, #8a1230 0%, #5a0a1c 100%);
+}
+
+.glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.maroon-btn {
+    background: #9f1239;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.maroon-btn:hover {
+    background: #7e0f2e;
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.25);
+}
+
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease;
+}
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #d4a017;
+    transition: width 0.3s ease;
+}
+.nav-link:hover:after {
+    width: 100%;
+}
+
+.glow {
+    text-shadow: 0 0 40px rgba(200, 16, 46, 0.6);
+}
+
+.book-icon {
+    transition: transform 0.6s ease;
+}
+.hero:hover .book-icon {
+    transform: rotate(12deg) scale(1.1);
+}
+
+/* ── Features / How It Works / Benefits sections ── */
+.section-bg {
+    background: linear-gradient(135deg, #8a1230 0%, #5a0a1c 100%);
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #d4a017;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+
+.section-subtitle {
+    color: #ffd7ba;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    transition: all 0.25s ease;
+}
+.feature-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(212, 160, 23, 0.4);
+    transform: translateY(-4px);
+}
+.feature-card .feature-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(159, 18, 57, 0.5);
+    border: 1px solid rgba(212, 160, 23, 0.4);
+    border-radius: 0.9rem;
+    font-size: 1.3rem;
+    color: #ffd7ba;
+    margin-bottom: 1.1rem;
+}
+.feature-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.6rem;
+}
+.feature-card p {
+    color: rgba(245, 232, 232, 0.75);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    text-align: justify;
+}
+
+.step-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.1rem;
+    padding: 1.6rem 1.8rem;
+}
+.step-num {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #9f1239;
+    border: 1px solid #d4a017;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+.step-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+}
+.step-card p {
+    color: rgba(245, 232, 232, 0.75);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    text-align: justify;
+}
+
+@media (max-width: 640px) {
+    .section-title { font-size: 1.9rem; }
+}

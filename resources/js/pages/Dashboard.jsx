@@ -15,7 +15,7 @@ const serif = {
 
 function StatCard({ label, value, note, Icon }) {
     return (
-        <div className="rounded-[2rem] border border-t-[3px] border-white/10 border-t-[#d4a017] bg-white/[0.06] px-9 pt-9 pb-7 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(159,18,57,0.25)]">
+        <div className="rounded-[2rem] border border-t-[3px] border-white/10 border-t-[#d4a017] bg-white/[0.06] px-9 pt-9 pb-7 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-[0_25px_50px_-12px_rgba(112,31,53,0.3)]">
             <div className="flex justify-between">
                 <div>
                     <p className="text-base font-medium text-white/70">
@@ -28,9 +28,9 @@ function StatCard({ label, value, note, Icon }) {
                         {value}
                     </p>
                 </div>
-                <Icon className="size-14 text-[#c8102e]/20" />
+                <Icon className="size-14 text-[#701F35]/35" />
             </div>
-            <div className="mt-7 flex items-center gap-1 text-[0.95rem] text-[#10b981]">
+            <div className="mt-7 flex items-center gap-1 text-[0.95rem] text-[#21865A]">
                 <TrendingUp className="size-4" />
                 <span>{note}</span>
             </div>
@@ -44,7 +44,7 @@ function QuickAction({ href, label, Icon }) {
             <div
                 className="mx-auto mb-7 flex size-16 items-center justify-center rounded-3xl"
                 style={{
-                    background: 'linear-gradient(135deg, #9f1239, #c8102e)',
+                    background: 'linear-gradient(135deg, #701F35, #4D1425)',
                 }}
             >
                 <Icon className="size-7 text-white" />
