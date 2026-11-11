@@ -5,31 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Inertia\Inertia;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    // List users
-    public function index()
+    public function index(Request $request)
     {
         $users = User::orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Users/ManageUsers', [
             'users' => $users,
-            'totalUsersCount' => $users->count(),
+            'totalUsersCount' => User::count(),
         ]);
     }
 
-    // Add user
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'username'  => 'required|string|max:255|unique:users,username',
-            'email'     => 'required|string|email|max:255|unique:users,email',
-            'role'      => 'required|string|in:admin,librarian,staff',
-            'password'  => 'required|string|min:6',
+            'full_name' => ['required', 'string', 'max:255'],
+            'username'  => ['required', 'string', 'max:255', Rule::unique('users')],
+            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
+            'role'      => ['required', 'string', Rule::in(['admin', 'librarian', 'staff'])],
+            'password'  => ['required', Password::defaults()],
         ]);
 
         User::create([
@@ -41,41 +40,45 @@ class UserController extends Controller
             'password'  => Hash::make($validated['password']),
         ]);
 
-        return back()->with('success', 'User created successfully.');
+        return back();
     }
 
-    // Edit user
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'full_name' => 'required|string|max:255',
-            'username'  => ['required', 'string', 'max:255', Rule::unique('users', 'username')->ignore($user->id)],
-            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'role'      => 'required|string|in:admin,librarian,staff',
-            'password'  => 'nullable|string|min:6',
+            'full_name' => ['required', 'string', 'max:255'],
+            'username'  => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'role'      => ['required', 'string', Rule::in(['admin', 'librarian', 'staff'])],
+            'password'  => ['nullable', Password::defaults()],
         ]);
 
-        $user->fill([
+        $data = [
             'name'      => $validated['full_name'],
             'full_name' => $validated['full_name'],
             'username'  => $validated['username'],
             'email'     => $validated['email'],
             'role'      => $validated['role'],
-        ]);
+        ];
 
         if (!empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
+            $data['password'] = Hash::make($validated['password']);
         }
 
-        $user->save();
+        $user->update($data);
 
-        return back()->with('success', 'User updated successfully.');
+        return back();
     }
 
-    // Delete user
     public function destroy(User $user)
     {
+        // Prevent self-deletion
+        if ($user->id === auth()->id()) {
+            return back()->withErrors(['delete' => 'You cannot delete your own account.']);
+        }
+
         $user->delete();
-        return back()->with('success', 'User deleted successfully.');
+
+        return back();
     }
 }

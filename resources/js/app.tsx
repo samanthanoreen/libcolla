@@ -19,7 +19,7 @@ void createInertiaApp({
             case name.startsWith('settings/'):
                 return [LibCollaLayout, SettingsLayout];
             default:
-                return LibCollaLayout;
+                return LibCollaLayout;    // ← all regular pages use this
         }
     },
     strictMode: true,

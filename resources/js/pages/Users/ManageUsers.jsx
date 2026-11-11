@@ -7,7 +7,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
     const [deletingUserId, setDeletingUserId] = useState(null);
     const [successMessage, setSuccessMessage] = useState(null);
 
-    // Form helper for CREATE
+    // Inertia form helper for CREATE
     const {
         data: createData,
         setData: setCreateData,
@@ -23,7 +23,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
         password: '',
     });
 
-    // Form helper for EDIT
+    // Inertia form helper for EDIT
     const {
         data: editData,
         setData: setEditData,
@@ -83,11 +83,11 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
     };
 
     return (
-        <div className="max-w-5xl mx-auto p-6 space-y-8">
+        <div className="w-full max-w-5xl mx-auto space-y-8">
             <Head title="Manage Users" />
 
             {/* Header Stats Banner */}
-            <div className="users-stats flex justify-between items-center bg-slate-800 p-6 rounded-2xl text-white">
+            <div className="users-stats flex justify-between items-center bg-slate-800 p-6 rounded-2xl text-white border border-white/10">
                 <div>
                     <h2 className="text-2xl font-bold flex items-center gap-2">
                         <span className="text-[#c8102e]">👥</span> User Management
@@ -113,7 +113,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                 placeholder="User Name"
                                 value={createData.full_name}
                                 onChange={(e) => setCreateData('full_name', e.target.value)}
-                                className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none"
+                                className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none text-slate-800"
                                 required
                             />
                             {createErrors.full_name && (
@@ -128,7 +128,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                 placeholder="username"
                                 value={createData.username}
                                 onChange={(e) => setCreateData('username', e.target.value)}
-                                className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none"
+                                className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none text-slate-800"
                                 required
                             />
                             {createErrors.username && (
@@ -143,7 +143,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                 placeholder="user@libcolla.ph"
                                 value={createData.email}
                                 onChange={(e) => setCreateData('email', e.target.value)}
-                                className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none"
+                                className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none text-slate-800"
                                 required
                             />
                             {createErrors.email && (
@@ -156,7 +156,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                             <select
                                 value={createData.role}
                                 onChange={(e) => setCreateData('role', e.target.value)}
-                                className="form-input form-select w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none bg-white"
+                                className="form-input form-select w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none bg-white text-slate-800"
                                 required
                             >
                                 <option value="">Select role...</option>
@@ -178,7 +178,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                 placeholder="••••••••"
                                 value={createData.password}
                                 onChange={(e) => setCreateData('password', e.target.value)}
-                                className="form-input pr-12 w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none"
+                                className="form-input pr-12 w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none text-slate-800"
                                 required
                             />
                             <button
@@ -287,7 +287,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                     type="text"
                                     value={editData.full_name}
                                     onChange={(e) => setEditData('full_name', e.target.value)}
-                                    className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e]"
+                                    className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e] text-slate-800"
                                     required
                                 />
                                 {editErrors.full_name && (
@@ -302,7 +302,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                         type="text"
                                         value={editData.username}
                                         onChange={(e) => setEditData('username', e.target.value)}
-                                        className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e]"
+                                        className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e] text-slate-800"
                                         required
                                     />
                                     {editErrors.username && (
@@ -314,7 +314,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                     <select
                                         value={editData.role}
                                         onChange={(e) => setEditData('role', e.target.value)}
-                                        className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e] bg-white"
+                                        className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e] bg-white text-slate-800"
                                         required
                                     >
                                         <option value="admin">Administrator</option>
@@ -333,7 +333,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                     type="email"
                                     value={editData.email}
                                     onChange={(e) => setEditData('email', e.target.value)}
-                                    className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e]"
+                                    className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e] text-slate-800"
                                     required
                                 />
                                 {editErrors.email && (
@@ -350,7 +350,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                     placeholder="Enter new password"
                                     value={editData.password}
                                     onChange={(e) => setEditData('password', e.target.value)}
-                                    className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e]"
+                                    className="w-full border border-slate-300 rounded-lg p-2.5 outline-none focus:border-[#c8102e] text-slate-800"
                                 />
                                 {editErrors.password && (
                                     <p className="text-red-500 text-xs mt-1">{editErrors.password}</p>

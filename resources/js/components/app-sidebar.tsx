@@ -75,7 +75,7 @@ const mainNavItems: NavItem[] = [
         items: [
             {
                 title: 'Manage Users',
-                href: '/users/manage',
+                href: '/users',
             },
         ],
     },
