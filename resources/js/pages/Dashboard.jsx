@@ -130,7 +130,11 @@ export default function Dashboard({ stats }) {
                         label="Manage Books"
                         Icon={BookOpen}
                     />
-                    <QuickAction label="Manage Users" Icon={Users} />
+                    <QuickAction
+                        href="/users/manage"
+                        label="Manage Users"
+                        Icon={Users}
+                    />
                 </div>
             </div>
         </div>

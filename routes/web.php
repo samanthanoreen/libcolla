@@ -4,6 +4,8 @@ use App\Http\Controllers\AssessmentReportController;
 use App\Http\Controllers\BookLibraryController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramProspectusController;
+use App\Http\Controllers\SupportContactController;
+use App\Http\Controllers\UserController;
 use App\Models\AssessmentReport;
 use App\Models\Book;
 use App\Models\CourseSubject;
@@ -60,6 +62,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('books', [BookLibraryController::class, 'store'])->name('books.store');
     Route::put('books/{book}', [BookLibraryController::class, 'update'])->name('books.update');
     Route::delete('books/{book}', [BookLibraryController::class, 'destroy'])->name('books.destroy');
+
+    // User Management Routes
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/manage', [UserController::class, 'index'])->name('users.manage');
+    Route::get('/users/manageusers', [UserController::class, 'index'])->name('users.manageusers');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // Support / Contact Form Routes
+    Route::get('/support/contact', [SupportContactController::class, 'index'])->name('support.contact');
+    Route::get('/contact', [SupportContactController::class, 'index'])->name('contact');
+    Route::post('/support/contact', [SupportContactController::class, 'store'])->name('support.contact.store');
+    Route::post('/support/contact/mark-read', [SupportContactController::class, 'markRead'])->name('support.contact.markRead');
+    Route::get('/support/contact/download/{message}', [SupportContactController::class, 'download'])->name('support.contact.download');
+
 });
 
 require __DIR__.'/settings.php';
