@@ -21,9 +21,11 @@ class BsitBtmProspectusSeeder extends Seeder
 
     public function run(): void
     {
-        $program = Program::where('program_name', 'Bachelor of Science in Information Technology')
-            ->where('major', 'Business Technology Management')
-            ->first();
+        $program = Program::where(function ($q) {
+            $q->where('program_name', 'Bachelor of Science in Information Technology')
+              ->orWhere('program_name', 'BS Information Technology')
+              ->orWhere('program_code', 'BSIT');
+        })->first();
 
         if (! $program) {
             $this->command?->error('BSIT - Business Technology Management program not found. Add it on the Program page first.');
