@@ -67,7 +67,8 @@ class AssessmentReportController extends Controller
             $rows = [];
 
             foreach ($subjectBooks as $b) {
-                $age = $year - (int) $b->publication_year;
+                $bookYear = (int) ($b->copyright_year ?: $b->publication_year);
+                $age = $bookYear > 0 ? ($year - $bookYear) : 999;
 
                 if ($age <= 5) {
                     $d5++;
@@ -78,12 +79,14 @@ class AssessmentReportController extends Controller
                     $d20++;
                 }
 
+                $author = trim(($b->author_first_name ?? '').' '.($b->author_last_name ?? ''));
+
                 $rows[] = [
                     'callNo' => $b->call_number_value ?? '',
                     'title' => $b->title,
-                    'author' => trim(($b->author_first_name ?? '').' '.($b->author_last_name ?? '')),
-                    'year' => (int) $b->publication_year,
-                    'copies' => (int) $b->total_copies,
+                    'author' => $author !== '' ? $author : '—',
+                    'year' => $bookYear > 0 ? $bookYear : (int) $b->publication_year,
+                    'copies' => (int) ($b->total_copies ?? 1),
                 ];
             }
 
@@ -114,28 +117,14 @@ class AssessmentReportController extends Controller
     {
         $data = $request->validate([
             'program_id' => ['required', 'exists:programs,id'],
-            'summary' => ['required', 'array', 'min:1'],
-            'summary.*.classification' => ['nullable', 'string', 'max:100'],
-            'summary.*.courseName' => ['required', 'string', 'max:300'],
-            'summary.*.totalT' => ['required', 'integer', 'min:0'],
-            'summary.*.totalV' => ['required', 'integer', 'min:0'],
-            'summary.*.distinct5yr' => ['required', 'integer', 'min:0'],
-            'summary.*.distinct10yr' => ['required', 'integer', 'min:0'],
-            'summary.*.distinct20yr' => ['required', 'integer', 'min:0'],
+            'summary' => ['required', 'array'],
             'references' => ['present', 'array'],
-            'references.*.subject' => ['required', 'string', 'max:300'],
-            'references.*.books' => ['required', 'array'],
-            'references.*.books.*.callNo' => ['nullable', 'string', 'max:100'],
-            'references.*.books.*.title' => ['required', 'string', 'max:300'],
-            'references.*.books.*.author' => ['nullable', 'string', 'max:150'],
-            'references.*.books.*.year' => ['required', 'integer', 'min:0'],
-            'references.*.books.*.copies' => ['required', 'integer', 'min:0'],
         ]);
 
         $program = Program::findOrFail($data['program_id']);
 
         AssessmentReport::create([
-            'user_id' => $request->user()->id,
+            'user_id' => $request->user()?->id,
             'program_id' => $program->id,
             'college' => $program->college,
             'program_name' => $program->program_name,
@@ -144,7 +133,7 @@ class AssessmentReportController extends Controller
             'references_data' => $data['references'],
         ]);
 
-        Inertia::flash('toast', ['type' => 'success', 'message' => 'Report saved successfully!']);
+        $request->session()->flash('status', 'Report saved successfully!');
 
         return redirect()->route('reports.manage');
     }
@@ -181,8 +170,8 @@ class AssessmentReportController extends Controller
                 'program_name' => $report->program_name,
                 'major' => $report->major,
                 'created_at' => $report->created_at?->format('M d, Y h:i A'),
-                'summary' => $report->summary_data ?? [],
-                'references' => $report->references_data ?? [],
+                'summary' => is_array($report->summary_data) ? $report->summary_data : (json_decode($report->summary_data, true) ?? []),
+                'references' => is_array($report->references_data) ? $report->references_data : (json_decode($report->references_data, true) ?? []),
             ],
         ]);
     }
@@ -191,7 +180,7 @@ class AssessmentReportController extends Controller
     {
         $report->delete();
 
-        Inertia::flash('toast', ['type' => 'info', 'message' => 'Report deleted.']);
+        session()->flash('status', 'Report deleted successfully.');
 
         return redirect()->route('reports.manage');
     }

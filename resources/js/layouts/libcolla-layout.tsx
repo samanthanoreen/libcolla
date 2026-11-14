@@ -11,7 +11,9 @@ import {
     LayoutDashboard,
     LogOut,
     Menu,
+    Moon,
     Settings,
+    Sun,
     User,
     Users,
     Wrench,
@@ -19,6 +21,7 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
+import { useAppearance } from '@/hooks/use-appearance';
 
 const serif = {
     fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
@@ -148,6 +151,10 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
     const { component, url } = page;
     const user = page.props?.auth?.user;
 
+    const { resolvedAppearance, updateAppearance } = useAppearance();
+    const isDark = resolvedAppearance === 'dark';
+    const toggleTheme = () => updateAppearance(isDark ? 'light' : 'dark');
+
     const username: string = user?.name ?? 'Admin User';
     const role: string = user?.role ?? 'Administrator';
     const initials = username.slice(0, 2).toUpperCase();
@@ -228,10 +235,11 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
 
     return (
         <div
-            className="fixed inset-0 overflow-hidden text-[#F5E9ED]"
-            style={{
-                background: 'linear-gradient(135deg, #701F35 0%, #4D1425 100%)',
-            }}
+            className={`fixed inset-0 overflow-hidden transition-colors duration-300 ${
+                isDark
+                    ? 'bg-gradient-to-br from-[#2D0B15] to-[#14040A] text-[#F5E9ED]'
+                    : 'bg-[#F4F5F7] text-[#343A40]'
+            }`}
         >
             {mobileOpen && (
                 <div
@@ -242,12 +250,13 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
 
             {/* ============ SIDEBAR ============ */}
             <aside
-                className={`fixed top-0 left-0 z-[100] flex h-screen flex-col overflow-x-hidden overflow-y-auto border-r border-white/[0.08] transition-all duration-300 ${
+                className={`fixed top-0 left-0 z-[100] flex h-screen flex-col overflow-x-hidden overflow-y-auto border-r border-white/[0.08] text-white transition-all duration-300 ${
                     mobileOpen ? 'translate-x-0' : '-translate-x-full'
                 } w-[292px] lg:translate-x-0 ${collapsed ? 'lg:w-24' : 'lg:w-[292px]'}`}
                 style={{
-                    background:
-                        'linear-gradient(180deg, #701F35 0%, #4D1425 100%)',
+                    background: isDark
+                        ? 'linear-gradient(180deg, #3D0E1C 0%, #1B050C 100%)'
+                        : 'linear-gradient(180deg, #701F35 0%, #4D1425 100%)',
                 }}
             >
                 {/* Sidebar Header Brand Band (aligned with top bar via gold line) */}
@@ -284,9 +293,9 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                 return (
                                     <li
                                         key={entry.label}
-                                        className={`${itemBase} pointer-events-none opacity-50 ${collapsed ? 'lg:justify-center' : ''}`}
+                                        className={`${itemBase} pointer-events-none text-white/60 font-semibold tracking-wider text-xs ${collapsed ? 'lg:justify-center' : ''}`}
                                     >
-                                        <entry.Icon className="size-5 shrink-0" />
+                                        <entry.Icon className="size-5 shrink-0 text-white/60" />
                                         <span
                                             className={
                                                 collapsed ? 'lg:hidden' : ''
@@ -304,13 +313,13 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                     <li key={entry.label}>
                                         <Link
                                             href={entry.href}
-                                            className={`${itemBase} ${active ? 'border-l-4 border-[#d4a017] bg-[#701F35]/35 hover:bg-[#701F35]/55' : ''} ${collapsed ? 'lg:justify-center lg:px-3' : ''}`}
+                                            className={`${itemBase} ${active ? 'border-l-4 border-[#d4a017] bg-[#701F35]/35 hover:bg-[#701F35]/55 font-bold' : ''} ${collapsed ? 'lg:justify-center lg:px-3' : ''}`}
                                         >
-                                            <entry.Icon className="size-5 shrink-0" />
+                                            <entry.Icon className="size-5 shrink-0 text-white" />
                                             <span
-                                                className={
+                                                className={`text-white ${
                                                     collapsed ? 'lg:hidden' : ''
-                                                }
+                                                }`}
                                             >
                                                 {entry.label}
                                             </span>
@@ -336,15 +345,15 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                         className={`${itemBase} justify-between ${groupActive ? 'bg-[#701F35]/35' : ''} ${collapsed ? 'lg:justify-center lg:px-3' : ''}`}
                                     >
                                         <span className="flex items-center gap-3">
-                                            <entry.Icon className="size-5 shrink-0" />
+                                            <entry.Icon className="size-5 shrink-0 text-white" />
                                             <span
-                                                className={`text-left ${collapsed ? 'lg:hidden' : ''}`}
+                                                className={`text-left text-white ${collapsed ? 'lg:hidden' : ''}`}
                                             >
                                                 {entry.label}
                                             </span>
                                         </span>
                                         <ChevronDown
-                                            className={`size-4 shrink-0 transition ${open ? 'rotate-180' : ''} ${collapsed ? 'lg:hidden' : ''}`}
+                                            className={`size-4 shrink-0 transition text-white/80 ${open ? 'rotate-180' : ''} ${collapsed ? 'lg:hidden' : ''}`}
                                         />
                                     </button>
                                     <ul
@@ -354,7 +363,11 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                             const active =
                                                 !!c.href &&
                                                 url.startsWith(c.href);
-                                            const cls = `block rounded-xl px-[1.125rem] py-3 transition hover:translate-x-1 hover:bg-white/[0.16] ${active ? 'bg-[#701F35]' : ''}`;
+                                            const cls = `block rounded-xl px-[1.125rem] py-3 text-sm font-medium transition hover:translate-x-1 hover:bg-white/[0.16] ${
+                                                active
+                                                    ? 'bg-[#701F35] font-semibold text-white shadow-sm border-l-2 border-[#d4a017]'
+                                                    : 'text-white/90 hover:text-white'
+                                            }`;
                                             return (
                                                 <li key={c.label}>
                                                     {c.href ? (
@@ -362,14 +375,14 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                             href={c.href}
                                                             className={cls}
                                                         >
-                                                            {c.label}
+                                                            <span className="truncate">{c.label}</span>
                                                         </Link>
                                                     ) : (
                                                         <span
-                                                            className={`${cls} cursor-default opacity-60`}
+                                                            className={`${cls} cursor-default opacity-60 text-white/60`}
                                                             title="Coming soon"
                                                         >
-                                                            {c.label}
+                                                            <span className="truncate">{c.label}</span>
                                                         </span>
                                                     )}
                                                 </li>
@@ -410,26 +423,42 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                     collapsed ? 'lg:left-24' : 'lg:left-[292px]'
                 }`}
             >
-                <header className="sticky top-0 z-50 flex h-[120px] shrink-0 items-center justify-between border-b border-white/10 bg-white/10 px-7 backdrop-blur-md">
+                <header
+                    className={`sticky top-0 z-50 flex h-[120px] shrink-0 items-center justify-between px-7 backdrop-blur-md transition-colors ${
+                        isDark
+                            ? 'border-b border-white/10 bg-[#1e0910]/80 text-[#F5E9ED]'
+                            : 'border-b border-[#E2E5E9] bg-white/95 text-[#343A40] shadow-xs'
+                    }`}
+                >
                     <div className="flex min-w-0 flex-1 items-center gap-4">
                         <button
                             type="button"
                             onClick={toggleCollapse}
-                            className="hidden size-[50px] shrink-0 items-center justify-center rounded-2xl text-white transition hover:bg-white/10 lg:inline-flex"
+                            className={`hidden size-[50px] shrink-0 items-center justify-center rounded-2xl transition cursor-pointer lg:inline-flex ${
+                                isDark
+                                    ? 'text-white hover:bg-white/10'
+                                    : 'text-[#343A40] hover:bg-[#F4F5F7]'
+                            }`}
                         >
                             <Menu className="size-6" />
                         </button>
                         <button
                             type="button"
                             onClick={() => setMobileOpen((o) => !o)}
-                            className="inline-flex size-[50px] shrink-0 items-center justify-center rounded-2xl text-white/80 transition hover:text-[#c8102e] lg:hidden"
+                            className={`inline-flex size-[50px] shrink-0 items-center justify-center rounded-2xl transition cursor-pointer lg:hidden ${
+                                isDark
+                                    ? 'text-white/80 hover:bg-white/10'
+                                    : 'text-[#343A40] hover:bg-[#F4F5F7]'
+                            }`}
                         >
                             <Menu className="size-6" />
                         </button>
 
                         <div className="min-w-0 overflow-hidden border-l-[3px] border-[#d4a017] pl-3">
                             <h1
-                                className="truncate text-[1.65rem] leading-tight font-bold max-sm:text-xl"
+                                className={`truncate text-[1.65rem] leading-tight font-bold max-sm:text-xl ${
+                                    isDark ? 'text-white' : 'text-[#343A40]'
+                                }`}
                                 style={serif}
                             >
                                 {title}
@@ -437,11 +466,11 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                             <div className="mt-1 flex items-center gap-2 text-sm max-sm:hidden">
                                 <Link
                                     href="/dashboard"
-                                    className="text-white/60 hover:text-white"
+                                    className={isDark ? 'text-white/60 hover:text-white' : 'text-[#9299A5] hover:text-[#343A40]'}
                                 >
                                     Home
                                 </Link>
-                                <span className="text-white/40">›</span>
+                                <span className={isDark ? 'text-white/40' : 'text-[#9299A5]'}>›</span>
                                 {trail.map((t) => (
                                     <span
                                         key={t.label}
@@ -449,14 +478,20 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                     >
                                         <Link
                                             href={t.href ?? '#'}
-                                            className="text-white/60 hover:text-white"
+                                            className={isDark ? 'text-white/60 hover:text-white' : 'text-[#9299A5] hover:text-[#343A40]'}
                                         >
                                             {t.label}
                                         </Link>
-                                        <span className="text-white/40">›</span>
+                                        <span className={isDark ? 'text-white/40' : 'text-[#9299A5]'}>›</span>
                                     </span>
                                 ))}
-                                <span className="rounded-full border border-[#d4a017]/70 bg-[#d4a017]/15 px-2.5 py-0.5 font-semibold text-white">
+                                <span
+                                    className={`rounded-full px-2.5 py-0.5 font-semibold ${
+                                        isDark
+                                            ? 'border border-[#d4a017]/70 bg-[#d4a017]/15 text-white'
+                                            : 'border border-[#701F35]/25 bg-[#F5E9ED] text-[#701F35]'
+                                    }`}
+                                >
                                     {title}
                                 </span>
                             </div>
@@ -464,10 +499,32 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        {/* Light / Dark Mode Toggle */}
+                        <button
+                            type="button"
+                            onClick={toggleTheme}
+                            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+                            className={`flex size-10 items-center justify-center rounded-2xl transition cursor-pointer ${
+                                isDark
+                                    ? 'text-white/70 hover:bg-white/10 hover:text-[#f0c541]'
+                                    : 'text-[#9299A5] hover:bg-[#F4F5F7] hover:text-[#701F35]'
+                            }`}
+                        >
+                            {isDark ? (
+                                <Sun className="size-5 text-[#f0c541]" />
+                            ) : (
+                                <Moon className="size-5 text-[#701F35]" />
+                            )}
+                        </button>
+
                         <Link
                             href="/support/contact?tab=inbox"
                             title="Message Inbox"
-                            className="flex size-10 items-center justify-center rounded-2xl text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                            className={`flex size-10 items-center justify-center rounded-2xl transition-colors ${
+                                isDark
+                                    ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                                    : 'text-[#9299A5] hover:bg-[#F4F5F7] hover:text-[#701F35]'
+                            }`}
                         >
                             <Bell className="size-5" />
                         </Link>
@@ -475,18 +532,20 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                         <div className="relative">
                             <div
                                 onClick={() => setProfileOpen((o) => !o)}
-                                className="group flex cursor-pointer items-center gap-3 rounded-2xl px-4 py-2 transition hover:scale-[1.02] hover:bg-white/10"
+                                className={`group flex cursor-pointer items-center gap-3 rounded-2xl px-4 py-2 transition hover:scale-[1.02] ${
+                                    isDark ? 'hover:bg-white/10' : 'hover:bg-[#F4F5F7]'
+                                }`}
                             >
                                 <div className="text-right max-sm:hidden">
-                                    <div className="font-semibold">
+                                    <div className={`font-semibold ${isDark ? 'text-white' : 'text-[#343A40]'}`}>
                                         {username}
                                     </div>
-                                    <div className="text-[0.825rem] text-[#ffd7ba]">
+                                    <div className={`text-[0.825rem] ${isDark ? 'text-[#ffd7ba]' : 'text-[#701F35]'}`}>
                                         {role}
                                     </div>
                                 </div>
                                 <div
-                                    className="flex size-[50px] items-center justify-center rounded-2xl border-2 border-[#d4a017] font-bold transition group-hover:rotate-12"
+                                    className="flex size-[50px] items-center justify-center rounded-2xl border-2 border-[#d4a017] font-bold text-white transition group-hover:rotate-12"
                                     style={{
                                         background:
                                             'linear-gradient(135deg, #701F35, #4D1425)',
@@ -495,7 +554,9 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                     {initials}
                                 </div>
                                 <ChevronDown
-                                    className={`size-4 text-white/70 transition ${profileOpen ? 'rotate-180' : ''}`}
+                                    className={`size-4 transition ${
+                                        isDark ? 'text-white/70' : 'text-[#9299A5]'
+                                    } ${profileOpen ? 'rotate-180' : ''}`}
                                 />
                             </div>
 
@@ -505,7 +566,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                         className="fixed inset-0 z-40"
                                         onClick={() => setProfileOpen(false)}
                                     />
-                                    <div className="absolute top-[calc(100%+14px)] right-0 z-[9999] w-[260px] overflow-hidden rounded-xl bg-white shadow-[0_10px_40px_rgba(0,0,0,0.2)]">
+                                    <div className="absolute top-[calc(100%+14px)] right-0 z-[9999] w-[260px] overflow-hidden rounded-xl border border-[#E2E5E9] bg-white shadow-2xl dark:border-white/10 dark:bg-[#280B14]">
                                         <div
                                             className="border-b-[3px] border-[#d4a017] px-5 py-[22px] text-center text-white"
                                             style={{
@@ -526,26 +587,26 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                 {role}
                                             </div>
                                         </div>
-                                        <div className="py-2 text-sm text-gray-700">
+                                        <div className="py-2 text-sm text-[#343A40] dark:text-[#F5E9ED]">
                                             <Link
                                                 href="/settings/profile"
-                                                className="flex items-center gap-3 px-5 py-3 hover:bg-[#F4F5F7]"
+                                                className="flex items-center gap-3 px-5 py-3 transition hover:bg-[#F4F5F7] dark:hover:bg-white/10"
                                             >
-                                                <User className="size-4 text-gray-500" />{' '}
+                                                <User className="size-4 text-[#9299A5]" />{' '}
                                                 My Profile
                                             </Link>
                                             <Link
                                                 href="/settings/appearance"
-                                                className="flex items-center gap-3 px-5 py-3 hover:bg-[#F4F5F7]"
+                                                className="flex items-center gap-3 px-5 py-3 transition hover:bg-[#F4F5F7] dark:hover:bg-white/10"
                                             >
-                                                <Settings className="size-4 text-gray-500" />{' '}
+                                                <Settings className="size-4 text-[#9299A5]" />{' '}
                                                 Settings
                                             </Link>
-                                            <div className="my-2 h-px bg-[#E2E5E9]" />
+                                            <div className="my-2 h-px bg-[#E2E5E9] dark:bg-white/10" />
                                             <button
                                                 type="button"
                                                 onClick={logout}
-                                                className="flex w-full items-center gap-3 px-5 py-3 text-left text-[#C44545] hover:bg-[#F5E9ED]"
+                                                className="flex w-full items-center gap-3 px-5 py-3 text-left text-[#C44545] transition hover:bg-[#F5E9ED] dark:hover:bg-[#C44545]/10 cursor-pointer"
                                             >
                                                 <LogOut className="size-4" />{' '}
                                                 Logout
@@ -563,49 +624,32 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                 </main>
             </div>
 
-            {/* Floating Logout Confirmation Notification */}
+            {/* Simple Logout Confirmation Modal */}
             {showLogoutConfirm && (
                 <div
                     className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
                     onClick={() => !loggingOut && setShowLogoutConfirm(false)}
                 >
                     <div
-                        className="w-full max-w-sm rounded-3xl bg-[#4D1425] border border-white/20 p-6 shadow-2xl shadow-black/80 text-white animate-in zoom-in-95 duration-200 relative overflow-hidden"
+                        className="w-full max-w-sm rounded-2xl bg-white border border-[#E2E5E9] p-6 shadow-xl text-[#343A40] text-center relative dark:bg-[#280B14] dark:border-white/10 dark:text-white"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Ambient top light */}
-                        <div className="absolute -top-12 -left-12 w-32 h-32 bg-[#701F35]/30 rounded-full blur-2xl pointer-events-none" />
-
-                        {/* Close button */}
-                        <button
-                            type="button"
-                            onClick={() => setShowLogoutConfirm(false)}
-                            disabled={loggingOut}
-                            className="absolute right-4 top-4 text-white/50 hover:text-white transition-colors cursor-pointer"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
-
-                        <div className="flex items-start gap-4">
-                            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#701F35] to-[#4D1425] flex items-center justify-center shrink-0 shadow-lg shadow-rose-950/60">
-                                <LogOut className="w-6 h-6 text-white" />
-                            </div>
-                            <div className="space-y-1 pr-4">
-                                <h3 className="text-lg font-bold text-white tracking-tight">
-                                    Log Out of LibColla?
-                                </h3>
-                                <p className="text-sm text-white/70 leading-relaxed">
-                                    Are you sure you want to log out? You will need to sign back in to access the system.
-                                </p>
-                            </div>
+                        <div className="mx-auto mb-3 flex size-12 items-center justify-center rounded-full bg-[#F5E9ED] text-[#701F35] dark:bg-white/10 dark:text-[#d4a017]">
+                            <LogOut className="size-6" />
                         </div>
+                        <h3 className="text-lg font-bold tracking-wider uppercase text-[#343A40] dark:text-white">
+                            LOG OUT
+                        </h3>
+                        <p className="mt-1.5 text-sm text-[#9299A5] dark:text-white/70">
+                            Are you sure you want to log out?
+                        </p>
 
-                        <div className="flex items-center justify-end gap-3 pt-5 border-t border-white/10 mt-5">
+                        <div className="flex items-center justify-center gap-3 pt-5 mt-4 border-t border-[#E2E5E9] dark:border-white/10">
                             <button
                                 type="button"
                                 onClick={() => setShowLogoutConfirm(false)}
                                 disabled={loggingOut}
-                                className="px-4 py-2.5 rounded-xl text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                                className="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider text-[#343A40] hover:bg-[#F4F5F7] transition cursor-pointer dark:text-white/80 dark:hover:bg-white/10"
                             >
                                 Cancel
                             </button>
@@ -613,9 +657,9 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                 type="button"
                                 onClick={handleConfirmLogout}
                                 disabled={loggingOut}
-                                className="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-[#701F35] to-[#4D1425] text-white shadow-lg shadow-rose-950/50 hover:opacity-95 transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50"
+                                className="px-5 py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-[#701F35] hover:bg-[#4D1425] text-white shadow-sm transition cursor-pointer disabled:opacity-50"
                             >
-                                {loggingOut ? 'Logging out...' : 'Yes, Log Out'}
+                                {loggingOut ? 'Logging out...' : 'LOG OUT'}
                             </button>
                         </div>
                     </div>

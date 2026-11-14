@@ -14,24 +14,6 @@ export const palette = {
 };
 
 export const libcollaTheme = {
-    colorScheme: 'light',
-    color: '#343A40',
-    '--color-background': '#FFFFFF',
-    '--color-foreground': '#343A40',
-    '--color-card': '#FFFFFF',
-    '--color-card-foreground': '#343A40',
-    '--color-popover': '#FFFFFF',
-    '--color-popover-foreground': '#343A40',
-    '--color-primary': '#701F35',
-    '--color-primary-foreground': '#FFFFFF',
-    '--color-muted': '#F4F5F7',
-    '--color-muted-foreground': '#9299A5',
-    '--color-accent': '#F5E9ED',
-    '--color-accent-foreground': '#701F35',
-    '--color-destructive': '#C44545',
-    '--color-border': '#E2E5E9',
-    '--color-input': '#E2E5E9',
-    '--color-ring': '#701F35',
     ...palette,
 };
 

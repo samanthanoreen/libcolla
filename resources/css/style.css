@@ -1571,3 +1571,70 @@ td .editable-cell[data-numeric] {
 }
 
 
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+
+.dark {
+    --bg-start: #2D0B15;
+    --bg-end: #14040A;
+}
+
+.dark .card {
+    background: #280B14;
+    color: #F5E9ED;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.dark .card-header {
+    background: #1E070F;
+    border-bottom: 3px solid var(--gold);
+}
+
+.dark .card-header h2 {
+    color: #F5E9ED;
+}
+
+.dark .card-footer {
+    background: #1E070F;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .data-table th {
+    background-color: #340c18;
+    color: #F5E9ED;
+    border-bottom: 2px solid var(--gold);
+}
+
+.dark .data-table td {
+    color: #F5E9ED;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dark .data-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .form-input,
+.dark .form-select,
+.dark .form-textarea {
+    background: #1E070F;
+    border: 2px solid #4D1425;
+    color: #F5E9ED;
+}
+
+.dark .form-label {
+    color: #9299A5;
+}
+
+.dark .pagination-btn {
+    background: #280B14;
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #F5E9ED;
+}
+
+.dark .pagination-page {
+    color: #F5E9ED;
+}

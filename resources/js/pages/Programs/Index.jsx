@@ -121,13 +121,13 @@ export default function Index({ programs, filters = {} }) {
 
     return (
         <div style={libcollaTheme} className="mx-auto w-full max-w-5xl">
-            <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#343A40] shadow-2xl">
-                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#F4F5F7] px-8 py-6">
+            <div className="mt-4 overflow-hidden rounded-[2rem] bg-white text-[#343A40] shadow-2xl dark:border dark:border-white/10 dark:bg-[#280B14] dark:text-[#F5E9ED]">
+                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#F4F5F7] px-8 py-6 dark:bg-[#1E070F]">
                     <h1
-                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl"
+                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl text-[#343A40] dark:text-white"
                         style={serif}
                     >
-                        <GraduationCap className="size-6" />
+                        <GraduationCap className="size-6 text-[#701F35] dark:text-[#d4a017]" />
                         Academic Programs
                     </h1>
                     <button
@@ -146,7 +146,7 @@ export default function Index({ programs, filters = {} }) {
                             e.preventDefault();
                             visit();
                         }}
-                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#F4F5F7] p-5 ring-1 ring-[#f1f5f9]"
+                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#F4F5F7] p-5 ring-1 ring-[#f1f5f9] dark:bg-white/[0.03] dark:ring-white/10"
                     >
                         <input
                             type="text"
@@ -174,7 +174,7 @@ export default function Index({ programs, filters = {} }) {
                     <div className="overflow-x-auto">
                         <table className="w-full min-w-[720px] border-collapse text-left text-sm">
                             <thead>
-                                <tr className="border-b-2 border-[#d4a017] bg-[#F4F5F7] text-xs tracking-wide text-[#334155] uppercase">
+                                <tr className="border-b-2 border-[#d4a017] bg-[#F4F5F7] text-xs tracking-wide text-[#334155] uppercase dark:bg-white/[0.04] dark:text-white">
                                     <th className="w-48 px-5 py-4 font-bold">
                                         College
                                     </th>
@@ -195,7 +195,7 @@ export default function Index({ programs, filters = {} }) {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#f1f5f9]">
+                            <tbody className="divide-y divide-[#f1f5f9] dark:divide-white/10">
                                 {rows.length > 0 ? (
                                     rows.map((p) => (
                                         <tr
@@ -205,25 +205,25 @@ export default function Index({ programs, filters = {} }) {
                                                     `/programs/${p.id}/prospectus`,
                                                 )
                                             }
-                                            className="cursor-pointer transition hover:bg-[#F5E9ED]"
+                                            className="cursor-pointer transition hover:bg-[#F5E9ED] dark:hover:bg-white/[0.05]"
                                         >
-                                            <td className="px-5 py-3 text-sm text-[#9299A5]">
+                                            <td className="px-5 py-3 text-sm text-[#9299A5] dark:text-white/60">
                                                 {p.college}
                                             </td>
-                                            <td className="px-5 py-3 font-semibold text-[#343A40]">
+                                            <td className="px-5 py-3 font-semibold text-[#343A40] dark:text-white">
                                                 {p.program_name}
                                             </td>
-                                            <td className="px-5 py-3 text-sm text-[#9299A5]">
+                                            <td className="px-5 py-3 text-sm text-[#9299A5] dark:text-white/60">
                                                 {p.major || (
                                                     <span className="opacity-50">
                                                         -
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="px-5 py-3 text-center text-sm text-[#9299A5]">
+                                            <td className="px-5 py-3 text-center text-sm text-[#9299A5] dark:text-white/60">
                                                 {p.level}
                                             </td>
-                                            <td className="px-5 py-3 text-center text-sm text-[#9299A5]">
+                                            <td className="px-5 py-3 text-center text-sm text-[#9299A5] dark:text-white/60">
                                                 {p.course_subjects_count ?? 0}
                                             </td>
                                             <td className="px-5 py-3">
@@ -235,7 +235,7 @@ export default function Index({ programs, filters = {} }) {
                                                             e.stopPropagation();
                                                             openEdit(p);
                                                         }}
-                                                        className="rounded-md bg-[#F4F5F7] p-2 text-[#9299A5] transition hover:bg-[#fef3c7] hover:text-[#d97706]"
+                                                        className="rounded-md bg-[#F4F5F7] p-2 text-[#9299A5] transition hover:bg-[#fef3c7] hover:text-[#d97706] dark:bg-white/10 dark:text-white/70 dark:hover:bg-amber-500/20 dark:hover:text-amber-400"
                                                     >
                                                         <Pencil className="size-3.5" />
                                                     </button>
@@ -246,7 +246,7 @@ export default function Index({ programs, filters = {} }) {
                                                             e.stopPropagation();
                                                             setDeleting(p);
                                                         }}
-                                                        className="rounded-md bg-[#F4F5F7] p-2 text-[#9299A5] transition hover:bg-[#fee2e2] hover:text-[#C44545]"
+                                                        className="rounded-md bg-[#F4F5F7] p-2 text-[#9299A5] transition hover:bg-[#fee2e2] hover:text-[#C44545] dark:bg-white/10 dark:text-white/70 dark:hover:bg-red-500/20 dark:hover:text-red-400"
                                                     >
                                                         <Trash2 className="size-3.5" />
                                                     </button>

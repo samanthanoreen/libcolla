@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Main')->name('home');
 Route::inertia('/main', 'Main')->name('main');
+Route::inertia('/features', 'Features')->name('features');
+Route::inertia('/how-it-works', 'HowItWorks')->name('how-it-works');
+Route::inertia('/benefits', 'Benefits')->name('benefits');
 
 // Support GET & POST /logout directly
 Route::match(['get', 'post'], '/logout', function (Request $request) {
