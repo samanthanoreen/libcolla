@@ -39,7 +39,7 @@ Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)** in your web browser.
 | Role | Username / Email | Password | Access / Features |
 | :--- | :--- | :--- | :--- |
 | **Librarian (Admin)** | `samanacele` or `samana@gmail.com` | `samana123` | Full Access (Assessment Reports, Manage Users, Catalog, Support) |
-| **Staff / Assistant** | `jelly` or `jaelbohol@gmail.com` | `password123` | Book Management, Program Assessment |
+| **Staff / Assistant** | `jelly` or `jaelbohol@gmail.com` | `samana123` | Book Management, Program Assessment |
 
 ---
 

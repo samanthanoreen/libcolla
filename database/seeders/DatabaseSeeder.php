@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                 'full_name' => 'Jael Bohol',
                 'username' => 'jelly',
                 'role' => 'staff',
-                'password' => Hash::make('password123'),
+                'password' => Hash::make('samana123'),
             ]
         );
 
