@@ -40,7 +40,6 @@ Open **[http://127.0.0.1:8000](http://127.0.0.1:8000)** in your web browser.
 | :--- | :--- | :--- | :--- |
 | **Librarian (Admin)** | `samanacele` or `samana@gmail.com` | `samana123` | Full Access (Assessment Reports, Manage Users, Catalog, Support) |
 | **Staff / Assistant** | `jelly` or `jaelbohol@gmail.com` | `password123` | Book Management, Program Assessment |
-| **Program Head** | `programhead` or `programhead@usep.edu.ph` | `password123` | Program Curriculum & Course Assessment |
 
 ---
 

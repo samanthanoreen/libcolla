@@ -39,17 +39,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $programHead = User::updateOrCreate(
-            ['email' => 'programhead@usep.edu.ph'],
-            [
-                'name' => 'Dr. Alan Turing',
-                'full_name' => 'Dr. Alan Turing',
-                'username' => 'programhead',
-                'role' => 'program_head',
-                'password' => Hash::make('password123'),
-            ]
-        );
-
         // 2. Seed Academic Programs
         $bsit = Program::updateOrCreate(
             ['program_code' => 'BSIT'],
