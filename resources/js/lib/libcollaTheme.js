@@ -1,22 +1,20 @@
+export const palette = {
+    primaryBurgundy: '#701F35',
+    darkBurgundy: '#4D1425',
+    lightBurgundy: '#F5E9ED',
+    white: '#FFFFFF',
+    bgGray: '#F4F5F7',
+    borderGray: '#E2E5E9',
+    mediumGray: '#9299A5',
+    darkGray: '#343A40',
+    success: '#21865A',
+    warning: '#D18A24',
+    danger: '#C44545',
+    information: '#3478B9',
+};
+
 export const libcollaTheme = {
-    colorScheme: 'light',
-    color: '#1e293b',
-    '--color-background': '#ffffff',
-    '--color-foreground': '#1e293b',
-    '--color-card': '#ffffff',
-    '--color-card-foreground': '#1e293b',
-    '--color-popover': '#ffffff',
-    '--color-popover-foreground': '#1e293b',
-    '--color-primary': '#9f1239',
-    '--color-primary-foreground': '#ffffff',
-    '--color-muted': '#f1f5f9',
-    '--color-muted-foreground': '#64748b',
-    '--color-accent': '#e2e8f0',
-    '--color-accent-foreground': '#1e293b',
-    '--color-destructive': '#dc2626',
-    '--color-border': '#e2e8f0',
-    '--color-input': '#cbd5e1',
-    '--color-ring': '#9f1239',
+    ...palette,
 };
 
 export const serif = {

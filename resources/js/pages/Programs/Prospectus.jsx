@@ -655,7 +655,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                     <button
                         type="button"
                         onClick={() => setDeleteProgramOpen(true)}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#fee2e2] px-5 py-3 text-xs font-bold tracking-wide text-[#ef4444] transition hover:bg-[#fecaca]"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#fee2e2] px-5 py-3 text-xs font-bold tracking-wide text-[#C44545] transition hover:bg-[#fecaca]"
                     >
                         <Trash2 className="size-4" />
                         DELETE PROGRAM
@@ -878,7 +878,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             >
                 <div className="p-6 text-center">
                     <div className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full bg-[#fee2e2]">
-                        <TriangleAlert className="size-7 text-[#ef4444]" />
+                        <TriangleAlert className="size-7 text-[#C44545]" />
                     </div>
                     <h3 className="text-lg font-semibold">Delete Program?</h3>
                     <p className="text-muted-foreground mt-2 mb-6 text-sm">

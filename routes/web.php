@@ -11,9 +11,25 @@ use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
 use App\Models\Prospectus;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'welcome')->name('home');
+Route::inertia('/', 'Main')->name('home');
+Route::inertia('/main', 'Main')->name('main');
+Route::inertia('/features', 'Features')->name('features');
+Route::inertia('/how-it-works', 'HowItWorks')->name('how-it-works');
+Route::inertia('/benefits', 'Benefits')->name('benefits');
+
+// Support GET & POST /logout directly
+Route::match(['get', 'post'], '/logout', function (Request $request) {
+    Auth::guard('web')->logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect('/login')->with('status', 'You have been logged out successfully.');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dynamic Dashboard Route

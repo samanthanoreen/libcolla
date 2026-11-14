@@ -1,0 +1,39 @@
+/* Manage Users Page Specific Styles */
+
+/* User Form */
+.user-form-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.user-form-card .form-input {
+    background: var(--slate-50);
+}
+
+/* Users Stats Card */
+.users-stats {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.users-stats h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.users-stats .total-count {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+}

@@ -78,14 +78,14 @@ export default function Index({
 
     return (
         <div style={libcollaTheme} className="mx-auto w-full max-w-7xl">
-            <div className="overflow-hidden rounded-[2rem] bg-white text-[#1e293b] shadow-2xl">
+            <div className="overflow-hidden rounded-[2rem] bg-white text-[#343A40] shadow-2xl dark:border dark:border-white/10 dark:bg-[#280B14] dark:text-[#F5E9ED]">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#f8fafc] px-8 py-6">
+                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#F4F5F7] px-8 py-6 dark:bg-[#1E070F]">
                     <h1
-                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl"
+                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl text-[#343A40] dark:text-white"
                         style={serif}
                     >
-                        <FolderTree className="size-6" />
+                        <FolderTree className="size-6 text-[#701F35] dark:text-[#d4a017]" />
                         Books by Program
                     </h1>
                     <button
@@ -105,7 +105,7 @@ export default function Index({
                             e.preventDefault();
                             visit({ page: 1 });
                         }}
-                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#f8fafc] p-5 ring-1 ring-[#f1f5f9]"
+                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#F4F5F7] p-5 ring-1 ring-[#f1f5f9] dark:bg-white/[0.03] dark:ring-white/10"
                     >
                         <input
                             type="text"
@@ -130,11 +130,11 @@ export default function Index({
                     </form>
 
                     {/* Table */}
-                    <div className="mt-6 overflow-hidden rounded-xl border border-[#e2e8f0]">
+                    <div className="mt-6 overflow-hidden rounded-xl border border-[#E2E5E9] dark:border-white/10">
                         <div className="overflow-x-auto">
                             <table className="w-full min-w-[820px] border-collapse text-left text-sm">
                                 <thead>
-                                    <tr className="border-b-2 border-[#d4a017] bg-[#f1f5f9] text-xs tracking-wide text-[#334155] uppercase">
+                                    <tr className="border-b-2 border-[#d4a017] bg-[#F4F5F7] text-xs tracking-wide text-[#334155] uppercase dark:bg-white/[0.04] dark:text-white">
                                         <th className="p-4 font-bold">
                                             College
                                         </th>
@@ -158,7 +158,7 @@ export default function Index({
                                         </th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-[#f1f5f9] bg-white">
+                                <tbody className="divide-y divide-[#f1f5f9] bg-white dark:divide-white/10 dark:bg-transparent">
                                     {rows.length > 0 ? (
                                         rows.map((p) => (
                                             <tr
@@ -168,30 +168,30 @@ export default function Index({
                                                         `/books/program/${p.id}`,
                                                     )
                                                 }
-                                                className="group cursor-pointer transition-colors hover:bg-[#fef2f2]"
+                                                className="group cursor-pointer transition-colors hover:bg-[#fef2f2] dark:hover:bg-white/[0.05]"
                                             >
-                                                <td className="p-4 text-[#475569]">
+                                                <td className="p-4 text-[#9299A5] dark:text-white/60">
                                                     {p.college}
                                                 </td>
-                                                <td className="p-4 font-bold text-[#1e293b]">
+                                                <td className="p-4 font-bold text-[#343A40] dark:text-white">
                                                     {p.program_name}
                                                 </td>
-                                                <td className="p-4 text-[#64748b]">
+                                                <td className="p-4 text-[#9299A5] dark:text-white/60">
                                                     {p.major || '—'}
                                                 </td>
-                                                <td className="p-4 text-center text-[#475569]">
+                                                <td className="p-4 text-center text-[#9299A5]">
                                                     {p.course_subjects_count ??
                                                         0}
                                                 </td>
                                                 <td className="p-4 text-center font-semibold">
                                                     {p.books_count ?? 0}
                                                 </td>
-                                                <td className="p-4 text-center text-[#475569]">
+                                                <td className="p-4 text-center text-[#9299A5]">
                                                     {p.books_sum_total_copies ??
                                                         0}
                                                 </td>
                                                 <td className="p-4 text-center">
-                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#f1f5f9] px-4 py-1.5 text-xs font-semibold tracking-wider whitespace-nowrap text-[#475569] uppercase transition-colors group-hover:bg-[#c8102e] group-hover:text-white">
+                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#F4F5F7] px-4 py-1.5 text-xs font-semibold tracking-wider whitespace-nowrap text-[#9299A5] uppercase transition-colors group-hover:bg-[#701F35] group-hover:text-white dark:bg-white/10 dark:text-white/80">
                                                         <FolderOpen className="size-3.5" />
                                                         View Books
                                                     </span>
@@ -202,7 +202,7 @@ export default function Index({
                                         <tr>
                                             <td
                                                 colSpan={7}
-                                                className="py-12 text-center text-[#94a3b8]"
+                                                className="py-12 text-center text-[#9299A5] dark:text-white/60"
                                             >
                                                 <FolderOpen className="mx-auto mb-4 size-12 opacity-30" />
                                                 No active academic programs
@@ -215,7 +215,7 @@ export default function Index({
                         </div>
 
                         {/* Pagination */}
-                        <div className="flex flex-wrap items-center justify-center gap-6 border-t border-[#f1f5f9] px-6 py-8 text-sm text-[#475569]">
+                        <div className="flex flex-wrap items-center justify-center gap-6 border-t border-[#f1f5f9] px-6 py-8 text-sm text-[#9299A5] dark:border-white/10 dark:text-white/60">
                             <span>
                                 Showing{' '}
                                 {total === 0
@@ -233,7 +233,7 @@ export default function Index({
                                             page: 1,
                                         })
                                     }
-                                    className="rounded-md border border-[#e2e8f0] bg-white px-2 py-1 text-sm font-semibold text-[#9f1239]"
+                                    className="rounded-md border border-[#E2E5E9] bg-white px-2 py-1 text-sm font-semibold text-[#701F35] dark:border-white/10 dark:bg-black/30 dark:text-[#d4a017]"
                                 >
                                     {[10, 15, 25, 50].map((n) => (
                                         <option key={n} value={n}>
@@ -248,18 +248,18 @@ export default function Index({
                                     type="button"
                                     disabled={page <= 1}
                                     onClick={() => visit({ page: page - 1 })}
-                                    className="flex size-9 items-center justify-center rounded-full border border-[#e2e8f0] text-[#9f1239] transition hover:bg-[#fdf2f8] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent"
+                                    className="flex size-9 items-center justify-center rounded-full border border-[#E2E5E9] text-[#701F35] transition hover:bg-[#F5E9ED] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent dark:border-white/10 dark:text-white dark:hover:bg-white/10 dark:disabled:text-white/20"
                                 >
                                     <ChevronLeft className="size-4" />
                                 </button>
-                                <span className="font-semibold text-[#1e293b]">
+                                <span className="font-semibold text-[#343A40] dark:text-white">
                                     Page {page} of {lastPage}
                                 </span>
                                 <button
                                     type="button"
                                     disabled={page >= lastPage}
                                     onClick={() => visit({ page: page + 1 })}
-                                    className="flex size-9 items-center justify-center rounded-full border border-[#e2e8f0] text-[#9f1239] transition hover:bg-[#fdf2f8] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent"
+                                    className="flex size-9 items-center justify-center rounded-full border border-[#E2E5E9] text-[#701F35] transition hover:bg-[#F5E9ED] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent dark:border-white/10 dark:text-white dark:hover:bg-white/10 dark:disabled:text-white/20"
                                 >
                                     <ChevronRight className="size-4" />
                                 </button>
@@ -407,7 +407,7 @@ export default function Index({
                         </div>
                     </div>
 
-                    <div className="flex justify-end gap-3 border-t border-[#e2e8f0] px-6 py-4">
+                    <div className="flex justify-end gap-3 border-t border-[#E2E5E9] px-6 py-4">
                         <button
                             type="button"
                             onClick={closeAdd}

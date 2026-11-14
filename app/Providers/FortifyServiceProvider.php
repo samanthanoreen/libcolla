@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
@@ -21,7 +23,12 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->instance(\Laravel\Fortify\Contracts\LogoutResponse::class, new class implements \Laravel\Fortify\Contracts\LogoutResponse {
+            public function toResponse($request)
+            {
+                return redirect('/login')->with('status', 'You have been logged out successfully.');
+            }
+        });
     }
 
     /**
@@ -32,6 +39,37 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureActions();
         $this->configureViews();
         $this->configureRateLimiting();
+        $this->configureAuthentication();
+    }
+
+    /**
+     * Configure Fortify authentication to allow login via Email or Username with optional Role validation.
+     */
+    private function configureAuthentication(): void
+    {
+        Fortify::authenticateUsing(function (Request $request) {
+            $login = $request->input('email') ?: $request->input('username');
+
+            if (!$login) {
+                return null;
+            }
+
+            $user = User::where(function ($query) use ($login) {
+                $query->where('email', $login)
+                      ->orWhere('username', $login);
+            })->first();
+
+            if ($user && Hash::check($request->password, $user->password)) {
+                // If a role was selected, verify it matches the user's role
+                if ($request->filled('role') && !empty($user->role) && strtolower($user->role) !== strtolower($request->role)) {
+                    return null;
+                }
+
+                return $user;
+            }
+
+            return null;
+        });
     }
 
     /**

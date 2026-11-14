@@ -1,0 +1,76 @@
+/* Report Preview Page Specific Styles */
+
+/* Make all notifications dark and readable */
+.notification-toast,
+#customModal .modal-container {
+    background: #1e293b !important;
+    color: white !important;
+}
+
+.notification-toast span,
+#customModal .modal-message {
+    color: white !important;
+}
+
+#customModal .modal-title {
+    color: #fcd34d !important;
+}
+
+#customModal .modal-btn-cancel {
+    background: #475569 !important;
+    color: white !important;
+}
+
+#customModal .modal-btn-confirm {
+    background: #9f1239 !important;
+    color: white !important;
+}
+
+/* Editable Table Cells */
+.preview-table .editable-cell {
+    min-width: 80px;
+}
+
+/* Delete Row Button */
+.delete-row-btn {
+    background: #fee2e2;
+    border: none;
+    color: var(--error);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.delete-row-btn:hover {
+    background: #fecaca;
+    transform: scale(1.05);
+}
+
+/* Edit Notice */
+.edit-notice {
+    background: var(--info-bg);
+    border: 1px solid var(--info);
+    color: var(--info);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-lg);
+    margin-bottom: var(--space-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.875rem;
+}
+
+/* Query Note */
+.query-note {
+    background: #fffbeb;
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.query-note p {
+    color: var(--slate-600);
+    font-size: 0.875rem;
+}
