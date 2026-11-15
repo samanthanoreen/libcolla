@@ -17,6 +17,7 @@ import {
     ModalHeader,
 } from '@/components/crud-ui';
 import { libcollaTheme, serif } from '@/lib/libcollaTheme';
+import { collegeCode } from '@/lib/college';
 
 const programLabel = (p) =>
     `${p.program_code} - ${p.program_name}${p.major ? ` (${p.major})` : ''}`;
@@ -77,15 +78,15 @@ export default function Index({
     const light = `${inputCls} w-full`;
 
     return (
-        <div style={libcollaTheme} className="mx-auto w-full max-w-7xl">
-            <div className="overflow-hidden rounded-[2rem] bg-white text-[#343A40] shadow-2xl dark:border dark:border-white/10 dark:bg-[#280B14] dark:text-[#F5E9ED]">
+        <div style={libcollaTheme} className="w-full">
+            <div className="overflow-hidden rounded-[2rem] bg-white text-[#4B5563] shadow-2xl dark:border dark:border-white/10 dark:bg-[#280B14] dark:text-[#F9EDEF]">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b-2 border-[#d4a017] bg-[#F4F5F7] px-8 py-6 dark:bg-[#1E070F]">
+                <div className="flex items-center justify-between border-b-2 border-[#E9A12B] bg-[#F8F8F8] px-8 py-6 dark:bg-[#1E070F]">
                     <h1
-                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl text-[#343A40] dark:text-white"
+                        className="flex items-center gap-3 text-xl font-bold sm:text-2xl text-[#4B5563] dark:text-white"
                         style={serif}
                     >
-                        <FolderTree className="size-6 text-[#701F35] dark:text-[#d4a017]" />
+                        <FolderTree className="size-6 text-[#A04040] dark:text-[#E9A12B]" />
                         Books by Program
                     </h1>
                     <button
@@ -105,7 +106,7 @@ export default function Index({
                             e.preventDefault();
                             visit({ page: 1 });
                         }}
-                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#F4F5F7] p-5 ring-1 ring-[#f1f5f9] dark:bg-white/[0.03] dark:ring-white/10"
+                        className="flex flex-wrap items-center gap-3 rounded-2xl bg-[#F8F8F8] p-5 ring-1 ring-[#f1f5f9] dark:bg-white/[0.03] dark:ring-white/10"
                     >
                         <input
                             type="text"
@@ -130,11 +131,11 @@ export default function Index({
                     </form>
 
                     {/* Table */}
-                    <div className="mt-6 overflow-hidden rounded-xl border border-[#E2E5E9] dark:border-white/10">
+                    <div className="mt-6 overflow-hidden rounded-xl border border-[#E5E5E5] dark:border-white/10">
                         <div className="overflow-x-auto">
                             <table className="w-full min-w-[820px] border-collapse text-left text-sm">
                                 <thead>
-                                    <tr className="border-b-2 border-[#d4a017] bg-[#F4F5F7] text-xs tracking-wide text-[#334155] uppercase dark:bg-white/[0.04] dark:text-white">
+                                    <tr className="border-b-2 border-[#E9A12B] bg-[#F8F8F8] text-xs tracking-wide text-[#334155] uppercase dark:bg-white/[0.04] dark:text-white">
                                         <th className="p-4 font-bold">
                                             College
                                         </th>
@@ -170,28 +171,28 @@ export default function Index({
                                                 }
                                                 className="group cursor-pointer transition-colors hover:bg-[#fef2f2] dark:hover:bg-white/[0.05]"
                                             >
-                                                <td className="p-4 text-[#9299A5] dark:text-white/60">
-                                                    {p.college}
+                                                <td className="p-4 text-[#4B5563] dark:text-white/60">
+                                                    {collegeCode(p.college)}
                                                 </td>
-                                                <td className="p-4 font-bold text-[#343A40] dark:text-white">
+                                                <td className="p-4 font-bold text-[#4B5563] dark:text-white">
                                                     {p.program_name}
                                                 </td>
-                                                <td className="p-4 text-[#9299A5] dark:text-white/60">
+                                                <td className="p-4 text-[#4B5563] dark:text-white/60">
                                                     {p.major || '—'}
                                                 </td>
-                                                <td className="p-4 text-center text-[#9299A5]">
+                                                <td className="p-4 text-center text-[#4B5563]">
                                                     {p.course_subjects_count ??
                                                         0}
                                                 </td>
                                                 <td className="p-4 text-center font-semibold">
                                                     {p.books_count ?? 0}
                                                 </td>
-                                                <td className="p-4 text-center text-[#9299A5]">
+                                                <td className="p-4 text-center text-[#4B5563]">
                                                     {p.books_sum_total_copies ??
                                                         0}
                                                 </td>
                                                 <td className="p-4 text-center">
-                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#F4F5F7] px-4 py-1.5 text-xs font-semibold tracking-wider whitespace-nowrap text-[#9299A5] uppercase transition-colors group-hover:bg-[#701F35] group-hover:text-white dark:bg-white/10 dark:text-white/80">
+                                                    <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#F8F8F8] px-4 py-1.5 text-xs font-semibold tracking-wider whitespace-nowrap text-[#4B5563] uppercase transition-colors group-hover:bg-gradient-to-r from-[#D66C6C] to-[#A04040] group-hover:text-white dark:bg-white/10 dark:text-white/80">
                                                         <FolderOpen className="size-3.5" />
                                                         View Books
                                                     </span>
@@ -202,7 +203,7 @@ export default function Index({
                                         <tr>
                                             <td
                                                 colSpan={7}
-                                                className="py-12 text-center text-[#9299A5] dark:text-white/60"
+                                                className="py-12 text-center text-[#4B5563] dark:text-white/60"
                                             >
                                                 <FolderOpen className="mx-auto mb-4 size-12 opacity-30" />
                                                 No active academic programs
@@ -215,7 +216,7 @@ export default function Index({
                         </div>
 
                         {/* Pagination */}
-                        <div className="flex flex-wrap items-center justify-center gap-6 border-t border-[#f1f5f9] px-6 py-8 text-sm text-[#9299A5] dark:border-white/10 dark:text-white/60">
+                        <div className="flex flex-wrap items-center justify-center gap-6 border-t border-[#f1f5f9] px-6 py-8 text-sm text-[#4B5563] dark:border-white/10 dark:text-white/60">
                             <span>
                                 Showing{' '}
                                 {total === 0
@@ -233,7 +234,7 @@ export default function Index({
                                             page: 1,
                                         })
                                     }
-                                    className="rounded-md border border-[#E2E5E9] bg-white px-2 py-1 text-sm font-semibold text-[#701F35] dark:border-white/10 dark:bg-black/30 dark:text-[#d4a017]"
+                                    className="rounded-md border border-[#E5E5E5] bg-white px-2 py-1 text-sm font-semibold text-[#A04040] dark:border-white/10 dark:bg-black/30 dark:text-[#E9A12B]"
                                 >
                                     {[10, 15, 25, 50].map((n) => (
                                         <option key={n} value={n}>
@@ -248,18 +249,18 @@ export default function Index({
                                     type="button"
                                     disabled={page <= 1}
                                     onClick={() => visit({ page: page - 1 })}
-                                    className="flex size-9 items-center justify-center rounded-full border border-[#E2E5E9] text-[#701F35] transition hover:bg-[#F5E9ED] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent dark:border-white/10 dark:text-white dark:hover:bg-white/10 dark:disabled:text-white/20"
+                                    className="flex size-9 items-center justify-center rounded-full border border-[#E5E5E5] text-[#A04040] transition hover:bg-[#F9EDEF] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent dark:border-white/10 dark:text-white dark:hover:bg-white/10 dark:disabled:text-white/20"
                                 >
                                     <ChevronLeft className="size-4" />
                                 </button>
-                                <span className="font-semibold text-[#343A40] dark:text-white">
+                                <span className="font-semibold text-[#4B5563] dark:text-white">
                                     Page {page} of {lastPage}
                                 </span>
                                 <button
                                     type="button"
                                     disabled={page >= lastPage}
                                     onClick={() => visit({ page: page + 1 })}
-                                    className="flex size-9 items-center justify-center rounded-full border border-[#E2E5E9] text-[#701F35] transition hover:bg-[#F5E9ED] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent dark:border-white/10 dark:text-white dark:hover:bg-white/10 dark:disabled:text-white/20"
+                                    className="flex size-9 items-center justify-center rounded-full border border-[#E5E5E5] text-[#A04040] transition hover:bg-[#F9EDEF] disabled:cursor-not-allowed disabled:text-[#cbd5e1] disabled:hover:bg-transparent dark:border-white/10 dark:text-white dark:hover:bg-white/10 dark:disabled:text-white/20"
                                 >
                                     <ChevronRight className="size-4" />
                                 </button>
@@ -407,7 +408,7 @@ export default function Index({
                         </div>
                     </div>
 
-                    <div className="flex justify-end gap-3 border-t border-[#E2E5E9] px-6 py-4">
+                    <div className="flex justify-end gap-3 border-t border-[#E5E5E5] px-6 py-4">
                         <button
                             type="button"
                             onClick={closeAdd}

@@ -19,6 +19,7 @@ import {
     ModalHeader,
 } from '@/components/crud-ui';
 import { libcollaTheme } from '@/lib/libcollaTheme';
+import { collegeCode } from '@/lib/college';
 
 const SECTIONS = [
     ['FIRST YEAR — 1st Semester', '1st Year — 1st Sem'],
@@ -53,13 +54,7 @@ const COLLEGE_ABBR = {
     'College of Technology': 'CT',
     'College of Applied Economics': 'CAEc',
 };
-const abbr = (college = '') =>
-    COLLEGE_ABBR[college] ||
-    college
-        .split(' ')
-        .map((w) => w[0])
-        .join('')
-        .toUpperCase();
+const abbr = (college = '') => collegeCode(college);
 
 const num = (v) => {
     const n = parseFloat(v);
@@ -261,7 +256,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
             doc.setTextColor(100, 116, 139);
             doc.text(
                 'College: ' +
-                    program.college +
+                    collegeCode(program.college) +
                     '   |   Level: ' +
                     (program.level || 'Bachelor'),
                 margin,
@@ -393,13 +388,13 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                 doc.setFontSize(7);
                 doc.setFont('helvetica', 'normal');
                 doc.setTextColor(148, 163, 184);
-                doc.text(`LibColla - ${program.college}`, margin, ph - 4);
+                doc.text(`LibColla - ${collegeCode(program.college)}`, margin, ph - 4);
                 doc.text(`Page ${i} of ${pages}`, pw - margin, ph - 4, {
                     align: 'right',
                 });
             }
 
-            const fileName = `${`${program.college}_${program.program_name}`
+            const fileName = `${`${collegeCode(program.college)}_${program.program_name}`
                 .replace(/\s+/g, '_')
                 .replace(/[^a-zA-Z0-9_]/g, '')}_Prospectus.pdf`;
             doc.save(fileName);
@@ -430,9 +425,9 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
 
     return (
         <div style={libcollaTheme} className="md:p-6">
-            <div className="border-border bg-card text-card-foreground mx-auto max-w-6xl overflow-hidden rounded-xl border shadow-sm">
+            <div className="border-border bg-card text-card-foreground w-full overflow-hidden rounded-xl border shadow-sm">
                 {/* Program band */}
-                <div className="border-border flex flex-col border-b-2 border-b-[#d4a017] sm:flex-row sm:items-stretch">
+                <div className="border-border flex flex-col border-b-2 border-b-[#E9A12B] sm:flex-row sm:items-stretch">
                     <div className="border-border bg-muted flex items-center justify-center border-b px-5 py-4 text-lg font-extrabold sm:min-w-[100px] sm:border-r sm:border-b-0">
                         {abbr(program.college)}
                     </div>
@@ -443,7 +438,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                         <div className="text-muted-foreground text-sm">
                             {program.major
                                 ? `Major: ${program.major}`
-                                : program.college}
+                                : collegeCode(program.college)}
                         </div>
                     </div>
                     <div className="border-border flex items-center border-t px-5 py-3 sm:border-t-0 sm:border-l sm:py-0">
@@ -560,7 +555,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                                     key={s.id}
                                                     className="border-border hover:bg-muted/50 border-b transition"
                                                 >
-                                                    <td className="px-4 py-3 font-mono text-xs font-semibold">
+                                                    <td className="px-4 py-3 text-xs font-semibold">
                                                         {s.subject_code}
                                                     </td>
                                                     <td className="px-4 py-3">
