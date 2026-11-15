@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ArrowLeft, Menu, X } from 'lucide-react';
 
-const MAROON = '#8F1428';
+const BRAND_BG = 'linear-gradient(90deg, #A84848 0%, #7E2230 100%)';
 
 const navLinks = [
     { href: '/features', label: 'Features' },
@@ -20,7 +20,7 @@ export function PublicHeader() {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     return (
-        <header className="sticky top-0 z-50 w-full text-white" style={{ backgroundColor: MAROON }}>
+        <header className="sticky top-0 z-50 w-full text-white" style={{ background: BRAND_BG }}>
             <Head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
@@ -82,7 +82,7 @@ export function PublicHeader() {
             </div>
 
             {mobileOpen && (
-                <div className="md:hidden border-t border-white/15" style={{ backgroundColor: MAROON }}>
+                <div className="md:hidden border-t border-white/15" style={{ background: BRAND_BG }}>
                     <div className="max-w-[1480px] mx-auto px-6 sm:px-10 lg:px-12 pb-3 flex flex-col text-base font-semibold">
                         {navLinks.map((l) => (
                             <Link
@@ -110,7 +110,7 @@ export function PublicHeader() {
 
 export function PublicFooter() {
     return (
-        <footer className="w-full text-white" style={{ backgroundColor: MAROON }}>
+        <footer className="w-full text-white" style={{ background: BRAND_BG }}>
             <div className="max-w-[1480px] mx-auto px-6 sm:px-10 lg:px-12 py-4 flex flex-wrap items-center justify-between gap-2">
                 <p className="text-white text-sm font-medium">
                     &copy; 2026 University of Southeastern Philippines. All Rights Reserved.
@@ -130,7 +130,7 @@ type Props = {
 
 export default function PublicLayout({ title, children }: Props) {
     return (
-        <div className="min-h-screen flex flex-col bg-white text-black font-['Quicksand',system-ui,sans-serif] selection:bg-[#8F1428] selection:text-white">
+        <div className="min-h-screen flex flex-col bg-white text-black font-['Quicksand',system-ui,sans-serif] selection:bg-[#A04040] selection:text-white">
             <Head title={`${title} • LibColla`} />
             <PublicHeader />
 
@@ -148,7 +148,7 @@ export default function PublicLayout({ title, children }: Props) {
                         href="/"
                         title="Back to Main Page"
                         aria-label="Back to Main Page"
-                        className="inline-flex items-center justify-center size-12 mb-8 rounded-xl border border-white/70 bg-white/85 backdrop-blur-sm shadow-md text-[#8F1428] hover:bg-white transition-colors"
+                        className="inline-flex items-center justify-center size-12 mb-8 rounded-xl border border-white/70 bg-white/85 backdrop-blur-sm shadow-md text-[#A04040] hover:bg-white transition-colors"
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </Link>
@@ -181,12 +181,12 @@ export function InfoCard({ icon: Icon, num, title, desc, className = '' }: InfoC
     return (
         <div className={`h-full p-8 rounded-2xl bg-white/85 backdrop-blur-sm border border-white/70 shadow-lg ${className}`}>
             {Icon && (
-                <div className="size-14 mb-5 rounded-xl bg-white border border-[#E5E5E5] flex items-center justify-center text-[#8F1428]">
+                <div className="size-14 mb-5 rounded-xl bg-white border border-[#E5E5E5] flex items-center justify-center text-[#A04040]">
                     <Icon className="w-7 h-7" />
                 </div>
             )}
             {num !== undefined && (
-                <div className="size-14 mb-5 rounded-xl bg-[#8F1428] flex items-center justify-center text-white text-xl font-semibold">
+                <div className="size-14 mb-5 rounded-xl bg-gradient-to-r from-[#B04F4F] to-[#8A2B33] flex items-center justify-center text-white text-xl font-semibold">
                     {num}
                 </div>
             )}

@@ -83,20 +83,20 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
     };
 
     return (
-        <div className="w-full max-w-5xl mx-auto space-y-8">
+        <div className="w-full space-y-8">
             <Head title="Manage Users" />
 
             {/* Header Stats Banner (Matches 1lib Design System) */}
-            <div className="users-stats flex justify-between items-center bg-white/[0.06] backdrop-blur-xl p-8 rounded-3xl text-white border border-white/10 border-t-[3px] border-t-[#d4a017] shadow-lg">
+            <div className="users-stats flex justify-between items-center bg-white/[0.06] backdrop-blur-xl p-8 rounded-3xl text-white border border-white/10 border-t-[3px] border-t-[#E9A12B] shadow-lg">
                 <div>
-                    <h2 className="text-2xl font-bold flex items-center gap-3 font-['Source_Serif_4',Georgia,serif]">
-                        <span className="text-[#d4a017]">👥</span> User Management
+                    <h2 className="text-2xl font-bold flex items-center gap-3 font-['Quicksand',system-ui,sans-serif]">
+                        <span className="text-[#E9A12B]">👥</span> User Management
                     </h2>
                     <p className="text-white/70 mt-1.5 text-sm">Add, view and manage library staff accounts</p>
                 </div>
                 <div className="text-right">
                     <div className="text-xs uppercase tracking-wider font-semibold text-white/60">Total Users</div>
-                    <div id="totalUsers" className="stat-number text-5xl font-bold text-white font-['Source_Serif_4',Georgia,serif] mt-1">
+                    <div id="totalUsers" className="stat-number text-5xl font-bold text-white font-['Quicksand',system-ui,sans-serif] mt-1">
                         {totalUsersCount}
                     </div>
                 </div>
@@ -110,7 +110,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                             <label className="form-label font-medium text-slate-700 block mb-2">Full Name</label>
                             <input
                                 type="text"
-                                placeholder="User Name"
+                                placeholder="Full Name"
                                 value={createData.full_name}
                                 onChange={(e) => setCreateData('full_name', e.target.value)}
                                 className="form-input w-full border border-slate-300 rounded-lg p-2.5 focus:border-[#c8102e] outline-none text-slate-800"

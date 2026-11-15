@@ -8,14 +8,14 @@ export default function Main() {
     const user = auth?.user;
 
     return (
-        <div className="min-h-screen flex flex-col bg-white text-[#4B5563] font-['Quicksand',system-ui,sans-serif] selection:bg-[#8F1428] selection:text-white">
+        <div className="min-h-screen flex flex-col bg-white text-[#4B5563] font-['Quicksand',system-ui,sans-serif] selection:bg-[#A04040] selection:text-white">
             <Head title="LibColla • Library Collection Assessment System" />
             <PublicHeader />
 
             <main className="flex-1 flex items-center bg-white py-14 lg:py-20">
                 <div className="max-w-[1480px] mx-auto px-6 sm:px-10 lg:px-12 w-full grid xl:grid-cols-[1fr_560px] gap-12 xl:gap-20 items-stretch">
                     <div className="space-y-8 self-center xl:self-auto">
-                        <h1 className="text-5xl md:text-6xl 2xl:text-7xl font-bold leading-[1.1] tracking-tight text-[#8F1428]">
+                        <h1 className="text-5xl md:text-6xl 2xl:text-7xl font-bold leading-[1.1] tracking-tight text-[#A04040]">
                             LibColla:
                             <br />
                             Library Collection
@@ -30,7 +30,7 @@ export default function Main() {
                         </p>
                         <Link
                             href={user ? '/dashboard' : '/login'}
-                            className="inline-flex items-center gap-3 h-14 px-8 rounded-md bg-[#8F1428] hover:bg-[#760F20] text-white text-base font-bold uppercase tracking-wider transition-colors"
+                            className="inline-flex items-center gap-3 h-14 px-8 rounded-md bg-gradient-to-r from-[#B04F4F] to-[#8A2B33] hover:brightness-95 text-white text-base font-bold uppercase tracking-wider transition-colors"
                         >
                             <span>Get Started</span>
                             <ArrowRight className="w-5 h-5" />
@@ -52,9 +52,9 @@ export default function Main() {
                         </div>
                         <div className="flex-1 flex flex-col justify-center p-10 lg:p-16 text-center">
                             <div className="flex justify-center items-center gap-10 mb-8">
-                                <Book className="w-16 h-16 lg:w-20 lg:h-20 text-[#8F1428]" />
+                                <Book className="w-16 h-16 lg:w-20 lg:h-20 text-[#A04040]" />
                                 <TrendingUp className="w-16 h-16 lg:w-20 lg:h-20 text-[#E9A12B]" />
-                                <Users className="w-16 h-16 lg:w-20 lg:h-20 text-[#8F1428]" />
+                                <Users className="w-16 h-16 lg:w-20 lg:h-20 text-[#A04040]" />
                             </div>
                             <h3 className="text-3xl lg:text-4xl font-bold text-[#4B5563] mb-3">
                                 Complete Collection Control
