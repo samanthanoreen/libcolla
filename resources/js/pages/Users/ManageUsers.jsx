@@ -113,7 +113,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
             </div>
 
             {/* Create User Form Card */}
-            <div className="user-form-card bg-white p-8 rounded-2xl shadow-sm border border-[#E5E5E5] dark:bg-[#280B14] dark:border-white/10">
+            <div className="user-form-card bg-white p-8 rounded-2xl shadow-sm border border-[#E5E5E5] dark:bg-white/[0.06] dark:border-white/10">
                 <form onSubmit={handleCreateSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="form-group">
@@ -166,13 +166,13 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                             <select
                                 value={createData.role}
                                 onChange={(e) => setCreateData('role', e.target.value)}
-                                className="form-input form-select w-full border border-[#E5E5E5] bg-white rounded-lg p-2.5 outline-none transition focus:border-[#A04040] text-[#4B5563] dark:border-white/10 dark:bg-[#1E070F] dark:text-white dark:focus:border-[#E9A12B]"
+                                className="form-input form-select w-full border border-[#E5E5E5] bg-white rounded-lg p-2.5 outline-none transition focus:border-[#A04040] text-[#4B5563] dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-[#E9A12B]"
                                 required
                             >
-                                <option value="" className="dark:bg-[#1E070F]">Select role...</option>
-                                <option value="admin" className="dark:bg-[#1E070F]">Administrator</option>
-                                <option value="librarian" className="dark:bg-[#1E070F]">Librarian</option>
-                                <option value="staff" className="dark:bg-[#1E070F]">Staff</option>
+                                <option value="" className="dark:bg-[#161616]">Select role...</option>
+                                <option value="admin" className="dark:bg-[#161616]">Administrator</option>
+                                <option value="librarian" className="dark:bg-[#161616]">Librarian</option>
+                                <option value="staff" className="dark:bg-[#161616]">Staff</option>
                             </select>
                             {createErrors.role && (
                                 <p className="text-[#C44545] text-xs mt-1">{createErrors.role}</p>
@@ -216,7 +216,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
             </div>
 
             {/* Existing Users Table Card */}
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-[#E5E5E5] dark:bg-[#280B14] dark:border-white/10">
+            <div className="bg-white rounded-3xl p-8 shadow-sm border border-[#E5E5E5] dark:bg-white/[0.06] dark:border-white/10">
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="font-semibold text-xl text-[#4B5563] dark:text-white">Existing Users</h3>
                 </div>
@@ -281,7 +281,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
             {/* Edit User Modal */}
             {editingUser && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl border border-[#E5E5E5] dark:bg-[#1E070F] dark:border-white/10 dark:text-white">
+                    <div className="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl border border-[#E5E5E5] dark:bg-[#161616] dark:border-white/10 dark:text-white">
                         <div className="flex justify-between items-center mb-6 border-b border-[#E5E5E5] pb-4 dark:border-white/10">
                             <h3 className="font-bold text-xl text-[#4B5563] dark:text-white flex items-center gap-2">
                                 <Pencil className="size-5 text-[#A04040] dark:text-[#E9A12B]" /> Edit User Account
@@ -327,7 +327,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
                                     <select
                                         value={editData.role}
                                         onChange={(e) => setEditData('role', e.target.value)}
-                                        className="w-full border border-[#E5E5E5] bg-white rounded-lg p-2.5 outline-none transition focus:border-[#A04040] text-[#4B5563] dark:border-white/10 dark:bg-[#1E070F] dark:text-white dark:focus:border-[#E9A12B]"
+                                        className="w-full border border-[#E5E5E5] bg-white rounded-lg p-2.5 outline-none transition focus:border-[#A04040] text-[#4B5563] dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-[#E9A12B]"
                                         required
                                     >
                                         <option value="admin">Administrator</option>
@@ -394,7 +394,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
             {/* Delete Confirmation Modal */}
             {deletingUserId && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center border border-[#E5E5E5] dark:bg-[#1E070F] dark:border-white/10 dark:text-white">
+                    <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center border border-[#E5E5E5] dark:bg-[#161616] dark:border-white/10 dark:text-white">
                         <div className="w-16 h-16 bg-[#fee2e2] text-[#C44545] rounded-full flex items-center justify-center mx-auto mb-4 dark:bg-rose-950/40 dark:text-rose-400">
                             <Trash2 className="size-8" />
                         </div>
@@ -423,7 +423,7 @@ export default function ManageUsers({ users = [], totalUsersCount = 0 }) {
             {/* Success Popup Modal */}
             {successMessage && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center border border-[#E5E5E5] dark:bg-[#1E070F] dark:border-white/10 dark:text-white">
+                    <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl text-center border border-[#E5E5E5] dark:bg-[#161616] dark:border-white/10 dark:text-white">
                         <div className="w-16 h-16 bg-[#21865A]/10 text-[#21865A] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#21865A]/20">
                             <CheckCircle2 className="size-8" />
                         </div>

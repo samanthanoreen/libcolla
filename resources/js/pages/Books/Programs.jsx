@@ -247,13 +247,13 @@ export default function Program({ program, subjects = [], books = [] }) {
                     <select
                         value={subjectId}
                         onChange={(e) => setSubjectId(e.target.value)}
-                        className="w-full rounded-lg border border-[#E5E5E5] bg-white px-3 py-2 text-[0.8rem] text-[#4B5563] outline-none focus:border-[#A04040] focus:ring-2 focus:ring-[#A04040]/10 dark:border-white/10 dark:bg-[#1E070F] dark:text-white dark:focus:border-[#E9A12B]"
+                        className="w-full rounded-lg border border-[#E5E5E5] bg-white px-3 py-2 text-[0.8rem] text-[#4B5563] outline-none focus:border-[#A04040] focus:ring-2 focus:ring-[#A04040]/10 dark:border-white/10 dark:bg-black/20 dark:text-white dark:focus:border-[#E9A12B]"
                     >
                         {subjects.length === 0 && (
-                            <option value="" className="dark:bg-[#1E070F] dark:text-white">No subjects yet</option>
+                            <option value="" className="dark:bg-[#161616] dark:text-white">No subjects yet</option>
                         )}
                         {subjects.map((s) => (
-                            <option key={s.id} value={s.id} className="dark:bg-[#1E070F] dark:text-white">
+                            <option key={s.id} value={s.id} className="dark:bg-[#161616] dark:text-white">
                                 {s.subject_code} - {s.subject_title}
                             </option>
                         ))}
@@ -387,7 +387,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 className="fixed inset-0 z-40"
                                 onClick={() => setMenuOpen(false)}
                             />
-                            <div className="absolute right-0 bottom-full z-50 mb-2 w-52 overflow-hidden rounded-lg border border-[#E5E5E5] bg-white shadow-lg dark:border-white/10 dark:bg-[#1E070F]">
+                            <div className="absolute right-0 bottom-full z-50 mb-2 w-52 overflow-hidden rounded-lg border border-[#E5E5E5] bg-white shadow-lg dark:border-white/10 dark:bg-[#161616]">
                                 <button
                                     type="button"
                                     onClick={downloadCsv}
