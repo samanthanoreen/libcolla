@@ -20,6 +20,7 @@ import {
 } from '@/components/crud-ui';
 import { libcollaTheme } from '@/lib/libcollaTheme';
 import { collegeCode } from '@/lib/college';
+import { usePermissions } from '@/hooks/use-permissions';
 
 const SECTIONS = [
     ['FIRST YEAR — 1st Semester', '1st Year — 1st Sem'],
@@ -99,6 +100,7 @@ const emptySubject = {
 };
 
 export default function Prospectus({ program, prospectus, subjects = [] }) {
+    const { canAdd, canEdit, canDelete } = usePermissions();
     const base = `/programs/${program.id}/prospectus`;
     const [yearIdx, setYearIdx] = useState(0);
 
@@ -459,14 +461,16 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                             {yearSuffix}
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        onClick={openAddSubject}
-                        className={btnPrimary}
-                    >
-                        <Plus className="size-4" />
-                        ADD SUBJECT
-                    </button>
+                    {canAdd && (
+                        <button
+                            type="button"
+                            onClick={openAddSubject}
+                            className={btnPrimary}
+                        >
+                            <Plus className="size-4" />
+                            ADD SUBJECT
+                        </button>
+                    )}
                 </div>
 
                 {/* Year tabs */}
@@ -510,27 +514,31 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                 <th className="w-36 px-4 py-3 font-bold">
                                     Pre/Co-Req
                                 </th>
-                                <th className="w-24 px-4 py-3 text-center font-bold">
-                                    Actions
-                                </th>
+                                {(canEdit || canDelete) && (
+                                    <th className="w-24 px-4 py-3 text-center font-bold">
+                                        Actions
+                                    </th>
+                                )}
                             </tr>
                         </thead>
                         <tbody>
                             {sections.length === 0 ? (
                                 <tr>
                                     <td
-                                        colSpan={7}
+                                        colSpan={(canEdit || canDelete) ? 7 : 6}
                                         className="text-muted-foreground px-4 py-10 text-center"
                                     >
                                         No subjects yet for {YEAR_TABS[yearIdx]}
                                         .{' '}
-                                        <button
-                                            type="button"
-                                            onClick={openAddSubject}
-                                            className="text-foreground font-semibold underline"
-                                        >
-                                            Add one?
-                                        </button>
+                                        {canAdd && (
+                                            <button
+                                                type="button"
+                                                onClick={openAddSubject}
+                                                className="text-foreground font-semibold underline"
+                                            >
+                                                Add one?
+                                            </button>
+                                        )}
                                     </td>
                                 </tr>
                             ) : (
@@ -544,7 +552,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                         <React.Fragment key={section}>
                                             <tr>
                                                 <td
-                                                    colSpan={7}
+                                                    colSpan={(canEdit || canDelete) ? 7 : 6}
                                                     className="border-border bg-muted/60 border-b px-4 py-2 text-xs font-bold tracking-widest uppercase"
                                                 >
                                                     {section}
@@ -574,34 +582,40 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                                         {s.pre_requisite ||
                                                             'None'}
                                                     </td>
-                                                    <td className="px-4 py-3">
-                                                        <div className="flex justify-center gap-1.5">
-                                                            <button
-                                                                type="button"
-                                                                title="Edit"
-                                                                onClick={() =>
-                                                                    openEditSubject(
-                                                                        s,
-                                                                    )
-                                                                }
-                                                                className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition"
-                                                            >
-                                                                <Pencil className="size-3.5" />
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                title="Delete"
-                                                                onClick={() =>
-                                                                    setDeletingSubject(
-                                                                        s,
-                                                                    )
-                                                                }
-                                                                className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition"
-                                                            >
-                                                                <Trash2 className="size-3.5" />
-                                                            </button>
-                                                        </div>
-                                                    </td>
+                                                    {(canEdit || canDelete) && (
+                                                        <td className="px-4 py-3">
+                                                            <div className="flex justify-center gap-1.5">
+                                                                {canEdit && (
+                                                                    <button
+                                                                        type="button"
+                                                                        title="Edit"
+                                                                        onClick={() =>
+                                                                            openEditSubject(
+                                                                                s,
+                                                                            )
+                                                                        }
+                                                                        className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition"
+                                                                    >
+                                                                        <Pencil className="size-3.5" />
+                                                                    </button>
+                                                                )}
+                                                                {canDelete && (
+                                                                    <button
+                                                                        type="button"
+                                                                        title="Delete"
+                                                                        onClick={() =>
+                                                                            setDeletingSubject(
+                                                                                s,
+                                                                            )
+                                                                        }
+                                                                        className="bg-muted text-muted-foreground hover:bg-accent hover:text-foreground rounded-md p-2 transition"
+                                                                    >
+                                                                        <Trash2 className="size-3.5" />
+                                                                    </button>
+                                                                )}
+                                                            </div>
+                                                        </td>
+                                                    )}
                                                 </tr>
                                             ))}
                                             <tr className="border-border bg-muted/30 text-muted-foreground border-b-2 text-xs font-bold tracking-wide uppercase">
@@ -614,7 +628,7 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                                                 <td className="text-foreground px-4 py-2 text-center text-sm">
                                                     {fmtUnits(total)}
                                                 </td>
-                                                <td colSpan={2} />
+                                                <td colSpan={(canEdit || canDelete) ? 2 : 1} />
                                             </tr>
                                         </React.Fragment>
                                     );
@@ -630,14 +644,16 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                         <ArrowLeft className="size-4" />
                         BACK
                     </Link>
-                    <button
-                        type="button"
-                        onClick={openProspectus}
-                        className={btnSecondary}
-                    >
-                        <Pencil className="size-4" />
-                        EDIT PROSPECTUS
-                    </button>
+                    {canEdit && (
+                        <button
+                            type="button"
+                            onClick={openProspectus}
+                            className={btnSecondary}
+                        >
+                            <Pencil className="size-4" />
+                            EDIT PROSPECTUS
+                        </button>
+                    )}
                     <button
                         type="button"
                         onClick={downloadPdf}
@@ -647,14 +663,16 @@ export default function Prospectus({ program, prospectus, subjects = [] }) {
                         <FileDown className="size-4" />
                         {pdfBusy ? 'GENERATING...' : 'DOWNLOAD PDF'}
                     </button>
-                    <button
-                        type="button"
-                        onClick={() => setDeleteProgramOpen(true)}
-                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#fee2e2] px-5 py-3 text-xs font-bold tracking-wide text-[#C44545] transition hover:bg-[#fecaca]"
-                    >
-                        <Trash2 className="size-4" />
-                        DELETE PROGRAM
-                    </button>
+                    {canDelete && (
+                        <button
+                            type="button"
+                            onClick={() => setDeleteProgramOpen(true)}
+                            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#fee2e2] px-5 py-3 text-xs font-bold tracking-wide text-[#C44545] transition hover:bg-[#fecaca]"
+                        >
+                            <Trash2 className="size-4" />
+                            DELETE PROGRAM
+                        </button>
+                    )}
                 </div>
             </div>
 

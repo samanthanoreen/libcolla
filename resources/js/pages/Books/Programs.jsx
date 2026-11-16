@@ -22,6 +22,7 @@ import {
 } from '@/components/crud-ui';
 import { libcollaTheme } from '@/lib/libcollaTheme';
 import { collegeCode } from '@/lib/college';
+import { usePermissions } from '@/hooks/use-permissions';
 
 const th =
     'px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#4B5563] dark:text-white/60 uppercase border-b border-[#E5E5E5] dark:border-white/10';
@@ -33,8 +34,20 @@ function EditableCell({
     onCommit,
     align = 'left',
     className = '',
+    canEdit = true,
 }) {
     const original = String(book[field] ?? '');
+    if (!canEdit) {
+        return (
+            <span
+                className={`inline-block px-1.5 py-1 ${
+                    align === 'center' ? 'text-center w-full' : ''
+                } ${className}`}
+            >
+                {original || '-'}
+            </span>
+        );
+    }
     return (
         <input
             key={`${book.id}-${field}-${original}`}
@@ -53,6 +66,7 @@ function EditableCell({
 }
 
 export default function Program({ program, subjects = [], books = [] }) {
+    const { canAdd, canEdit, canDelete } = usePermissions();
     const [subjectId, setSubjectId] = useState(subjects[0]?.id ?? '');
     const subject = subjects.find((s) => String(s.id) === String(subjectId));
     const rows = books.filter(
@@ -259,14 +273,16 @@ export default function Program({ program, subjects = [], books = [] }) {
                         ))}
                     </select>
                 </div>
-                <button
-                    type="button"
-                    onClick={openAdd}
-                    disabled={subjects.length === 0}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-4 py-2 text-xs font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-[#8B2643]"
-                >
-                    <Plus className="size-3.5" /> Add Record
-                </button>
+                {canAdd && (
+                    <button
+                        type="button"
+                        onClick={openAdd}
+                        disabled={subjects.length === 0}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-4 py-2 text-xs font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-[#8B2643]"
+                    >
+                        <Plus className="size-3.5" /> Add Record
+                    </button>
+                )}
             </div>
 
             {/* Books of the selected subject */}
@@ -290,14 +306,14 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 <th className={th}>Author</th>
                                 <th className={`${th} text-center`}>Year</th>
                                 <th className={`${th} text-center`}>Copies</th>
-                                <th className={th} />
+                                {canDelete && <th className={th} />}
                             </tr>
                         </thead>
                         <tbody>
                             {rows.length === 0 ? (
                                 <tr>
                                     <td
-                                        colSpan={6}
+                                        colSpan={canDelete ? 6 : 5}
                                         className="p-8 text-center text-[#4B5563] dark:text-white/40"
                                     >
                                         <FolderOpen className="mx-auto mb-2 size-8 opacity-50" />
@@ -315,6 +331,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="call_no"
                                                 onCommit={setEdit}
+                                                canEdit={canEdit}
                                                 className="w-28 text-[0.7rem] font-semibold text-[#4B5563] dark:text-white/60"
                                             />
                                         </td>
@@ -323,6 +340,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="title"
                                                 onCommit={setEdit}
+                                                canEdit={canEdit}
                                                 className="w-full font-semibold text-[#4B5563] dark:text-white"
                                             />
                                         </td>
@@ -331,6 +349,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="author"
                                                 onCommit={setEdit}
+                                                canEdit={canEdit}
                                                 className="w-full dark:text-white/90"
                                             />
                                         </td>
@@ -339,6 +358,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="year"
                                                 onCommit={setEdit}
+                                                canEdit={canEdit}
                                                 align="center"
                                                 className="w-20 dark:text-white/90"
                                             />
@@ -348,20 +368,23 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="copies"
                                                 onCommit={setEdit}
+                                                canEdit={canEdit}
                                                 align="center"
                                                 className="w-16 bg-[#F8F8F8] text-[0.7rem] font-bold text-[#4B5563] dark:bg-white/[0.05] dark:text-white/80"
                                             />
                                         </td>
-                                        <td className="px-3 py-2 text-center">
-                                            <button
-                                                type="button"
-                                                onClick={() => setDeleting(b)}
-                                                className="size-7 rounded-md bg-[#fee2e2] text-[#C44545] transition hover:bg-[#fecaca] hover:text-[#C44545] dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/60"
-                                                title="Delete"
-                                            >
-                                                <Trash2 className="mx-auto size-3.5" />
-                                            </button>
-                                        </td>
+                                        {canDelete && (
+                                            <td className="px-3 py-2 text-center">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setDeleting(b)}
+                                                    className="size-7 rounded-md bg-[#fee2e2] text-[#C44545] transition hover:bg-[#fecaca] hover:text-[#C44545] dark:bg-rose-950/40 dark:text-rose-300 dark:hover:bg-rose-900/60"
+                                                    title="Delete"
+                                                >
+                                                    <Trash2 className="mx-auto size-3.5" />
+                                                </button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))
                             )}

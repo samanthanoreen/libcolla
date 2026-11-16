@@ -20,8 +20,10 @@ import {
 import { libcollaTheme, serif } from '@/lib/libcollaTheme';
 import { LEVELS, PROGRAM_CATALOG } from '@/lib/programCatalog';
 import { collegeCode } from '@/lib/college';
+import { usePermissions } from '@/hooks/use-permissions';
 
 export default function Index({ programs, filters = {} }) {
+    const { canAdd, canEdit, canDelete } = usePermissions();
     const [search, setSearch] = useState(filters.search || '');
     const [field, setField] = useState(filters.field || 'all');
     const [perPage, setPerPage] = useState(filters.per_page || 10);
@@ -139,14 +141,16 @@ export default function Index({ programs, filters = {} }) {
                         <GraduationCap className="size-6 text-[#A04040] dark:text-[#E9A12B]" />
                         Academic Programs
                     </h1>
-                    <button
-                        type="button"
-                        onClick={openAdd}
-                        className={`${btnPrimary} shrink-0 whitespace-nowrap`}
-                    >
-                        <Plus className="size-4" />
-                        ADD PROGRAM
-                    </button>
+                    {canAdd && (
+                        <button
+                            type="button"
+                            onClick={openAdd}
+                            className={`${btnPrimary} shrink-0 whitespace-nowrap`}
+                        >
+                            <Plus className="size-4" />
+                            ADD PROGRAM
+                        </button>
+                    )}
                 </div>
 
                 <div className="space-y-5 p-8">
@@ -199,9 +203,11 @@ export default function Index({ programs, filters = {} }) {
                                     <th className="w-24 px-5 py-4 text-center font-bold">
                                         Subjects
                                     </th>
-                                    <th className="w-20 px-5 py-4 text-center font-bold">
-                                        Actions
-                                    </th>
+                                    {(canEdit || canDelete) && (
+                                        <th className="w-20 px-5 py-4 text-center font-bold">
+                                            Actions
+                                        </th>
+                                    )}
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-[#f1f5f9] dark:divide-white/10">
@@ -235,38 +241,44 @@ export default function Index({ programs, filters = {} }) {
                                             <td className="px-5 py-3 text-center text-sm text-[#4B5563] dark:text-white/60">
                                                 {p.course_subjects_count ?? 0}
                                             </td>
-                                            <td className="px-5 py-3">
-                                                <div className="flex justify-center gap-1">
-                                                    <button
-                                                        type="button"
-                                                        title="Edit"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            openEdit(p);
-                                                        }}
-                                                        className="rounded-md bg-[#F8F8F8] p-2 text-[#4B5563] transition hover:bg-[#fef3c7] hover:text-[#d97706] dark:bg-white/10 dark:text-white/70 dark:hover:bg-amber-500/20 dark:hover:text-amber-400"
-                                                    >
-                                                        <Pencil className="size-3.5" />
-                                                    </button>
-                                                    <button
-                                                        type="button"
-                                                        title="Delete"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setDeleting(p);
-                                                        }}
-                                                        className="rounded-md bg-[#F8F8F8] p-2 text-[#4B5563] transition hover:bg-[#fee2e2] hover:text-[#C44545] dark:bg-white/10 dark:text-white/70 dark:hover:bg-red-500/20 dark:hover:text-red-400"
-                                                    >
-                                                        <Trash2 className="size-3.5" />
-                                                    </button>
-                                                </div>
-                                            </td>
+                                            {(canEdit || canDelete) && (
+                                                <td className="px-5 py-3">
+                                                    <div className="flex justify-center gap-1">
+                                                        {canEdit && (
+                                                            <button
+                                                                type="button"
+                                                                title="Edit"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    openEdit(p);
+                                                                }}
+                                                                className="rounded-md bg-[#F8F8F8] p-2 text-[#4B5563] transition hover:bg-[#fef3c7] hover:text-[#d97706] dark:bg-white/10 dark:text-white/70 dark:hover:bg-amber-500/20 dark:hover:text-amber-400"
+                                                            >
+                                                                <Pencil className="size-3.5" />
+                                                            </button>
+                                                        )}
+                                                        {canDelete && (
+                                                            <button
+                                                                type="button"
+                                                                title="Delete"
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    setDeleting(p);
+                                                                }}
+                                                                className="rounded-md bg-[#F8F8F8] p-2 text-[#4B5563] transition hover:bg-[#fee2e2] hover:text-[#C44545] dark:bg-white/10 dark:text-white/70 dark:hover:bg-red-500/20 dark:hover:text-red-400"
+                                                            >
+                                                                <Trash2 className="size-3.5" />
+                                                            </button>
+                                                        )}
+                                                    </div>
+                                                </td>
+                                            )}
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
                                         <td
-                                            colSpan={6}
+                                            colSpan={(canEdit || canDelete) ? 6 : 5}
                                             className="text-muted-foreground px-4 py-10 text-center"
                                         >
                                             No programs found.{' '}

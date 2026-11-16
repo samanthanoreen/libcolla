@@ -15,8 +15,10 @@ import {
     Calendar,
 } from 'lucide-react';
 import { collegeCode } from '@/lib/college';
+import { usePermissions } from '@/hooks/use-permissions';
 
 export default function Preview({ program, summary: initialSummary = [], references: initialReferences = [], recentCount = 0 }) {
+    const { canAdd, canEdit, canDelete } = usePermissions();
     const [summaryRows, setSummaryRows] = useState(initialSummary);
     const [referencesData, setReferencesData] = useState(initialReferences);
     const [saving, setSaving] = useState(false);
@@ -243,15 +245,17 @@ export default function Preview({ program, summary: initialSummary = [], referen
                             <Download className="size-4 text-[#4B5563] dark:text-white/60" />
                             <span>Download Text</span>
                         </button>
-                        <button
-                            type="button"
-                            onClick={handleSaveReport}
-                            disabled={saving || summaryRows.length === 0}
-                            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95 disabled:opacity-50 cursor-pointer"
-                        >
-                            <Save className="size-4" />
-                            <span>{saving ? 'Saving...' : 'Save Report'}</span>
-                        </button>
+                        {canAdd && (
+                            <button
+                                type="button"
+                                onClick={handleSaveReport}
+                                disabled={saving || summaryRows.length === 0}
+                                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-95 disabled:opacity-50 cursor-pointer"
+                            >
+                                <Save className="size-4" />
+                                <span>{saving ? 'Saving...' : 'Save Report'}</span>
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -275,12 +279,14 @@ export default function Preview({ program, summary: initialSummary = [], referen
                 </div>
 
                 {/* Edit hint banner */}
-                <div className="mt-4 flex items-center gap-2 rounded-lg border border-[#3478B9]/30 bg-[#3478B9]/10 px-4 py-2.5 text-xs text-[#3478B9] dark:border-[#3478B9]/50 dark:bg-[#3478B9]/20">
-                    <Edit3 className="size-4 shrink-0" />
-                    <span>
-                        <strong>Inline Editing Enabled:</strong> Click directly into any table cell below to edit its values prior to saving or downloading.
-                    </span>
-                </div>
+                {canEdit && (
+                    <div className="mt-4 flex items-center gap-2 rounded-lg border border-[#3478B9]/30 bg-[#3478B9]/10 px-4 py-2.5 text-xs text-[#3478B9] dark:border-[#3478B9]/50 dark:bg-[#3478B9]/20">
+                        <Edit3 className="size-4 shrink-0" />
+                        <span>
+                            <strong>Inline Editing Enabled:</strong> Click directly into any table cell below to edit its values prior to saving or downloading.
+                        </span>
+                    </div>
+                )}
             </div>
 
             {/* Print Institutional Header (only shows when printing) */}
@@ -354,16 +360,18 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                             <input
                                                 type="text"
                                                 value={row.classification || 'Core'}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'classification', e.target.value)}
-                                                className="w-full text-center rounded bg-transparent px-2 py-1 text-xs font-medium text-[#A04040] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-[#ffd7ba] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-full text-center rounded bg-transparent px-2 py-1 text-xs font-medium text-[#A04040] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-[#ffd7ba]`}
                                             />
                                         </td>
                                         <td className="border-r border-[#E5E5E5] p-2 dark:border-white/10">
                                             <input
                                                 type="text"
                                                 value={row.courseName}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'courseName', e.target.value)}
-                                                className="w-full rounded bg-transparent px-2 py-1 text-xs font-semibold text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-full rounded bg-transparent px-2 py-1 text-xs font-semibold text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                             />
                                         </td>
                                         <td className="border-r border-[#E5E5E5] p-2 text-center dark:border-white/10">
@@ -371,8 +379,9 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                 type="number"
                                                 min="0"
                                                 value={row.totalT}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'totalT', e.target.value)}
-                                                className="w-16 text-center rounded bg-transparent px-1 py-1 font-bold text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-16 text-center rounded bg-transparent px-1 py-1 font-bold text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                             />
                                         </td>
                                         <td className="border-r border-[#E5E5E5] p-2 text-center dark:border-white/10">
@@ -380,8 +389,9 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                 type="number"
                                                 min="0"
                                                 value={row.totalV}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'totalV', e.target.value)}
-                                                className="w-16 text-center rounded bg-transparent px-1 py-1 font-bold text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-16 text-center rounded bg-transparent px-1 py-1 font-bold text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                             />
                                         </td>
                                         <td className="border-r border-[#E5E5E5] p-2 text-center dark:border-white/10">
@@ -389,8 +399,9 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                 type="number"
                                                 min="0"
                                                 value={row.distinct5yr}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'distinct5yr', e.target.value)}
-                                                className="w-16 text-center rounded bg-transparent px-1 py-1 font-medium text-[#21865A] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-[#38a169] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-16 text-center rounded bg-transparent px-1 py-1 font-medium text-[#21865A] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-[#38a169]`}
                                             />
                                         </td>
                                         <td className="border-r border-[#E5E5E5] p-2 text-center dark:border-white/10">
@@ -398,8 +409,9 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                 type="number"
                                                 min="0"
                                                 value={row.distinct10yr}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'distinct10yr', e.target.value)}
-                                                className="w-16 text-center rounded bg-transparent px-1 py-1 font-medium text-[#D18A24] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-[#f0c541] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-16 text-center rounded bg-transparent px-1 py-1 font-medium text-[#D18A24] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-[#f0c541]`}
                                             />
                                         </td>
                                         <td className="border-r border-[#E5E5E5] p-2 text-center dark:border-white/10">
@@ -407,19 +419,22 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                 type="number"
                                                 min="0"
                                                 value={row.distinct20yr}
+                                                readOnly={!canEdit}
                                                 onChange={(e) => handleSummaryCellChange(idx, 'distinct20yr', e.target.value)}
-                                                className="w-16 text-center rounded bg-transparent px-1 py-1 font-medium text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white/60 dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                className={`w-16 text-center rounded bg-transparent px-1 py-1 font-medium text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white/60`}
                                             />
                                         </td>
                                         <td className="p-2 text-center print:hidden">
-                                            <button
-                                                type="button"
-                                                onClick={() => confirmDeleteSummaryRow(idx)}
-                                                title="Delete row"
-                                                className="inline-flex size-8 items-center justify-center rounded-lg text-[#C44545] hover:bg-[#F9EDEF] transition cursor-pointer dark:hover:bg-white/10"
-                                            >
-                                                <Trash2 className="size-4" />
-                                            </button>
+                                            {canDelete && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => confirmDeleteSummaryRow(idx)}
+                                                    title="Delete row"
+                                                    className="inline-flex size-8 items-center justify-center rounded-lg text-[#C44545] hover:bg-[#F9EDEF] transition cursor-pointer dark:hover:bg-white/10"
+                                                >
+                                                    <Trash2 className="size-4" />
+                                                </button>
+                                            )}
                                         </td>
                                     </tr>
                                 ))
@@ -506,32 +521,36 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                     <input
                                                         type="text"
                                                         value={b.callNo || ''}
+                                                        readOnly={!canEdit}
                                                         onChange={(e) => handleReferenceCellChange(sIdx, bIdx, 'callNo', e.target.value)}
-                                                        className="w-full rounded bg-transparent px-2 py-1 text-xs text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                        className={`w-full rounded bg-transparent px-2 py-1 text-xs text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2.5 font-bold text-[#4B5563] dark:text-white">
                                                     <input
                                                         type="text"
                                                         value={b.title}
+                                                        readOnly={!canEdit}
                                                         onChange={(e) => handleReferenceCellChange(sIdx, bIdx, 'title', e.target.value)}
-                                                        className="w-full rounded bg-transparent px-2 py-1 text-xs font-bold text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                        className={`w-full rounded bg-transparent px-2 py-1 text-xs font-bold text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2.5 text-[#4B5563] dark:text-white">
                                                     <input
                                                         type="text"
                                                         value={b.author || ''}
+                                                        readOnly={!canEdit}
                                                         onChange={(e) => handleReferenceCellChange(sIdx, bIdx, 'author', e.target.value)}
-                                                        className="w-full rounded bg-transparent px-2 py-1 text-xs text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                        className={`w-full rounded bg-transparent px-2 py-1 text-xs text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2.5 text-center">
                                                     <input
                                                         type="number"
                                                         value={b.year || 0}
+                                                        readOnly={!canEdit}
                                                         onChange={(e) => handleReferenceCellChange(sIdx, bIdx, 'year', e.target.value)}
-                                                        className="w-16 text-center rounded bg-transparent px-1 py-1 text-xs font-semibold text-[#4B5563] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                        className={`w-16 text-center rounded bg-transparent px-1 py-1 text-xs font-semibold text-[#4B5563] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-white`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2.5 text-center">
@@ -539,19 +558,22 @@ export default function Preview({ program, summary: initialSummary = [], referen
                                                         type="number"
                                                         min="1"
                                                         value={b.copies || 1}
+                                                        readOnly={!canEdit}
                                                         onChange={(e) => handleReferenceCellChange(sIdx, bIdx, 'copies', e.target.value)}
-                                                        className="w-16 text-center rounded bg-transparent px-1 py-1 text-xs font-bold text-[#A04040] outline-none hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:text-[#ffd7ba] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]"
+                                                        className={`w-16 text-center rounded bg-transparent px-1 py-1 text-xs font-bold text-[#A04040] outline-none ${canEdit ? 'hover:bg-white focus:bg-white focus:ring-1 focus:ring-[#A04040] dark:hover:bg-white/10 dark:focus:bg-white/10 dark:focus:ring-[#E9A12B]' : 'cursor-default'} dark:text-[#ffd7ba]`}
                                                     />
                                                 </td>
                                                 <td className="px-4 py-2.5 text-center print:hidden">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => confirmDeleteReferenceBook(sIdx, bIdx)}
-                                                        title="Delete reference"
-                                                        className="inline-flex size-8 items-center justify-center rounded-lg text-[#C44545] hover:bg-[#F9EDEF] transition cursor-pointer dark:hover:bg-white/10"
-                                                    >
-                                                        <Trash2 className="size-4" />
-                                                    </button>
+                                                    {canDelete && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => confirmDeleteReferenceBook(sIdx, bIdx)}
+                                                            title="Delete reference"
+                                                            className="inline-flex size-8 items-center justify-center rounded-lg text-[#C44545] hover:bg-[#F9EDEF] transition cursor-pointer dark:hover:bg-white/10"
+                                                        >
+                                                            <Trash2 className="size-4" />
+                                                        </button>
+                                                    )}
                                                 </td>
                                             </tr>
                                         ))}

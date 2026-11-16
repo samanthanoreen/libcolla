@@ -9,6 +9,7 @@ import {
     Database,
     Headset,
     LayoutDashboard,
+    Lock,
     LogOut,
     Menu,
     Moon,
@@ -158,6 +159,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
     const page = usePage<any>();
     const { component, url } = page;
     const user = page.props?.auth?.user;
+    const canAccessUsers = String((user as any)?.role || '').toLowerCase() === 'admin' || !!(user as any)?.can_access_users;
 
     const { resolvedAppearance, updateAppearance } = useAppearance();
     const isDark = resolvedAppearance === 'dark';
@@ -407,7 +409,12 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                             onClick={() => setLastClicked(childKey)}
                                                             className={cls}
                                                         >
-                                                            <span className="truncate">{c.label}</span>
+                                                            <span className="flex items-center justify-between gap-1.5">
+                                                                <span className="truncate">{c.label}</span>
+                                                                {c.label === 'Manage Users' && !canAccessUsers && (
+                                                                    <Lock className="size-3.5 text-amber-300 opacity-90 shrink-0" title="Access Restricted" />
+                                                                )}
+                                                            </span>
                                                         </Link>
                                                     ) : (
                                                         <span

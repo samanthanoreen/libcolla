@@ -36,6 +36,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $totalSubjects = CourseSubject::count();
         $assessedSubjects = Book::distinct()->count('subject_id');
+        $currentYear = (int) date('Y');
+        $cutoffYear = $currentYear - 2; // e.g. 2026 - 2 = 2024; books published in 2023 or earlier (> 2 years old)
+        $booksOver2Years = Book::where(function ($q) use ($cutoffYear) {
+            $q->whereNull('publication_year')
+              ->orWhere('publication_year', '<', $cutoffYear);
+        })->count();
 
         return inertia('Dashboard', [
             'stats' => [
@@ -43,10 +49,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'total_prospectuses' => Prospectus::count(),
                 'total_subjects' => $totalSubjects,
                 'total_books' => Book::count(),
+                'books_over_2_years' => $booksOver2Years,
+                'books_past_2_years' => $booksOver2Years,
+                'books_past_1_year' => $booksOver2Years,
+                'past_year_books' => $booksOver2Years,
+                'failed_current_year_books' => $booksOver2Years,
                 'assessed_percentage' => $totalSubjects > 0 ? round(($assessedSubjects / $totalSubjects) * 100) : 0,
                 'assessed_count' => $assessedSubjects,
                 'total_reports' => AssessmentReport::count(),
             ],
+            'currentYear' => $currentYear,
         ]);
     })->name('dashboard');
 
@@ -86,6 +98,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/request-access', [UserController::class, 'requestAccess'])->name('users.request-access');
 
     // Support / Contact Form Routes
     Route::get('/support/contact', [SupportContactController::class, 'index'])->name('support.contact');

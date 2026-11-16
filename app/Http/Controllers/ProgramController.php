@@ -56,6 +56,8 @@ class ProgramController extends Controller
 
     public function store(Request $request)
     {
+        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
+
         $validated = $request->validate($this->rules());
 
         $validated['major'] = $validated['major'] ?? null;
@@ -70,6 +72,8 @@ class ProgramController extends Controller
 
     public function update(Request $request, Program $program)
     {
+        abort_unless($request->user()?->can_edit, 403, 'Unauthorized. Missing Edit permission.');
+
         $validated = $request->validate($this->rules());
 
         $validated['major'] = $validated['major'] ?? null;
@@ -83,6 +87,8 @@ class ProgramController extends Controller
 
     public function destroy(Program $program)
     {
+        abort_unless(request()->user()?->can_delete, 403, 'Unauthorized. Missing Delete permission.');
+
         $fromProspectus = str_contains(url()->previous(), "/programs/{$program->id}/prospectus");
 
         $program->delete();

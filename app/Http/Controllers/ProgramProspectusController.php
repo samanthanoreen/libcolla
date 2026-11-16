@@ -44,6 +44,8 @@ class ProgramProspectusController extends Controller
 
     public function save(Request $request, Program $program)
     {
+        abort_unless($request->user()?->can_edit, 403, 'Unauthorized. Missing Edit permission.');
+
         $data = $request->validate([
             'title' => ['required', 'string', 'max:200'],
             'academic_year' => ['required', 'string', 'regex:/^\d{4}-\d{4}$/'],
@@ -66,6 +68,8 @@ class ProgramProspectusController extends Controller
 
     public function storeSubject(Request $request, Program $program)
     {
+        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
+
         $data = $request->validate($this->subjectRules());
         $prospectus = $this->ensureProspectus($program);
 
@@ -81,6 +85,8 @@ class ProgramProspectusController extends Controller
 
     public function updateSubject(Request $request, Program $program, CourseSubject $subject)
     {
+        abort_unless($request->user()?->can_edit, 403, 'Unauthorized. Missing Edit permission.');
+
         abort_unless((int) $subject->program_id === (int) $program->id, 404);
 
         $data = $request->validate($this->subjectRules());
@@ -94,6 +100,8 @@ class ProgramProspectusController extends Controller
 
     public function destroySubject(Program $program, CourseSubject $subject)
     {
+        abort_unless(request()->user()?->can_delete, 403, 'Unauthorized. Missing Delete permission.');
+
         abort_unless((int) $subject->program_id === (int) $program->id, 404);
 
         $subject->delete();

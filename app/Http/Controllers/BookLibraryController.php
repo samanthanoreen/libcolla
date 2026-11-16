@@ -20,14 +20,60 @@ class BookLibraryController extends Controller
     {
         $search = trim((string) $request->input('search', ''));
         $field = $request->input('field', 'all');
+        $filter = $request->input('filter', '');
+        $currentYear = (int) date('Y');
         $perPage = in_array((int) $request->input('per_page'), [10, 15, 25, 50], true)
             ? (int) $request->input('per_page')
             : 15;
 
+        $booksOver2YearsCount = Book::where(function ($q) use ($currentYear) {
+            $q->whereNull('publication_year')
+              ->orWhere('publication_year', '<', $currentYear - 2);
+        })->count();
+
+        $isFiltered = in_array($filter, ['over_2_years', 'past_2_years', 'past_1_year'], true);
+
+        $filteredBooks = null;
+        if ($isFiltered) {
+            $cutoff = ($filter === 'past_1_year') ? $currentYear : ($currentYear - 2);
+            $filteredBooks = Book::with(['program', 'courseSubject'])
+                ->where(function ($q) use ($cutoff) {
+                    $q->whereNull('publication_year')
+                      ->orWhere('publication_year', '<', $cutoff);
+                })
+                ->when($search !== '', function ($query) use ($search, $field) {
+                    $like = "%{$search}%";
+                    $query->where(function ($q) use ($field, $like) {
+                        if ($field === 'title') {
+                            $q->where('title', 'like', $like);
+                        } elseif ($field === 'author') {
+                            $q->where('author_first_name', 'like', $like)
+                                ->orWhere('author_last_name', 'like', $like);
+                        } elseif ($field === 'call_no') {
+                            $q->where('call_number_value', 'like', $like);
+                        } elseif ($field === 'program') {
+                            $q->whereHas('program', fn ($p) => $p->where('program_name', 'like', $like)->orWhere('program_code', 'like', $like));
+                        } else {
+                            $q->where('title', 'like', $like)
+                                ->orWhere('author_first_name', 'like', $like)
+                                ->orWhere('author_last_name', 'like', $like)
+                                ->orWhere('call_number_value', 'like', $like)
+                                ->orWhere('isbn', 'like', $like)
+                                ->orWhereHas('program', fn ($p) => $p->where('program_name', 'like', $like)->orWhere('program_code', 'like', $like))
+                                ->orWhereHas('courseSubject', fn ($s) => $s->where('subject_code', 'like', $like)->orWhere('subject_title', 'like', $like));
+                        }
+                    });
+                })
+                ->orderBy('publication_year', 'desc')
+                ->orderBy('title')
+                ->paginate($perPage)
+                ->withQueryString();
+        }
+
         $programs = Program::query()
             ->withCount(['courseSubjects', 'books'])
             ->withSum('books', 'total_copies')
-            ->when($search !== '', function ($query) use ($search, $field) {
+            ->when($search !== '' && !$isFiltered, function ($query) use ($search, $field) {
                 $like = "%{$search}%";
 
                 $query->where(function ($q) use ($field, $like) {
@@ -50,9 +96,14 @@ class BookLibraryController extends Controller
 
         return Inertia::render('Books/Index', [
             'programs' => $programs,
+            'filteredBooks' => $filteredBooks,
+            'currentYear' => $currentYear,
+            'booksOver2YearsCount' => $booksOver2YearsCount,
+            'booksPast1YearCount' => $booksOver2YearsCount,
             'filters' => [
                 'search' => $search,
                 'field' => $field,
+                'filter' => $filter,
                 'per_page' => $perPage,
             ],
             // for the Add Book modal
@@ -81,6 +132,8 @@ class BookLibraryController extends Controller
 
     public function store(Request $request)
     {
+        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
+
         $data = $request->validate([
             'program_id' => ['required', 'exists:programs,id'],
             'subject_id' => [
@@ -106,6 +159,8 @@ class BookLibraryController extends Controller
 
     public function update(Request $request, Book $book)
     {
+        abort_unless($request->user()?->can_edit, 403, 'Unauthorized. Missing Edit permission.');
+
         $data = $request->validate($this->rules());
 
         $book->update([
@@ -122,6 +177,8 @@ class BookLibraryController extends Controller
 
     public function destroy(Book $book)
     {
+        abort_unless(request()->user()?->can_delete, 403, 'Unauthorized. Missing Delete permission.');
+
         $book->delete();
 
         Inertia::flash('toast', ['type' => 'info', 'message' => 'Book deleted successfully!']);

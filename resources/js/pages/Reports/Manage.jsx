@@ -16,8 +16,10 @@ import {
 } from 'lucide-react';
 import { serif } from '@/lib/libcollaTheme';
 import { collegeCode } from '@/lib/college';
+import { usePermissions } from '@/hooks/use-permissions';
 
 export default function Manage({ reports, filters }) {
+    const { canDelete } = usePermissions();
     const [search, setSearch] = useState(filters?.search || '');
     const [deleteModal, setDeleteModal] = useState({
         isOpen: false,
@@ -269,14 +271,16 @@ export default function Manage({ reports, filters }) {
                                                 >
                                                     <Download className="size-4" />
                                                 </button>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => confirmDelete(r)}
-                                                    title="Delete Report"
-                                                    className="inline-flex size-8 items-center justify-center rounded-lg bg-[#C44545]/10 text-[#C44545] hover:bg-[#C44545] hover:text-white transition cursor-pointer"
-                                                >
-                                                    <Trash2 className="size-4" />
-                                                </button>
+                                                {canDelete && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => confirmDelete(r)}
+                                                        title="Delete Report"
+                                                        className="inline-flex size-8 items-center justify-center rounded-lg bg-[#C44545]/10 text-[#C44545] hover:bg-[#C44545] hover:text-white transition cursor-pointer"
+                                                    >
+                                                        <Trash2 className="size-4" />
+                                                    </button>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>

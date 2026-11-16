@@ -115,6 +115,8 @@ class AssessmentReportController extends Controller
 
     public function store(Request $request)
     {
+        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
+
         $data = $request->validate([
             'program_id' => ['required', 'exists:programs,id'],
             'summary' => ['required', 'array'],
@@ -178,6 +180,8 @@ class AssessmentReportController extends Controller
 
     public function destroy(AssessmentReport $report)
     {
+        abort_unless(request()->user()?->can_delete, 403, 'Unauthorized. Missing Delete permission.');
+
         $report->delete();
 
         session()->flash('status', 'Report deleted successfully.');
