@@ -179,23 +179,23 @@ export default function Contact({
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto space-y-6">
+        <div className="w-full space-y-6">
             <Head title="Support - Message Center" />
 
             {/* Header Banner (Matches 1lib Design System) */}
-            <div className="flex justify-between items-center bg-white p-8 rounded-3xl text-[#343A40] border border-[#E2E5E9] border-t-[3px] border-t-[#d4a017] shadow-sm dark:bg-white/[0.06] dark:border-white/10 dark:text-white">
+            <div className="flex justify-between items-center bg-white p-8 rounded-3xl text-[#4B5563] border border-[#E5E5E5] border-t-[3px] border-t-[#E9A12B] shadow-sm dark:bg-white/[0.06] dark:border-white/10 dark:text-white">
                 <div>
-                    <h2 className="text-2xl font-bold flex items-center gap-3 font-['Source_Serif_4',Georgia,serif] text-[#343A40] dark:text-white">
-                        <Mail className="size-6 text-[#701F35] dark:text-[#d4a017]" /> Contact Form
+                    <h2 className="text-2xl font-bold flex items-center gap-3 font-['Quicksand',system-ui,sans-serif] text-[#4B5563] dark:text-white">
+                        <Mail className="size-6 text-[#A04040] dark:text-[#E9A12B]" /> Contact Form
                     </h2>
-                    <p className="text-[#9299A5] dark:text-white/70 mt-1.5 text-sm">
+                    <p className="text-[#4B5563] dark:text-white/70 mt-1.5 text-sm">
                         Send direct messages to library staff or view received messages
                     </p>
                 </div>
                 <div className="flex gap-2 text-right">
-                    <div className="bg-[#F5E9ED] px-5 py-2.5 rounded-2xl text-center border border-[#701F35]/20 dark:bg-white/10 dark:border-white/10">
-                        <div className="text-xs uppercase tracking-wider font-semibold text-[#701F35] dark:text-white/60">Unread</div>
-                        <div className="text-2xl font-bold text-[#701F35] dark:text-[#ffd7ba] font-['Source_Serif_4',Georgia,serif]">
+                    <div className="bg-[#F9EDEF] px-5 py-2.5 rounded-2xl text-center border border-[#A04040]/20 dark:bg-white/10 dark:border-white/10">
+                        <div className="text-xs uppercase tracking-wider font-semibold text-[#A04040] dark:text-white/60">Unread</div>
+                        <div className="text-2xl font-bold text-[#A04040] dark:text-[#ffd7ba] font-['Quicksand',system-ui,sans-serif]">
                             {localUnread}
                         </div>
                     </div>
@@ -203,16 +203,16 @@ export default function Contact({
             </div>
 
             {/* Main Message Card */}
-            <div className="bg-white rounded-3xl shadow-sm border border-[#E2E5E9] overflow-hidden dark:bg-[#280B14] dark:border-white/10">
+            <div className="bg-white rounded-3xl shadow-sm border border-[#E5E5E5] overflow-hidden dark:bg-[#280B14] dark:border-white/10">
                 {/* Tabs Switcher */}
-                <div className="flex border-b border-[#E2E5E9] bg-[#F4F5F7] dark:border-white/10 dark:bg-white/[0.02]">
+                <div className="flex border-b border-[#E5E5E5] bg-[#F8F8F8] dark:border-white/10 dark:bg-white/[0.02]">
                     <button
                         type="button"
                         onClick={() => handleSwitchTab('compose')}
                         className={`flex-1 py-4 font-semibold text-sm transition-colors border-b-2 flex items-center justify-center gap-2 ${
                             activeTab === 'compose'
-                                ? 'border-[#701F35] text-[#701F35] bg-white dark:border-[#d4a017] dark:text-white dark:bg-[#280B14]'
-                                : 'border-transparent text-[#9299A5] hover:text-[#343A40] dark:text-white/60 dark:hover:text-white'
+                                ? 'border-[#A04040] text-[#A04040] bg-white dark:border-[#E9A12B] dark:text-white dark:bg-[#280B14]'
+                                : 'border-transparent text-[#4B5563] hover:text-[#4B5563] dark:text-white/60 dark:hover:text-white'
                         }`}
                     >
                         <PenSquare className="size-4" /> Compose Message
@@ -222,13 +222,13 @@ export default function Contact({
                         onClick={() => handleSwitchTab('inbox')}
                         className={`flex-1 py-4 font-semibold text-sm transition-colors border-b-2 flex items-center justify-center gap-2 ${
                             activeTab === 'inbox'
-                                ? 'border-[#701F35] text-[#701F35] bg-white dark:border-[#d4a017] dark:text-white dark:bg-[#280B14]'
-                                : 'border-transparent text-[#9299A5] hover:text-[#343A40] dark:text-white/60 dark:hover:text-white'
+                                ? 'border-[#A04040] text-[#A04040] bg-white dark:border-[#E9A12B] dark:text-white dark:bg-[#280B14]'
+                                : 'border-transparent text-[#4B5563] hover:text-[#4B5563] dark:text-white/60 dark:hover:text-white'
                         }`}
                     >
                         <Inbox className="size-4" /> Inbox
                         {localUnread > 0 && (
-                            <span className="bg-[#701F35] text-white text-xs px-2 py-0.5 rounded-full font-bold ml-1 dark:bg-[#d4a017] dark:text-black">
+                            <span className="bg-gradient-to-r from-[#D66C6C] to-[#A04040] text-white text-xs px-2 py-0.5 rounded-full font-bold ml-1 dark:bg-[#E9A12B] dark:text-black">
                                 {localUnread}
                             </span>
                         )}
@@ -245,13 +245,13 @@ export default function Contact({
                                     <h3 className="text-xl font-bold text-[#21865A]">
                                         Message Sent Successfully!
                                     </h3>
-                                    <p className="text-sm text-[#343A40] dark:text-white/80 max-w-md mx-auto">
+                                    <p className="text-sm text-[#4B5563] dark:text-white/80 max-w-md mx-auto">
                                         Your message has been delivered to the recipient's inbox in the system.
                                     </p>
                                     <button
                                         type="button"
                                         onClick={() => setSuccessSent(false)}
-                                        className="mt-4 inline-flex items-center gap-2 bg-[#701F35] text-white font-medium px-5 py-2.5 rounded-xl hover:bg-[#4D1425] transition cursor-pointer"
+                                        className="mt-4 inline-flex items-center gap-2 bg-gradient-to-r from-[#D66C6C] to-[#A04040] text-white font-medium px-5 py-2.5 rounded-xl hover:brightness-95 transition cursor-pointer"
                                     >
                                         <RotateCcw className="size-4" /> Send Another Message
                                     </button>
@@ -269,30 +269,30 @@ export default function Contact({
 
                                     {/* Recipients field with chips */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-[#343A40] mb-2 dark:text-white">
+                                        <label className="block text-sm font-semibold text-[#4B5563] mb-2 dark:text-white">
                                             To: Recipients
                                         </label>
                                         <div
-                                            className={`flex flex-wrap items-center gap-2 p-3 border rounded-xl bg-white min-h-[48px] cursor-text focus-within:border-[#701F35] dark:bg-black/20 dark:border-white/10 dark:focus-within:border-[#d4a017] ${
+                                            className={`flex flex-wrap items-center gap-2 p-3 border rounded-xl bg-white min-h-[48px] cursor-text focus-within:border-[#A04040] dark:bg-black/20 dark:border-white/10 dark:focus-within:border-[#E9A12B] ${
                                                 recipientError || errors.recipients
                                                     ? 'border-[#C44545] bg-[#C44545]/10'
-                                                    : 'border-[#E2E5E9]'
+                                                    : 'border-[#E5E5E5]'
                                             }`}
                                         >
-                                            <span className="text-[#9299A5] font-medium text-sm select-none">
+                                            <span className="text-[#4B5563] font-medium text-sm select-none">
                                                 To:
                                             </span>
                                             {recipients.map((email, idx) => (
                                                 <span
                                                     key={idx}
-                                                    className="inline-flex items-center gap-1.5 bg-[#F5E9ED] border border-[#701F35]/20 rounded-full px-3 py-1 text-xs font-medium text-[#701F35] dark:bg-white/10 dark:border-white/10 dark:text-white"
+                                                    className="inline-flex items-center gap-1.5 bg-[#F9EDEF] border border-[#A04040]/20 rounded-full px-3 py-1 text-xs font-medium text-[#A04040] dark:bg-white/10 dark:border-white/10 dark:text-white"
                                                 >
-                                                    <UserIcon className="size-3 text-[#701F35] dark:text-[#ffd7ba]" />
+                                                    <UserIcon className="size-3 text-[#A04040] dark:text-[#ffd7ba]" />
                                                     {email}
                                                     <button
                                                         type="button"
                                                         onClick={() => removeRecipient(idx)}
-                                                        className="text-[#9299A5] hover:text-[#C44545] font-bold cursor-pointer"
+                                                        className="text-[#4B5563] hover:text-[#C44545] font-bold cursor-pointer"
                                                     >
                                                         <X className="size-3" />
                                                     </button>
@@ -315,7 +315,7 @@ export default function Contact({
                                                 onBlur={() => {
                                                     if (recipientInput) addRecipient();
                                                 }}
-                                                className="flex-1 min-w-[200px] border-none outline-none text-sm text-[#343A40] bg-transparent dark:text-white placeholder:text-[#9299A5]"
+                                                className="flex-1 min-w-[200px] border-none outline-none text-sm text-[#4B5563] bg-transparent dark:text-white placeholder:text-[#6B7280]"
                                             />
                                         </div>
                                         {recipientError && (
@@ -332,7 +332,7 @@ export default function Contact({
 
                                     {/* Subject */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-[#343A40] mb-2 dark:text-white">
+                                        <label className="block text-sm font-semibold text-[#4B5563] mb-2 dark:text-white">
                                             Subject
                                         </label>
                                         <input
@@ -340,8 +340,8 @@ export default function Contact({
                                             placeholder="Enter message subject..."
                                             value={data.subject}
                                             onChange={(e) => setData('subject', e.target.value)}
-                                            className={`w-full border rounded-xl p-3 text-sm text-[#343A40] outline-none transition focus:border-[#701F35] bg-white dark:bg-black/20 dark:text-white dark:border-white/10 dark:focus:border-[#d4a017] ${
-                                                errors.subject ? 'border-[#C44545] bg-[#C44545]/10' : 'border-[#E2E5E9]'
+                                            className={`w-full border rounded-xl p-3 text-sm text-[#4B5563] outline-none transition focus:border-[#A04040] bg-white dark:bg-black/20 dark:text-white dark:border-white/10 dark:focus:border-[#E9A12B] ${
+                                                errors.subject ? 'border-[#C44545] bg-[#C44545]/10' : 'border-[#E5E5E5]'
                                             }`}
                                             required
                                         />
@@ -352,7 +352,7 @@ export default function Contact({
 
                                     {/* Message */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-[#343A40] mb-2 dark:text-white">
+                                        <label className="block text-sm font-semibold text-[#4B5563] mb-2 dark:text-white">
                                             Message
                                         </label>
                                         <textarea
@@ -360,8 +360,8 @@ export default function Contact({
                                             placeholder="Write your message here..."
                                             value={data.message}
                                             onChange={(e) => setData('message', e.target.value)}
-                                            className={`w-full border rounded-xl p-3 text-sm text-[#343A40] outline-none transition focus:border-[#701F35] bg-white dark:bg-black/20 dark:text-white dark:border-white/10 dark:focus:border-[#d4a017] leading-relaxed ${
-                                                errors.message ? 'border-[#C44545] bg-[#C44545]/10' : 'border-[#E2E5E9]'
+                                            className={`w-full border rounded-xl p-3 text-sm text-[#4B5563] outline-none transition focus:border-[#A04040] bg-white dark:bg-black/20 dark:text-white dark:border-white/10 dark:focus:border-[#E9A12B] leading-relaxed ${
+                                                errors.message ? 'border-[#C44545] bg-[#C44545]/10' : 'border-[#E5E5E5]'
                                             }`}
                                             required
                                         />
@@ -372,7 +372,7 @@ export default function Contact({
 
                                     {/* Attachment */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-[#343A40] mb-2 dark:text-white">
+                                        <label className="block text-sm font-semibold text-[#4B5563] mb-2 dark:text-white">
                                             Attachment (Optional)
                                         </label>
                                         <div className="flex flex-wrap items-center gap-3">
@@ -386,28 +386,28 @@ export default function Contact({
                                             <button
                                                 type="button"
                                                 onClick={() => fileInputRef.current?.click()}
-                                                className="inline-flex items-center gap-2 border border-[#E2E5E9] bg-[#F4F5F7] hover:bg-[#E2E5E9]/60 text-[#343A40] px-4 py-2.5 rounded-xl text-sm font-medium transition cursor-pointer dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+                                                className="inline-flex items-center gap-2 border border-[#E5E5E5] bg-[#F8F8F8] hover:bg-[#E5E5E5]/60 text-[#4B5563] px-4 py-2.5 rounded-xl text-sm font-medium transition cursor-pointer dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
                                             >
                                                 <Paperclip className="size-4" /> Choose File
                                             </button>
 
                                             {selectedFile ? (
-                                                <div className="inline-flex items-center gap-2 bg-[#F4F5F7] border border-[#E2E5E9] px-3 py-1.5 rounded-xl text-xs font-medium text-[#343A40] dark:bg-white/10 dark:border-white/10 dark:text-white">
+                                                <div className="inline-flex items-center gap-2 bg-[#F8F8F8] border border-[#E5E5E5] px-3 py-1.5 rounded-xl text-xs font-medium text-[#4B5563] dark:bg-white/10 dark:border-white/10 dark:text-white">
                                                     {getFileIcon(selectedFile.name)}
                                                     <span>{selectedFile.name}</span>
-                                                    <span className="text-[#9299A5] dark:text-white/60">
+                                                    <span className="text-[#4B5563] dark:text-white/60">
                                                         ({(selectedFile.size / 1024).toFixed(1)} KB)
                                                     </span>
                                                     <button
                                                         type="button"
                                                         onClick={clearAttachment}
-                                                        className="text-[#9299A5] hover:text-[#C44545] cursor-pointer"
+                                                        className="text-[#4B5563] hover:text-[#C44545] cursor-pointer"
                                                     >
                                                         <X className="size-3.5" />
                                                     </button>
                                                 </div>
                                             ) : (
-                                                <span className="text-xs text-[#9299A5] dark:text-white/60">
+                                                <span className="text-xs text-[#4B5563] dark:text-white/60">
                                                     Max 5 MB (PDF, PNG, JPG, DOC, DOCX, XLSX)
                                                 </span>
                                             )}
@@ -424,7 +424,7 @@ export default function Contact({
                                     <button
                                         type="submit"
                                         disabled={processing}
-                                        className="w-full justify-center bg-[#701F35] hover:bg-[#4D1425] text-white font-semibold py-3.5 rounded-xl transition flex items-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
+                                        className="w-full justify-center bg-gradient-to-r from-[#D66C6C] to-[#A04040] hover:brightness-95 text-white font-semibold py-3.5 rounded-xl transition flex items-center gap-2 shadow-sm disabled:opacity-50 cursor-pointer"
                                     >
                                         <Send className="size-4" />
                                         {processing ? 'Sending Message...' : 'Send Message'}
@@ -438,10 +438,10 @@ export default function Contact({
                     {activeTab === 'inbox' && (
                         <div>
                             {inboxMessages.length === 0 ? (
-                                <div className="text-center py-16 text-[#9299A5] space-y-3 dark:text-white/60">
-                                    <Inbox className="size-16 text-[#9299A5]/50 mx-auto dark:text-white/40" />
-                                    <p className="font-semibold text-[#343A40] dark:text-white">Your inbox is empty.</p>
-                                    <p className="text-xs text-[#9299A5] dark:text-white/60">
+                                <div className="text-center py-16 text-[#4B5563] space-y-3 dark:text-white/60">
+                                    <Inbox className="size-16 text-[#4B5563]/50 mx-auto dark:text-white/40" />
+                                    <p className="font-semibold text-[#4B5563] dark:text-white">Your inbox is empty.</p>
+                                    <p className="text-xs text-[#4B5563] dark:text-white/60">
                                         Messages sent to you from other users will appear here.
                                     </p>
                                 </div>
@@ -450,17 +450,17 @@ export default function Contact({
                                     {inboxMessages.map((msg) => (
                                         <div
                                             key={msg.id}
-                                            className={`bg-white border rounded-2xl p-6 transition hover:shadow-md border-[#E2E5E9] dark:bg-[#1E070F] dark:border-white/10 ${
+                                            className={`bg-white border rounded-2xl p-6 transition hover:shadow-md border-[#E5E5E5] dark:bg-[#1E070F] dark:border-white/10 ${
                                                 !msg.is_read
-                                                    ? 'border-[#701F35]/30 bg-[#F5E9ED]/30 dark:bg-white/[0.04]'
+                                                    ? 'border-[#A04040]/30 bg-[#F9EDEF]/30 dark:bg-white/[0.04]'
                                                     : ''
                                             }`}
                                         >
                                             <div className="flex flex-wrap justify-between items-start gap-2 mb-2">
-                                                <h4 className="font-bold text-lg text-[#343A40] dark:text-white">
+                                                <h4 className="font-bold text-lg text-[#4B5563] dark:text-white">
                                                     {msg.subject}
                                                 </h4>
-                                                <span className="text-xs text-[#9299A5] bg-[#F4F5F7] px-3 py-1 rounded-full dark:bg-white/10 dark:text-white/70">
+                                                <span className="text-xs text-[#4B5563] bg-[#F8F8F8] px-3 py-1 rounded-full dark:bg-white/10 dark:text-white/70">
                                                     {new Date(msg.created_at).toLocaleString('en-US', {
                                                         month: 'short',
                                                         day: 'numeric',
@@ -472,31 +472,31 @@ export default function Contact({
                                                 </span>
                                             </div>
 
-                                            <div className="text-xs text-[#9299A5] mb-4 pb-3 border-b border-[#E2E5E9] flex items-center gap-2 dark:border-white/10 dark:text-white/60">
-                                                <span className="font-semibold text-[#343A40] dark:text-white/80">From:</span>
-                                                <span className="font-medium text-[#343A40] dark:text-white">
+                                            <div className="text-xs text-[#4B5563] mb-4 pb-3 border-b border-[#E5E5E5] flex items-center gap-2 dark:border-white/10 dark:text-white/60">
+                                                <span className="font-semibold text-[#4B5563] dark:text-white/80">From:</span>
+                                                <span className="font-medium text-[#4B5563] dark:text-white">
                                                     {msg.sender?.full_name || msg.sender?.name || 'Unknown'}
                                                 </span>
-                                                <span className="text-[#9299A5] dark:text-white/60">
+                                                <span className="text-[#4B5563] dark:text-white/60">
                                                     &lt;{msg.sender?.email}&gt;
                                                 </span>
                                                 {msg.sender?.role && (
-                                                    <span className="bg-[#F5E9ED] text-[#701F35] px-2 py-0.5 rounded text-[10px] uppercase font-bold dark:bg-white/10 dark:text-white">
+                                                    <span className="bg-[#F9EDEF] text-[#A04040] px-2 py-0.5 rounded text-[10px] uppercase font-bold dark:bg-white/10 dark:text-white">
                                                         {msg.sender.role}
                                                     </span>
                                                 )}
                                             </div>
 
-                                            <div className="text-[#343A40] text-sm whitespace-pre-wrap leading-relaxed dark:text-[#F5E9ED]">
+                                            <div className="text-[#4B5563] text-sm whitespace-pre-wrap leading-relaxed dark:text-[#F9EDEF]">
                                                 {msg.message}
                                             </div>
 
                                             {msg.attachment && (
-                                                <div className="mt-4 pt-3 border-t border-[#E2E5E9] dark:border-white/10">
+                                                <div className="mt-4 pt-3 border-t border-[#E5E5E5] dark:border-white/10">
                                                     <a
                                                         href={`/support/contact/download/${msg.id}`}
                                                         download
-                                                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#701F35] hover:text-[#4D1425] bg-[#F5E9ED] hover:bg-[#F5E9ED]/80 px-3.5 py-2 rounded-xl transition dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+                                                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#A04040] hover:text-[#8A3535] bg-[#F9EDEF] hover:bg-[#F9EDEF]/80 px-3.5 py-2 rounded-xl transition dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
                                                     >
                                                         <Download className="size-3.5" /> Download Attachment (
                                                         {msg.attachment.replace(/^\d+_/, '')})

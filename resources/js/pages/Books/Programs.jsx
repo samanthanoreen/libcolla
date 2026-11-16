@@ -21,9 +21,10 @@ import {
     ModalHeader,
 } from '@/components/crud-ui';
 import { libcollaTheme } from '@/lib/libcollaTheme';
+import { collegeCode } from '@/lib/college';
 
 const th =
-    'px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#9299A5] dark:text-white/60 uppercase border-b border-[#E2E5E9] dark:border-white/10';
+    'px-3 py-2 text-left text-[0.65rem] font-bold tracking-wide text-[#4B5563] dark:text-white/60 uppercase border-b border-[#E5E5E5] dark:border-white/10';
 
 // A table cell that looks like plain text and edits in place, committing on blur / Enter.
 function EditableCell({
@@ -44,7 +45,7 @@ function EditableCell({
                     onCommit({ book, field, original, value, input: e.target });
             }}
             onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
-            className={`min-w-10 rounded border border-dashed border-transparent bg-transparent px-1.5 py-1 outline-none hover:cursor-text hover:border-[#cbd5e1] hover:bg-white focus:border-[#701F35] focus:bg-white focus:ring-2 focus:ring-[#701F35]/10 dark:hover:border-white/20 dark:hover:bg-white/10 dark:focus:border-[#d4a017] dark:focus:bg-black/40 ${
+            className={`min-w-10 rounded border border-dashed border-transparent bg-transparent px-1.5 py-1 outline-none hover:cursor-text hover:border-[#cbd5e1] hover:bg-white focus:border-[#A04040] focus:bg-white focus:ring-2 focus:ring-[#A04040]/10 dark:hover:border-white/20 dark:hover:bg-white/10 dark:focus:border-[#E9A12B] dark:focus:bg-black/40 ${
                 align === 'center' ? 'text-center' : ''
             } ${className}`}
         />
@@ -189,20 +190,20 @@ export default function Program({ program, subjects = [], books = [] }) {
     return (
         <div
             style={libcollaTheme}
-            className="mx-auto w-full max-w-7xl space-y-5 p-4"
+            className="w-full space-y-5"
         >
             <Link
                 href="/books"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#701F35] transition hover:text-[#4D1425] dark:text-white/80 dark:hover:text-white"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#A04040] transition hover:text-[#8A3535] dark:text-white/80 dark:hover:text-white"
             >
                 <ArrowLeft className="size-3.5" /> Back to Program Library
             </Link>
 
             {/* Program info */}
-            <div className="overflow-hidden rounded-[10px] border border-[#E2E5E9] bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
-                <div className="border-b border-[#E2E5E9] bg-[#F4F5F7] px-4 py-2.5 dark:border-white/10 dark:bg-white/[0.04]">
-                    <h2 className="flex items-center text-[0.85rem] font-bold tracking-wider text-[#343A40] uppercase dark:text-white">
-                        <FolderOpen className="mr-2 size-4 text-[#701F35] dark:text-[#d4a017]" />{' '}
+            <div className="overflow-hidden rounded-[10px] border border-[#E5E5E5] bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+                <div className="border-b border-[#E5E5E5] bg-[#F8F8F8] px-4 py-2.5 dark:border-white/10 dark:bg-white/[0.04]">
+                    <h2 className="flex items-center text-[0.85rem] font-bold tracking-wider text-[#4B5563] uppercase dark:text-white">
+                        <FolderOpen className="mr-2 size-4 text-[#A04040] dark:text-[#E9A12B]" />{' '}
                         Academic Program Details
                     </h2>
                 </div>
@@ -213,7 +214,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 (h, i) => (
                                     <th
                                         key={h}
-                                        className={`border-b border-[#E2E5E9] bg-[#F4F5F7] px-4 py-2 text-[0.65rem] font-bold text-[#9299A5] uppercase dark:border-white/10 dark:bg-white/[0.04] dark:text-white/60 ${i === 2 ? 'text-center' : 'text-left'}`}
+                                        className={`border-b border-[#E5E5E5] bg-[#F8F8F8] px-4 py-2 text-[0.65rem] font-bold text-[#4B5563] uppercase dark:border-white/10 dark:bg-white/[0.04] dark:text-white/60 ${i === 2 ? 'text-center' : 'text-left'}`}
                                     >
                                         {h}
                                     </th>
@@ -224,7 +225,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                     <tbody>
                         <tr>
                             <td className="border-b border-[#f1f5f9] px-4 py-2.5 text-[#334155] dark:border-white/10 dark:text-white/80">
-                                {program.college}
+                                {collegeCode(program.college)}
                             </td>
                             <td className="border-b border-[#f1f5f9] px-4 py-2.5 font-semibold text-[#334155] dark:border-white/10 dark:text-white">
                                 {program.program_name}
@@ -240,13 +241,13 @@ export default function Program({ program, subjects = [], books = [] }) {
             {/* Controls */}
             <div className="flex flex-wrap items-end gap-4">
                 <div className="flex-1">
-                    <label className="mb-1 block text-[0.65rem] font-bold text-[#343A40] uppercase dark:text-white/80">
+                    <label className="mb-1 block text-[0.65rem] font-bold text-[#4B5563] uppercase dark:text-white/80">
                         Course Subject
                     </label>
                     <select
                         value={subjectId}
                         onChange={(e) => setSubjectId(e.target.value)}
-                        className="w-full rounded-lg border border-[#E2E5E9] bg-white px-3 py-2 text-[0.8rem] text-[#343A40] outline-none focus:border-[#701F35] focus:ring-2 focus:ring-[#701F35]/10 dark:border-white/10 dark:bg-[#1E070F] dark:text-white dark:focus:border-[#d4a017]"
+                        className="w-full rounded-lg border border-[#E5E5E5] bg-white px-3 py-2 text-[0.8rem] text-[#4B5563] outline-none focus:border-[#A04040] focus:ring-2 focus:ring-[#A04040]/10 dark:border-white/10 dark:bg-[#1E070F] dark:text-white dark:focus:border-[#E9A12B]"
                     >
                         {subjects.length === 0 && (
                             <option value="" className="dark:bg-[#1E070F] dark:text-white">No subjects yet</option>
@@ -262,15 +263,15 @@ export default function Program({ program, subjects = [], books = [] }) {
                     type="button"
                     onClick={openAdd}
                     disabled={subjects.length === 0}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-[#701F35] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#4D1425] disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-[#8B2643]"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-4 py-2 text-xs font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50 dark:hover:bg-[#8B2643]"
                 >
                     <Plus className="size-3.5" /> Add Record
                 </button>
             </div>
 
             {/* Books of the selected subject */}
-            <div className="overflow-hidden rounded-[10px] border border-[#E2E5E9] bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
-                <div className="bg-[#701F35] px-4 py-2 dark:bg-[#4D1425]">
+            <div className="overflow-hidden rounded-[10px] border border-[#E5E5E5] bg-white shadow-sm dark:border-white/10 dark:bg-white/[0.06]">
+                <div className="bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-4 py-2 dark:bg-[#8A3535]">
                     <h3 className="text-[0.8rem] font-semibold text-white">
                         Course Subject:{' '}
                         <span className="font-bold">
@@ -283,7 +284,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                 <div className="overflow-x-auto">
                     <table className="w-full min-w-[640px] border-collapse text-xs">
                         <thead>
-                            <tr className="bg-[#F4F5F7] dark:bg-white/[0.04]">
+                            <tr className="bg-[#F8F8F8] dark:bg-white/[0.04]">
                                 <th className={th}>Call No</th>
                                 <th className={th}>Title of Book</th>
                                 <th className={th}>Author</th>
@@ -297,7 +298,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 <tr>
                                     <td
                                         colSpan={6}
-                                        className="p-8 text-center text-[#9299A5] dark:text-white/40"
+                                        className="p-8 text-center text-[#4B5563] dark:text-white/40"
                                     >
                                         <FolderOpen className="mx-auto mb-2 size-8 opacity-50" />
                                         No books assigned to this subject
@@ -307,14 +308,14 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 rows.map((b) => (
                                     <tr
                                         key={b.id}
-                                        className="border-b border-[#f1f5f9] text-[#334155] hover:bg-[#F5E9ED] dark:border-white/10 dark:text-white/80 dark:hover:bg-white/[0.05]"
+                                        className="border-b border-[#f1f5f9] text-[#334155] hover:bg-[#F9EDEF] dark:border-white/10 dark:text-white/80 dark:hover:bg-white/[0.05]"
                                     >
                                         <td className="px-3 py-2">
                                             <EditableCell
                                                 book={b}
                                                 field="call_no"
                                                 onCommit={setEdit}
-                                                className="w-28 font-mono text-[0.7rem] font-semibold text-[#9299A5] dark:text-white/60"
+                                                className="w-28 text-[0.7rem] font-semibold text-[#4B5563] dark:text-white/60"
                                             />
                                         </td>
                                         <td className="px-3 py-2">
@@ -322,7 +323,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 book={b}
                                                 field="title"
                                                 onCommit={setEdit}
-                                                className="w-full font-semibold text-[#343A40] dark:text-white"
+                                                className="w-full font-semibold text-[#4B5563] dark:text-white"
                                             />
                                         </td>
                                         <td className="px-3 py-2">
@@ -348,7 +349,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                                                 field="copies"
                                                 onCommit={setEdit}
                                                 align="center"
-                                                className="w-16 bg-[#F4F5F7] text-[0.7rem] font-bold text-[#9299A5] dark:bg-white/[0.05] dark:text-white/80"
+                                                className="w-16 bg-[#F8F8F8] text-[0.7rem] font-bold text-[#4B5563] dark:bg-white/[0.05] dark:text-white/80"
                                             />
                                         </td>
                                         <td className="px-3 py-2 text-center">
@@ -375,7 +376,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                     <button
                         type="button"
                         onClick={() => setMenuOpen((o) => !o)}
-                        className="inline-flex items-center gap-2 rounded-lg bg-[#1e293b] px-[18px] py-2 text-xs font-semibold text-white transition hover:bg-[#0f172a] dark:bg-[#701F35] dark:hover:bg-[#4D1425]"
+                        className="inline-flex items-center gap-2 rounded-lg bg-[#1e293b] px-[18px] py-2 text-xs font-semibold text-white transition hover:bg-[#0f172a] dark:bg-gradient-to-r from-[#D66C6C] to-[#A04040] dark:hover:brightness-95"
                     >
                         <Download className="size-3.5" /> Download{' '}
                         <ChevronDown className="size-3" />
@@ -386,11 +387,11 @@ export default function Program({ program, subjects = [], books = [] }) {
                                 className="fixed inset-0 z-40"
                                 onClick={() => setMenuOpen(false)}
                             />
-                            <div className="absolute right-0 bottom-full z-50 mb-2 w-52 overflow-hidden rounded-lg border border-[#E2E5E9] bg-white shadow-lg dark:border-white/10 dark:bg-[#1E070F]">
+                            <div className="absolute right-0 bottom-full z-50 mb-2 w-52 overflow-hidden rounded-lg border border-[#E5E5E5] bg-white shadow-lg dark:border-white/10 dark:bg-[#1E070F]">
                                 <button
                                     type="button"
                                     onClick={downloadCsv}
-                                    className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-xs font-medium text-[#9299A5] hover:bg-[#F4F5F7] hover:text-[#343A40] dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
+                                    className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left text-xs font-medium text-[#4B5563] hover:bg-[#F8F8F8] hover:text-[#4B5563] dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white"
                                 >
                                     <FileSpreadsheet className="size-4 text-[#059669] dark:text-[#21865A]" />{' '}
                                     Download as CSV
@@ -512,7 +513,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                             </Field>
                         </div>
                     </div>
-                    <div className="flex justify-end gap-3 border-t border-[#E2E5E9] px-6 py-4 dark:border-white/10">
+                    <div className="flex justify-end gap-3 border-t border-[#E5E5E5] px-6 py-4 dark:border-white/10">
                         <button
                             type="button"
                             onClick={closeAdd}
@@ -538,7 +539,7 @@ export default function Program({ program, subjects = [], books = [] }) {
                     <h3 className="mb-2 text-lg font-semibold">
                         Confirm Addition
                     </h3>
-                    <p className="mb-5 text-sm text-[#9299A5] dark:text-white/60">
+                    <p className="mb-5 text-sm text-[#4B5563] dark:text-white/60">
                         Are you sure you want to add this book to the selected
                         subject?
                     </p>
@@ -565,14 +566,14 @@ export default function Program({ program, subjects = [], books = [] }) {
             {/* Confirm inline edit */}
             <Modal open={!!edit} onClose={cancelEdit} size="max-w-[380px]">
                 <div className="p-6 text-center">
-                    <SquarePen className="mx-auto mb-3 size-9 text-[#701F35] dark:text-[#d4a017]" />
+                    <SquarePen className="mx-auto mb-3 size-9 text-[#A04040] dark:text-[#E9A12B]" />
                     <h3 className="mb-2 text-lg font-semibold">
                         Save Changes?
                     </h3>
-                    <p className="mb-4 text-sm text-[#9299A5] dark:text-white/60">
+                    <p className="mb-4 text-sm text-[#4B5563] dark:text-white/60">
                         Do you want to permanently save this edit?
                     </p>
-                    <div className="mb-5 space-y-2 rounded-lg bg-[#F4F5F7] p-3 text-left text-sm dark:bg-white/[0.05] dark:text-white/90">
+                    <div className="mb-5 space-y-2 rounded-lg bg-[#F8F8F8] p-3 text-left text-sm dark:bg-white/[0.05] dark:text-white/90">
                         <div>
                             <strong>Original:</strong>{' '}
                             {edit?.original === '' ? '(Empty)' : edit?.original}
@@ -618,10 +619,10 @@ export default function Program({ program, subjects = [], books = [] }) {
                         <Trash2 className="size-6 text-[#C44545] dark:text-rose-400" />
                     </div>
                     <h3 className="mb-2 text-lg font-semibold">Delete Book?</h3>
-                    <p className="mb-3 text-sm text-[#9299A5] dark:text-white/60">
+                    <p className="mb-3 text-sm text-[#4B5563] dark:text-white/60">
                         Are you sure you want to permanently delete this book?
                     </p>
-                    <div className="mb-5 rounded-lg bg-[#fef2f2] p-3 text-sm font-semibold text-[#343A40] dark:bg-rose-950/30 dark:text-rose-200">
+                    <div className="mb-5 rounded-lg bg-[#fef2f2] p-3 text-sm font-semibold text-[#4B5563] dark:bg-rose-950/30 dark:text-rose-200">
                         {deleting?.title}
                     </div>
                     <div className="flex justify-center gap-3">

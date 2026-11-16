@@ -1,12 +1,11 @@
 import { X } from 'lucide-react';
 import { useEffect } from 'react';
 
-// Shared monochrome styles that follow the app's theme tokens (light and dark).
 export const inputCls =
     'rounded-lg border border-input bg-background px-4 py-2.5 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-ring focus:ring-2 focus:ring-ring/30 disabled:opacity-50';
 
 export const btnPrimary =
-    'inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-xs font-bold tracking-wide text-primary-foreground transition hover:bg-primary/90 disabled:cursor-wait disabled:opacity-60';
+    'inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#D66C6C] to-[#A04040] px-5 py-3 text-xs font-bold tracking-wide text-white transition hover:brightness-95 disabled:cursor-wait disabled:opacity-60';
 
 export const btnSecondary =
     'inline-flex items-center justify-center gap-2 rounded-lg bg-muted px-5 py-3 text-xs font-bold tracking-wide text-foreground transition hover:bg-accent';

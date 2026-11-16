@@ -1,12 +1,12 @@
 export const palette = {
-    primaryBurgundy: '#701F35',
-    darkBurgundy: '#4D1425',
-    lightBurgundy: '#F5E9ED',
+    primaryBurgundy: '#A04040',
+    darkBurgundy: '#8A3535',
+    lightBurgundy: '#F9EDEF',
     white: '#FFFFFF',
-    bgGray: '#F4F5F7',
-    borderGray: '#E2E5E9',
-    mediumGray: '#9299A5',
-    darkGray: '#343A40',
+    bgGray: '#F8F8F8',
+    borderGray: '#E5E5E5',
+    mediumGray: '#6B7280',
+    darkGray: '#4B5563',
     success: '#21865A',
     warning: '#D18A24',
     danger: '#C44545',
@@ -18,5 +18,5 @@ export const libcollaTheme = {
 };
 
 export const serif = {
-    fontFamily: '"Source Serif 4", "Playfair Display", Georgia, serif',
+    fontFamily: "'Quicksand', system-ui, sans-serif",
 };
