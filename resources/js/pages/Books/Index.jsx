@@ -79,9 +79,9 @@ export default function Index({
 
     return (
         <div style={libcollaTheme} className="w-full">
-            <div className="overflow-hidden rounded-[2rem] bg-white text-[#4B5563] shadow-2xl dark:border dark:border-white/10 dark:bg-[#280B14] dark:text-[#F9EDEF]">
+            <div className="overflow-hidden rounded-[2rem] bg-white text-[#4B5563] shadow-2xl dark:border dark:border-white/10 dark:bg-white/[0.06] dark:text-[#F9EDEF]">
                 {/* Header */}
-                <div className="flex items-center justify-between border-b-2 border-[#E9A12B] bg-[#F8F8F8] px-8 py-6 dark:bg-[#1E070F]">
+                <div className="flex items-center justify-between border-b-2 border-[#E9A12B] bg-[#F8F8F8] px-8 py-6 dark:bg-white/[0.04]">
                     <h1
                         className="flex items-center gap-3 text-xl font-bold sm:text-2xl text-[#4B5563] dark:text-white"
                         style={serif}
