@@ -609,7 +609,7 @@ export default function Preview({ program, summary: initialSummary = [], referen
             {modalState.isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-150">
                     <div
-                        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-[#E5E5E5] text-center animate-in zoom-in-95 duration-150 dark:bg-[#280B14] dark:border-white/10"
+                        className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-2xl border border-[#E5E5E5] text-center animate-in zoom-in-95 duration-150 dark:bg-[#161616] dark:border-white/10"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div

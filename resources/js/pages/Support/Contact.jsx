@@ -203,7 +203,7 @@ export default function Contact({
             </div>
 
             {/* Main Message Card */}
-            <div className="bg-white rounded-3xl shadow-sm border border-[#E5E5E5] overflow-hidden dark:bg-[#280B14] dark:border-white/10">
+            <div className="bg-white rounded-3xl shadow-sm border border-[#E5E5E5] overflow-hidden dark:bg-white/[0.06] dark:border-white/10">
                 {/* Tabs Switcher */}
                 <div className="flex border-b border-[#E5E5E5] bg-[#F8F8F8] dark:border-white/10 dark:bg-white/[0.02]">
                     <button
@@ -211,7 +211,7 @@ export default function Contact({
                         onClick={() => handleSwitchTab('compose')}
                         className={`flex-1 py-4 font-semibold text-sm transition-colors border-b-2 flex items-center justify-center gap-2 ${
                             activeTab === 'compose'
-                                ? 'border-[#A04040] text-[#A04040] bg-white dark:border-[#E9A12B] dark:text-white dark:bg-[#280B14]'
+                                ? 'border-[#A04040] text-[#A04040] bg-white dark:border-[#E9A12B] dark:text-white dark:bg-white/[0.06]'
                                 : 'border-transparent text-[#4B5563] hover:text-[#4B5563] dark:text-white/60 dark:hover:text-white'
                         }`}
                     >
@@ -222,7 +222,7 @@ export default function Contact({
                         onClick={() => handleSwitchTab('inbox')}
                         className={`flex-1 py-4 font-semibold text-sm transition-colors border-b-2 flex items-center justify-center gap-2 ${
                             activeTab === 'inbox'
-                                ? 'border-[#A04040] text-[#A04040] bg-white dark:border-[#E9A12B] dark:text-white dark:bg-[#280B14]'
+                                ? 'border-[#A04040] text-[#A04040] bg-white dark:border-[#E9A12B] dark:text-white dark:bg-white/[0.06]'
                                 : 'border-transparent text-[#4B5563] hover:text-[#4B5563] dark:text-white/60 dark:hover:text-white'
                         }`}
                     >
@@ -450,7 +450,7 @@ export default function Contact({
                                     {inboxMessages.map((msg) => (
                                         <div
                                             key={msg.id}
-                                            className={`bg-white border rounded-2xl p-6 transition hover:shadow-md border-[#E5E5E5] dark:bg-[#1E070F] dark:border-white/10 ${
+                                            className={`bg-white border rounded-2xl p-6 transition hover:shadow-md border-[#E5E5E5] dark:bg-white/[0.06] dark:border-white/10 ${
                                                 !msg.is_read
                                                     ? 'border-[#A04040]/30 bg-[#F9EDEF]/30 dark:bg-white/[0.04]'
                                                     : ''
