@@ -104,6 +104,22 @@ class SupportContactController extends Controller
         return back();
     }
 
+    public function destroy(Message $message, Request $request)
+    {
+        abort_unless((int) $message->recipient_id === (int) $request->user()->id, 403, 'Unauthorized.');
+
+        $message->delete();
+
+        return back();
+    }
+
+    public function destroyAll(Request $request)
+    {
+        Message::where('recipient_id', $request->user()->id)->delete();
+
+        return back();
+    }
+
     public function download(Message $message, Request $request)
     {
         $userId = $request->user()->id;

@@ -447,6 +447,19 @@ export default function Contact({
                                 </div>
                             ) : (
                                 <div className="space-y-4">
+                                    <div className="flex justify-end">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                router.delete('/support/contact', {
+                                                    preserveScroll: true,
+                                                });
+                                            }}
+                                            className="inline-flex items-center gap-1.5 rounded-xl border border-[#C44545]/30 bg-[#F9EDEF]/60 px-3.5 py-2 text-xs font-semibold text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:bg-[#C44545]/15 dark:hover:bg-[#C44545]/25"
+                                        >
+                                            <Trash2 className="size-3.5" /> Delete All Notifications
+                                        </button>
+                                    </div>
                                     {inboxMessages.map((msg) => (
                                         <div
                                             key={msg.id}
@@ -460,16 +473,31 @@ export default function Contact({
                                                 <h4 className="font-bold text-lg text-[#4B5563] dark:text-white">
                                                     {msg.subject}
                                                 </h4>
-                                                <span className="text-xs text-[#4B5563] bg-[#F8F8F8] px-3 py-1 rounded-full dark:bg-white/10 dark:text-white/70">
-                                                    {new Date(msg.created_at).toLocaleString('en-US', {
-                                                        month: 'short',
-                                                        day: 'numeric',
-                                                        year: 'numeric',
-                                                        hour: 'numeric',
-                                                        minute: '2-digit',
-                                                        hour12: true,
-                                                    })}
-                                                </span>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-xs text-[#4B5563] bg-[#F8F8F8] px-3 py-1 rounded-full dark:bg-white/10 dark:text-white/70">
+                                                        {new Date(msg.created_at).toLocaleString('en-US', {
+                                                            month: 'short',
+                                                            day: 'numeric',
+                                                            year: 'numeric',
+                                                            hour: 'numeric',
+                                                            minute: '2-digit',
+                                                            hour12: true,
+                                                        })}
+                                                    </span>
+                                                    <button
+                                                        type="button"
+                                                        title="Delete notification"
+                                                        aria-label="Delete notification"
+                                                        onClick={() => {
+                                                            router.delete(`/support/contact/${msg.id}`, {
+                                                                preserveScroll: true,
+                                                            });
+                                                        }}
+                                                        className="inline-flex size-8 items-center justify-center rounded-lg text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-[#C44545]/20"
+                                                    >
+                                                        <Trash2 className="size-4" />
+                                                    </button>
+                                                </div>
                                             </div>
 
                                             <div className="text-xs text-[#4B5563] mb-4 pb-3 border-b border-[#E5E5E5] flex items-center gap-2 dark:border-white/10 dark:text-white/60">

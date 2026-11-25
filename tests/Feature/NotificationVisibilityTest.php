@@ -140,4 +140,71 @@ class NotificationVisibilityTest extends TestCase
                 );
         }
     }
+
+    public function test_recipient_can_delete_single_and_all_notifications_without_affecting_others(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $otherUser = User::factory()->create(['role' => 'librarian']);
+        $sender = User::factory()->create(['role' => 'staff']);
+
+        $this->actingAs($sender)->post('/support/contact', [
+            'subject' => 'First',
+            'message' => 'Msg 1',
+            'recipients' => [$admin->email],
+        ])->assertRedirect();
+
+        $this->actingAs($sender)->post('/support/contact', [
+            'subject' => 'Second',
+            'message' => 'Msg 2',
+            'recipients' => [$admin->email],
+        ])->assertRedirect();
+
+        $this->actingAs($sender)->post('/support/contact', [
+            'subject' => 'Other User Msg',
+            'message' => 'Keep me',
+            'recipients' => [$otherUser->email],
+        ])->assertRedirect();
+
+        $firstAdminMsg = \App\Models\Message::where('recipient_id', $admin->id)
+            ->where('subject', 'First')
+            ->firstOrFail();
+
+        // Another user cannot delete admin's notification
+        $this->actingAs($otherUser)
+            ->delete("/support/contact/{$firstAdminMsg->id}")
+            ->assertForbidden();
+
+        // Admin deletes a single notification
+        $this->actingAs($admin)
+            ->delete("/support/contact/{$firstAdminMsg->id}")
+            ->assertRedirect();
+
+        $this->actingAs($admin)
+            ->get('/dashboard')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('notifications.unreadCount', 1)
+                ->has('notifications.items', 1)
+                ->where('notifications.items.0.subject', 'Second')
+            );
+
+        // Admin deletes all remaining notifications
+        $this->actingAs($admin)
+            ->delete('/support/contact')
+            ->assertRedirect();
+
+        $this->actingAs($admin)
+            ->get('/dashboard')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('notifications.unreadCount', 0)
+                ->has('notifications.items', 0)
+            );
+
+        // Other user's notification remains untouched
+        $this->actingAs($otherUser)
+            ->get('/dashboard')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('notifications.unreadCount', 1)
+                ->has('notifications.items', 1)
+            );
+    }
 }
