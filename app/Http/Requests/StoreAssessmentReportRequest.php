@@ -12,7 +12,15 @@ class StoreAssessmentReportRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return (bool) $this->user()?->can_add;
+    }
+
+    /**
+     * Handle a failed authorization attempt.
+     */
+    protected function failedAuthorization(): void
+    {
+        abort(403, 'Unauthorized. Missing Add permission.');
     }
 
     /**
@@ -23,7 +31,9 @@ class StoreAssessmentReportRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'program_id' => ['required', 'exists:programs,id'],
+            'summary' => ['required', 'array'],
+            'references' => ['present', 'array'],
         ];
     }
 }

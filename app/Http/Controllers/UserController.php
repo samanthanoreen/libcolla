@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -34,21 +34,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $currentUser = $request->user();
-        if ($currentUser->role !== 'admin' && !$currentUser->hasPermission('can_add')) {
-            abort(403, 'You do not have permission to create users.');
-        }
-
-        $validated = $request->validate([
-            'full_name' => ['required', 'string', 'max:255'],
-            'username'  => ['required', 'string', 'max:255', Rule::unique('users')],
-            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')],
-            'role'      => ['required', 'string', Rule::in(['admin', 'librarian', 'staff'])],
-            'password'  => ['required', Password::defaults()],
-            'permissions' => ['nullable', 'array'],
-        ]);
+        $validated = $request->validated();
 
         $role = $validated['role'];
         if ($role === 'admin') {
@@ -81,21 +69,9 @@ class UserController extends Controller
         return back()->with('status', 'User created successfully.');
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $currentUser = $request->user();
-        if ($currentUser->role !== 'admin' && !$currentUser->hasPermission('can_edit')) {
-            abort(403, 'You do not have permission to edit users.');
-        }
-
-        $validated = $request->validate([
-            'full_name' => ['required', 'string', 'max:255'],
-            'username'  => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'email'     => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'role'      => ['required', 'string', Rule::in(['admin', 'librarian', 'staff'])],
-            'password'  => ['nullable', Password::defaults()],
-            'permissions' => ['nullable', 'array'],
-        ]);
+        $validated = $request->validated();
 
         $role = $validated['role'];
         $data = [

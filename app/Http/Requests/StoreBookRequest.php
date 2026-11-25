@@ -12,7 +12,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,14 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'program_id' => 'required|exists:programs,id',
+            'subject_id' => 'required|exists:course_subjects,id',
+            'title' => 'required|string|max:300',
+            'isbn' => 'nullable|string|max:20',
+            'publication_year' => 'required|integer',
+            'publisher' => 'required|string|max:150',
+            'total_copies' => 'required|integer|min:1',
+            'availability_status' => 'required|string',
         ];
     }
 }

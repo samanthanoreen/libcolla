@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProgramRequest extends FormRequest
 {
@@ -12,7 +13,15 @@ class StoreProgramRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return (bool) $this->user()?->can_add;
+    }
+
+    /**
+     * Handle a failed authorization attempt.
+     */
+    protected function failedAuthorization(): void
+    {
+        abort(403, 'Unauthorized. Missing Add permission.');
     }
 
     /**
@@ -23,7 +32,10 @@ class StoreProgramRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'college' => ['required', 'string', 'max:150'],
+            'program_name' => ['required', 'string', 'max:150'],
+            'major' => ['nullable', 'string', 'max:150'],
+            'level' => ['required', Rule::in(['Bachelor', 'Master', 'Doctorate'])],
         ];
     }
 }

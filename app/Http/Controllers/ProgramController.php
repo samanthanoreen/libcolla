@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProgramRequest;
+use App\Http\Requests\UpdateProgramRequest;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class ProgramController extends Controller
@@ -54,11 +55,9 @@ class ProgramController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProgramRequest $request)
     {
-        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
-
-        $validated = $request->validate($this->rules());
+        $validated = $request->validated();
 
         $validated['major'] = $validated['major'] ?? null;
         $validated['program_code'] = $this->makeCode($validated['program_name']);
@@ -70,11 +69,9 @@ class ProgramController extends Controller
         return back();
     }
 
-    public function update(Request $request, Program $program)
+    public function update(UpdateProgramRequest $request, Program $program)
     {
-        abort_unless($request->user()?->can_edit, 403, 'Unauthorized. Missing Edit permission.');
-
-        $validated = $request->validate($this->rules());
+        $validated = $request->validated();
 
         $validated['major'] = $validated['major'] ?? null;
 
@@ -96,16 +93,6 @@ class ProgramController extends Controller
         Inertia::flash('toast', ['type' => 'info', 'message' => 'Program deleted.']);
 
         return $fromProspectus ? redirect()->route('programs.index') : back();
-    }
-
-    private function rules(): array
-    {
-        return [
-            'college' => ['required', 'string', 'max:150'],
-            'program_name' => ['required', 'string', 'max:150'],
-            'major' => ['nullable', 'string', 'max:150'],
-            'level' => ['required', Rule::in(['Bachelor', 'Master', 'Doctorate'])],
-        ];
     }
 
     /**

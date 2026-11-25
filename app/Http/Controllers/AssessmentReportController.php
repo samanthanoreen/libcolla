@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAssessmentReportRequest;
 use App\Models\AssessmentReport;
 use App\Models\Book;
 use App\Models\Program;
@@ -113,15 +114,9 @@ class AssessmentReportController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreAssessmentReportRequest $request)
     {
-        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
-
-        $data = $request->validate([
-            'program_id' => ['required', 'exists:programs,id'],
-            'summary' => ['required', 'array'],
-            'references' => ['present', 'array'],
-        ]);
+        $data = $request->validated();
 
         $program = Program::findOrFail($data['program_id']);
 

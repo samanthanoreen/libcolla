@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCourseSubjectRequest;
+use App\Http\Requests\UpdateCourseSubjectRequest;
 use App\Models\CourseSubject;
 use App\Models\Program;
 use App\Models\Prospectus;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class CourseSubjectController extends Controller
@@ -25,18 +26,9 @@ class CourseSubjectController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreCourseSubjectRequest $request)
     {
-        $validated = $request->validate([
-            'program_id' => 'required|exists:programs,id',
-            'prospectus_id' => 'required|exists:prospectuses,id',
-            'subject_code' => 'required|string|max:20',
-            'subject_title' => 'required|string|max:200',
-            'credit_units' => 'required|numeric',
-            'semester_offered' => 'nullable|string',
-        ]);
-
-        CourseSubject::create($validated);
+        CourseSubject::create($request->validated());
 
         return redirect()->route('course-subjects.index');
     }
@@ -50,18 +42,9 @@ class CourseSubjectController extends Controller
         ]);
     }
 
-    public function update(Request $request, CourseSubject $courseSubject)
+    public function update(UpdateCourseSubjectRequest $request, CourseSubject $courseSubject)
     {
-        $validated = $request->validate([
-            'program_id' => 'required|exists:programs,id',
-            'prospectus_id' => 'required|exists:prospectuses,id',
-            'subject_code' => 'required|string|max:20',
-            'subject_title' => 'required|string|max:200',
-            'credit_units' => 'required|numeric',
-            'semester_offered' => 'nullable|string',
-        ]);
-
-        $courseSubject->update($validated);
+        $courseSubject->update($request->validated());
 
         return redirect()->route('course-subjects.index');
     }
