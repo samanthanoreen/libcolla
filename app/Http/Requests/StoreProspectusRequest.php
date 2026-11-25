@@ -12,7 +12,15 @@ class StoreProspectusRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return (bool) $this->user()?->can_edit;
+    }
+
+    /**
+     * Handle a failed authorization attempt.
+     */
+    protected function failedAuthorization(): void
+    {
+        abort(403, 'Unauthorized. Missing Edit permission.');
     }
 
     /**
@@ -23,7 +31,20 @@ class StoreProspectusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'string', 'max:200'],
+            'academic_year' => ['required', 'string', 'regex:/^\d{4}-\d{4}$/'],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'academic_year.regex' => 'Use the format 2024-2025.',
         ];
     }
 }

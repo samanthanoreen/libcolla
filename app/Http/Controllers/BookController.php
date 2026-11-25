@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
 use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
@@ -61,20 +63,9 @@ class BookController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        $validated = $request->validate([
-            'program_id' => 'required|exists:programs,id',
-            'subject_id' => 'required|exists:course_subjects,id',
-            'title' => 'required|string|max:300',
-            'isbn' => 'nullable|string|max:20',
-            'publication_year' => 'required|integer',
-            'publisher' => 'required|string|max:150',
-            'total_copies' => 'required|integer|min:1',
-            'availability_status' => 'required|string',
-        ]);
-
-        Book::create($validated);
+        Book::create($request->validated());
 
         return redirect()->route('books.index');
     }
@@ -88,20 +79,9 @@ class BookController extends Controller
         ]);
     }
 
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookRequest $request, Book $book)
     {
-        $validated = $request->validate([
-            'program_id' => 'required|exists:programs,id',
-            'subject_id' => 'required|exists:course_subjects,id',
-            'title' => 'required|string|max:300',
-            'isbn' => 'nullable|string|max:20',
-            'publication_year' => 'required|integer',
-            'publisher' => 'required|string|max:150',
-            'total_copies' => 'required|integer|min:1',
-            'availability_status' => 'required|string',
-        ]);
-
-        $book->update($validated);
+        $book->update($request->validated());
 
         return redirect()->route('books.index');
     }

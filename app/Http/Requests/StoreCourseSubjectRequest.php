@@ -12,7 +12,7 @@ class StoreCourseSubjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,12 @@ class StoreCourseSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'program_id' => 'required|exists:programs,id',
+            'prospectus_id' => 'required|exists:prospectuses,id',
+            'subject_code' => 'required|string|max:20',
+            'subject_title' => 'required|string|max:200',
+            'credit_units' => 'required|numeric',
+            'semester_offered' => 'nullable|string',
         ];
     }
 }

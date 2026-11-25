@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookLibraryRequest;
+use App\Http\Requests\UpdateBookLibraryRequest;
 use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 /**
@@ -130,17 +131,9 @@ class BookLibraryController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreBookLibraryRequest $request)
     {
-        abort_unless($request->user()?->can_add, 403, 'Unauthorized. Missing Add permission.');
-
-        $data = $request->validate([
-            'program_id' => ['required', 'exists:programs,id'],
-            'subject_id' => [
-                'required',
-                Rule::exists('course_subjects', 'id')->where('program_id', $request->input('program_id')),
-            ],
-        ] + $this->rules());
+        $data = $request->validated();
 
         Book::create([
             'program_id' => $data['program_id'],
@@ -157,11 +150,9 @@ class BookLibraryController extends Controller
         return back();
     }
 
-    public function update(Request $request, Book $book)
+    public function update(UpdateBookLibraryRequest $request, Book $book)
     {
-        abort_unless($request->user()?->can_edit, 403, 'Unauthorized. Missing Edit permission.');
-
-        $data = $request->validate($this->rules());
+        $data = $request->validated();
 
         $book->update([
             'title' => $data['title'],
@@ -184,17 +175,6 @@ class BookLibraryController extends Controller
         Inertia::flash('toast', ['type' => 'info', 'message' => 'Book deleted successfully!']);
 
         return back();
-    }
-
-    private function rules(): array
-    {
-        return [
-            'title' => ['required', 'string', 'max:300'],
-            'call_no' => ['required', 'string', 'max:50'],
-            'author' => ['required', 'string', 'max:100'],
-            'year' => ['required', 'integer', 'min:1000', 'max:'.(date('Y') + 1)],
-            'copies' => ['required', 'integer', 'min:1'],
-        ];
     }
 
     /** Keeps the single "Author" field in the two author columns (first names / last word). */

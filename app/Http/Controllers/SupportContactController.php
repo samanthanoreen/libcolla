@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSupportContactRequest;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,15 +43,9 @@ class SupportContactController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreSupportContactRequest $request)
     {
-        $validated = $request->validate([
-            'subject' => ['required', 'string', 'max:255'],
-            'message' => ['required', 'string'],
-            'recipients' => ['required', 'array', 'min:1'],
-            'recipients.*' => ['required', 'string', 'email'],
-            'attachment' => ['nullable', 'file', 'max:5120', 'mimes:pdf,png,jpg,jpeg,doc,docx,xlsx'],
-        ]);
+        $validated = $request->validated();
 
         $validUsers = User::whereIn('email', $validated['recipients'])->get();
 

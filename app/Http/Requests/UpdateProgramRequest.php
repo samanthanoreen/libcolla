@@ -2,28 +2,21 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateProgramRequest extends FormRequest
+class UpdateProgramRequest extends StoreProgramRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return (bool) $this->user()?->can_edit;
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
+     * Handle a failed authorization attempt.
      */
-    public function rules(): array
+    protected function failedAuthorization(): void
     {
-        return [
-            //
-        ];
+        abort(403, 'Unauthorized. Missing Edit permission.');
     }
 }
