@@ -214,7 +214,7 @@ export default function Login({ status }: Props) {
                                         onChange={(e) => setData('role', e.target.value)}
                                         className={`${inputClass} px-4 appearance-none cursor-pointer`}
                                     >
-                                        <option value="">Choose role (Optional)...</option>
+                                        <option value="">Choose role...</option>
                                         <option value="admin">Administrator</option>
                                         <option value="librarian">Librarian</option>
                                         <option value="staff">Staff</option>

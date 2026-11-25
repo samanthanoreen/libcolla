@@ -160,6 +160,9 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
     const { component, url } = page;
     const user = page.props?.auth?.user;
     const canAccessUsers = String((user as any)?.role || '').toLowerCase() === 'admin' || !!(user as any)?.can_access_users;
+    const notificationsData = (page.props as any)?.notifications ?? { unreadCount: 0, items: [] };
+    const unreadNotificationsCount: number = Number(notificationsData.unreadCount || 0);
+    const notificationItems: any[] = Array.isArray(notificationsData.items) ? notificationsData.items : [];
 
     const { resolvedAppearance, updateAppearance } = useAppearance();
     const isDark = resolvedAppearance === 'dark';
@@ -196,6 +199,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
     const ON = 'border-l-4 border-l-[#E9A12B] bg-black/25';
     const OFF = 'border-l-4 border-l-transparent';
     const [profileOpen, setProfileOpen] = useState(false);
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(
         () => {
             const open: Record<string, boolean> = {};
@@ -551,21 +555,148 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                             )}
                         </button>
 
-                        <Link
-                            href="/support/contact?tab=inbox"
-                            title="Message Inbox"
-                            className={`flex size-10 items-center justify-center rounded-2xl transition-colors ${
-                                isDark
-                                    ? 'text-white/70 hover:bg-white/10 hover:text-white'
-                                    : 'text-[#6B7280] hover:bg-[#F8F8F8] hover:text-[#A04040]'
-                            }`}
-                        >
-                            <Bell className="size-5" />
-                        </Link>
+                        <div className="relative">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setProfileOpen(false);
+                                    setNotificationsOpen((o) => !o);
+                                }}
+                                title="Notifications"
+                                aria-label="Notifications"
+                                className={`relative flex size-10 items-center justify-center rounded-2xl transition-colors cursor-pointer ${
+                                    isDark
+                                        ? 'text-white/70 hover:bg-white/10 hover:text-white'
+                                        : 'text-[#6B7280] hover:bg-[#F8F8F8] hover:text-[#A04040]'
+                                }`}
+                            >
+                                <Bell className="size-5" />
+                                {unreadNotificationsCount > 0 && (
+                                    <span
+                                        data-testid="notification-badge"
+                                        className="absolute -top-0.5 -right-0.5 flex min-w-[18px] h-[18px] items-center justify-center rounded-full bg-[#C44545] px-1 text-[10px] font-bold leading-none text-white ring-2 ring-white dark:ring-[#111111]"
+                                    >
+                                        {unreadNotificationsCount > 99 ? '99+' : unreadNotificationsCount}
+                                    </span>
+                                )}
+                            </button>
+
+                            {notificationsOpen && (
+                                <>
+                                    <div
+                                        className="fixed inset-0 z-40"
+                                        onClick={() => setNotificationsOpen(false)}
+                                    />
+                                    <div className="absolute top-[calc(100%+14px)] right-0 z-[9999] w-[320px] sm:w-[360px] overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-2xl dark:border-white/10 dark:bg-[#111111]">
+                                        <div className="flex items-center justify-between border-b border-[#E5E5E5] bg-[#F8F8F8] px-4 py-3 dark:border-white/10 dark:bg-white/[0.04]">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-sm font-bold text-[#4B5563] dark:text-white">
+                                                    Notifications
+                                                </span>
+                                                {unreadNotificationsCount > 0 && (
+                                                    <span className="rounded-full bg-[#F9EDEF] px-2 py-0.5 text-[11px] font-bold text-[#A04040] dark:bg-[#A04040]/20 dark:text-[#ffd7ba]">
+                                                        {unreadNotificationsCount} unread
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {unreadNotificationsCount > 0 && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        router.post(
+                                                            '/support/contact/mark-read',
+                                                            {},
+                                                            { preserveScroll: true },
+                                                        );
+                                                    }}
+                                                    className="text-xs font-semibold text-[#A04040] hover:underline cursor-pointer dark:text-[#E9A12B]"
+                                                >
+                                                    Mark all read
+                                                </button>
+                                            )}
+                                        </div>
+
+                                        <div className="max-h-80 overflow-y-auto divide-y divide-[#E5E5E5] dark:divide-white/10">
+                                            {notificationItems.length === 0 ? (
+                                                <div className="px-4 py-8 text-center text-xs text-[#6B7280] dark:text-white/60">
+                                                    No messages or notifications yet.
+                                                </div>
+                                            ) : (
+                                                notificationItems.map((item) => (
+                                                    <button
+                                                        key={item.id}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setNotificationsOpen(false);
+                                                            const targetHref = item.href || '/support/contact?tab=inbox';
+                                                            if (!item.is_read) {
+                                                                router.post(
+                                                                    '/support/contact/mark-read',
+                                                                    { message_id: item.id },
+                                                                    {
+                                                                        preserveScroll: true,
+                                                                        onFinish: () => router.visit(targetHref),
+                                                                    },
+                                                                );
+                                                            } else {
+                                                                router.visit(targetHref);
+                                                            }
+                                                        }}
+                                                        className={`block w-full text-left px-4 py-3 transition hover:bg-[#F9EDEF]/40 cursor-pointer dark:hover:bg-white/[0.06] ${
+                                                            !item.is_read
+                                                                ? 'bg-[#F9EDEF]/25 dark:bg-[#A04040]/10'
+                                                                : ''
+                                                        }`}
+                                                    >
+                                                        <div className="flex items-start justify-between gap-2">
+                                                            <div className="min-w-0 flex-1">
+                                                                <div className="flex items-center gap-1.5">
+                                                                    {!item.is_read && (
+                                                                        <span className="size-2 shrink-0 rounded-full bg-[#C44545]" />
+                                                                    )}
+                                                                    <span className="truncate text-xs font-bold text-[#4B5563] dark:text-white">
+                                                                        {item.sender_name}
+                                                                    </span>
+                                                                    {item.sender_role && (
+                                                                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[#6B7280] dark:bg-white/10 dark:text-white/70">
+                                                                            {item.sender_role}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                <p className="mt-1 truncate text-xs font-semibold text-[#A04040] dark:text-[#ffd7ba]">
+                                                                    {item.subject}
+                                                                </p>
+                                                                <p className="mt-0.5 line-clamp-2 text-[11px] text-[#6B7280] dark:text-white/60">
+                                                                    {item.message}
+                                                                </p>
+                                                            </div>
+                                                            <span className="shrink-0 text-[10px] text-[#6B7280] dark:text-white/50">
+                                                                {item.created_at}
+                                                            </span>
+                                                        </div>
+                                                    </button>
+                                                ))
+                                            )}
+                                        </div>
+
+                                        <Link
+                                            href="/support/contact?tab=inbox"
+                                            onClick={() => setNotificationsOpen(false)}
+                                            className="block border-t border-[#E5E5E5] bg-[#F8F8F8] px-4 py-2.5 text-center text-xs font-bold text-[#A04040] transition hover:bg-[#F9EDEF] dark:border-white/10 dark:bg-white/[0.04] dark:text-[#E9A12B] dark:hover:bg-white/10"
+                                        >
+                                            View All in Message Inbox
+                                        </Link>
+                                    </div>
+                                </>
+                            )}
+                        </div>
 
                         <div className="relative">
                             <div
-                                onClick={() => setProfileOpen((o) => !o)}
+                                onClick={() => {
+                                    setNotificationsOpen(false);
+                                    setProfileOpen((o) => !o);
+                                }}
                                 className={`group flex cursor-pointer items-center gap-3 rounded-2xl px-4 py-2 transition hover:scale-[1.02] ${
                                     isDark ? 'hover:bg-white/10' : 'hover:bg-[#F8F8F8]'
                                 }`}
