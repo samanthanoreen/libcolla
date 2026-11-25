@@ -6,7 +6,6 @@ use App\Models\AssessmentReport;
 use App\Models\Book;
 use App\Models\CourseSubject;
 use App\Models\Program;
-use App\Models\Prospectus;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -39,90 +38,32 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2. Seed Academic Programs
-        $bsit = Program::updateOrCreate(
-            ['program_code' => 'BSIT'],
-            [
-                'program_name' => 'Bachelor of Science in Information Technology',
-                'college' => 'CIC',
-                'major' => 'Business Technology Management',
-                'level' => 'Bachelor',
-                'duration' => 4,
-                'status' => 'active',
-            ]
-        );
+        // 2. Seed the four CIC programs, their prospectuses and every subject
+        //    (BSIT-BTM, BSIT-IS, BSCS, BLIS), then two dummy books per subject.
+        $this->call([
+            ProgramSeeder::class,
+            ProspectusSeeder::class,
+            CourseSubjectSeeder::class,
+            BookSeeder::class,
+        ]);
 
-        $bscs = Program::updateOrCreate(
-            ['program_code' => 'BSCS'],
-            [
-                'program_name' => 'Bachelor of Science in Computer Science',
-                'college' => 'CIC',
-                'major' => 'Data Science',
-                'level' => 'Bachelor',
-                'duration' => 4,
-                'status' => 'active',
-            ]
-        );
+        $bsit = Program::where('program_code', 'BSIT-BTM')->firstOrFail();
+        $btmProspectus = $bsit->prospectuses()->orderByDesc('is_active')->orderByDesc('id')->first();
 
-        $blis = Program::updateOrCreate(
-            ['program_code' => 'BLIS'],
-            [
-                'program_name' => 'Bachelor of Library and Information Science',
-                'college' => 'CE',
-                'major' => 'General',
-                'level' => 'Bachelor',
-                'duration' => 4,
-                'status' => 'active',
-            ]
-        );
+        // 3. Seed Core Library Books (BSIT-BTM subjects). Scoped to the BTM prospectus,
+        //    because BSIT-IS and BSCS share codes such as IC 111.
+        $subject = fn (string $code) => CourseSubject::where('prospectus_id', $btmProspectus->id)
+            ->where('subject_code', $code)
+            ->first();
 
-        // 3. Seed Full BSIT-BTM Prospectus & All 53 Subjects
-        $this->call(BsitBtmProspectusSeeder::class);
-
-        // 4. Seed BSCS Prospectus & Key Subjects
-        $bscsProspectus = Prospectus::firstOrCreate(
-            [
-                'program_id' => $bscs->id,
-                'title' => 'BSCS Curriculum 2024-2025',
-            ],
-            [
-                'academic_year' => '2024-2025',
-                'is_active' => true,
-                'version' => 1,
-            ]
-        );
-
-        CourseSubject::firstOrCreate(
-            ['prospectus_id' => $bscsProspectus->id, 'subject_code' => 'CS 111'],
-            [
-                'program_id' => $bscs->id,
-                'subject_title' => 'Introduction to Computer Science',
-                'year_semester' => 'FIRST YEAR — 1st Semester',
-                'credit_units' => 3.0,
-                'semester_offered' => 'First',
-            ]
-        );
-
-        CourseSubject::firstOrCreate(
-            ['prospectus_id' => $bscsProspectus->id, 'subject_code' => 'CS 211'],
-            [
-                'program_id' => $bscs->id,
-                'subject_title' => 'Design and Analysis of Algorithms',
-                'year_semester' => 'SECOND YEAR — 1st Semester',
-                'credit_units' => 3.0,
-                'semester_offered' => 'First',
-            ]
-        );
-
-        // 5. Seed Core Library Books
-        $softEngSubject = CourseSubject::where('subject_code', 'IT 228')->first();
-        $prog1Subject = CourseSubject::where('subject_code', 'IC 111')->first();
-        $prog2Subject = CourseSubject::where('subject_code', 'IC 124')->first();
-        $dataStructSubject = CourseSubject::where('subject_code', 'IC 217')->first();
-        $infoMgmtSubject = CourseSubject::where('subject_code', 'IT 213')->first();
-        $networksSubject = CourseSubject::where('subject_code', 'IT 214')->first();
-        $hciSubject = CourseSubject::where('subject_code', 'IC 126')->first();
-        $analyticsSubject = CourseSubject::where('subject_code', 'ITBTM 327')->first();
+        $softEngSubject = $subject('IT 228');
+        $prog1Subject = $subject('IC 111');
+        $prog2Subject = $subject('IC 124');
+        $dataStructSubject = $subject('IC 217');
+        $infoMgmtSubject = $subject('IT 213');
+        $networksSubject = $subject('IT 214');
+        $hciSubject = $subject('IC 126');
+        $analyticsSubject = $subject('ITBTM 327');
 
         $booksData = [
             [
@@ -254,7 +195,7 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // 6. Seed Sample Assessment Report
+        // 4. Seed Sample Assessment Report
         $reportSummary = [
             [
                 'classification' => 'Core',
@@ -443,7 +384,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 7. Seed Sample Contact Support Message
+        // 5. Seed Sample Contact Support Message
         if (DB::getSchemaBuilder()->hasTable('messages')) {
             DB::table('messages')->updateOrInsert(
                 ['subject' => 'Inquiry on Latest BSIT Reference Acquisitions'],

@@ -1,0 +1,2033 @@
+{
+  "programs": [
+    {
+      "key": "BSIT-BTM",
+      "legacy_codes": [
+        "BSIT"
+      ],
+      "program_name": "Bachelor of Science in Information Technology",
+      "college": "CIC",
+      "major": "Business Technology Management",
+      "level": "Bachelor",
+      "duration": 4,
+      "status": "active",
+      "prospectus": {
+        "title": "BSIT-BTM Prospectus — CMO No. 25 s.2015, Revised BOR Res. No. 75 s.2019, Effective SY 2018-2019",
+        "academic_year": "2018-2019",
+        "description": "Total: 155 units. Professional electives: Graphics and Visual Computing; Games Development; Publishing Research Papers in Computing; Digital Images Processing; Service Science Management; Emerging Trends and Technologies; Computer Animation; Technology Transfer; Knowledge Management; Advanced Computer Networks. General education electives: Environmental Science; Reading Visual Arts; Gender and Society; People of the Earth's Ecosystem; Philippine Indigenous Communities; Foreign Language."
+      },
+      "renames": [
+        [
+          "FOURTH YEAR — 1st Semester",
+          "ITPR 402",
+          "ITPR 401"
+        ],
+        [
+          "FOURTH YEAR — 1st Semester",
+          "ITCP 401",
+          "ITCP 400"
+        ],
+        [
+          "FOURTH YEAR — 2nd Semester",
+          "ITCP 402b",
+          "ITCP 400"
+        ]
+      ],
+      "legacy_subjects": [],
+      "printed_total": 155,
+      "subjects": [
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 111",
+          "title": "Purposive Communication",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 112",
+          "title": "Mathematics in the Modern World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 111",
+          "title": "Programming Paradigm 1",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 112",
+          "title": "Professional Ethics in Computing",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 113",
+          "title": "Probability and Statistics for Computing",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "PE 111",
+          "title": "Movement Enhancement",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "NSTP 111",
+          "title": "National Service Training Program",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 113",
+          "title": "Understanding the Self",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 114",
+          "title": "Ethics",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 124",
+          "title": "Programming Paradigm 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 125",
+          "title": "Discrete Math",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 113"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 126",
+          "title": "Interaction Design",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IT 121",
+          "title": "Technopreneurship",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 112"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "PE 122",
+          "title": "Fitness Exercise",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "NSTP 122",
+          "title": "National Service Training Program",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 215",
+          "title": "The Life and Works of Rizal",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 216",
+          "title": "Readings in Philippine History",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IC 217",
+          "title": "Data Structures",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 124, IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IT 212",
+          "title": "IT Project Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 121"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IT 213",
+          "title": "Information Management",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 124"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IT 214",
+          "title": "Applied Computer Networks",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "PE 213",
+          "title": "Physical Activities Towards Health & Fitness I",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 217",
+          "title": "Science, Technology and Society",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 218",
+          "title": "Arts Appreciation",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 225",
+          "title": "Applied Operating System",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 217"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 226",
+          "title": "Application Systems Development",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IT 213, IT 214"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 227",
+          "title": "Advanced Information Management",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 217, IT 213"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 228",
+          "title": "Software Engineering 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 212, IC 126"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "PE 224",
+          "title": "Physical Activities Towards Health & Fitness II",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "EGE 311",
+          "title": "General Education Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "GE 319",
+          "title": "Contemporary World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITBTM 311",
+          "title": "Introduction to Business Technology Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 226, IT 227"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITBTM 312",
+          "title": "IT Accounting",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 228"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITBTM 313",
+          "title": "Marketing Principles",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 212"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITBTM 314",
+          "title": "Enterprise Resource Planning",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IT 227"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "IT 319",
+          "title": "Software Engineering 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IT 228, IT 225"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ICE 311",
+          "title": "Professional Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 312",
+          "title": "General Education Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 313",
+          "title": "General Education Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ITBTM 325",
+          "title": "E-Commerce",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "ITBTM 312, ITBTM 314"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ITBTM 326",
+          "title": "Advanced Technopreneurship",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "ITBTM 311, ITBTM 313"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ITBTM 327",
+          "title": "Business Analytics",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "ITBTM 311, ITBTM 312"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ICE 322",
+          "title": "Professional Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ICE 323",
+          "title": "Professional Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "IT 3210",
+          "title": "IT Research Paradigm",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 319"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "ITCP 400",
+          "title": "IT Capstone Project*",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "IT 3210"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "ITPR 401",
+          "title": "IT Practicum*",
+          "lec": 0,
+          "lab": 5,
+          "units": 5,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ITPR 401",
+          "title": "IT Practicum",
+          "lec": 0,
+          "lab": 4,
+          "units": 4,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ICE 414",
+          "title": "Professional Elective 4",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ICE 415",
+          "title": "Professional Elective 5",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ITCP 400",
+          "title": "IT Capstone Project*",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "IT 3210"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "ITCP 400",
+          "title": "IT Capstone Project",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "IT 3210"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "IT 4211",
+          "title": "IPR Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        }
+      ]
+    },
+    {
+      "key": "BSIT-IS",
+      "legacy_codes": [],
+      "program_name": "Bachelor of Science in Information Technology",
+      "college": "CIC",
+      "major": "Information Security",
+      "level": "Bachelor",
+      "duration": 4,
+      "status": "active",
+      "prospectus": {
+        "title": "BSIT-IS Prospectus — CMO No. 25 s.2015, Revised BOR Res. No. 75 s.2019, Effective SY 2018-2019",
+        "academic_year": "2018-2019",
+        "description": "Total: 155 units. Professional electives: Graphics and Visual Computing; Games Development; Publishing Research Papers in Computing; Digital Images Processing; Service Science Management; Emerging Trends and Technologies; Computer Animation; Technology Transfer; Knowledge Management; Advanced Computer Networks. General education electives: Environmental Science; Reading Visual Arts; Gender and Society; People of the Earth's Ecosystem; Philippine Indigenous Communities; Foreign Language."
+      },
+      "renames": [],
+      "legacy_subjects": [],
+      "printed_total": 155,
+      "subjects": [
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 111",
+          "title": "Purposive Communication",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 112",
+          "title": "Mathematics in the Modern World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 111",
+          "title": "Programming Paradigm 1",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 112",
+          "title": "Professional Ethics in Computing",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 113",
+          "title": "Probability and Statistics for Computing",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "PE 111",
+          "title": "Movement Enhancement",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "NSTP 111",
+          "title": "National Service Training Program",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 113",
+          "title": "Understanding the Self",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 114",
+          "title": "Ethics",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 124",
+          "title": "Programming Paradigm 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 125",
+          "title": "Discrete Math",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 113"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 126",
+          "title": "Interaction Design",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IT 121",
+          "title": "Technopreneurship",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 112"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "PE 122",
+          "title": "Fitness Exercise",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "NSTP 122",
+          "title": "National Service Training Program",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 215",
+          "title": "The Life and Works of Rizal",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 216",
+          "title": "Readings in Philippine History",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IC 217",
+          "title": "Data Structures",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 124, IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IT 212",
+          "title": "IT Project Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 121"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IT 213",
+          "title": "Information Management",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 124"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IT 214",
+          "title": "Applied Computer Networks",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "PE 213",
+          "title": "Physical Activities Towards Health & Fitness I",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 217",
+          "title": "Science, Technology and Society",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 218",
+          "title": "Arts Appreciation",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 225",
+          "title": "Applied Operating System",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 217"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 226",
+          "title": "Application Systems Development",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IT 213, IT 214"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 227",
+          "title": "Advanced Information Management",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 217, IT 213"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "IT 228",
+          "title": "Software Engineering 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 212, IC 126"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "PE 224",
+          "title": "Physical Activities Towards Health & Fitness II",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "EGE 311",
+          "title": "General Education Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "GE 319",
+          "title": "Contemporary World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITIS 311",
+          "title": "Fundamentals in Security Design",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 226"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITIS 312",
+          "title": "Identity Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 225, IT 226"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITIS 313",
+          "title": "Information Storage Security",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 227"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ITIS 314",
+          "title": "Cybersecurity",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IT 214"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "IT 319",
+          "title": "Software Engineering 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IT 228, IT 225"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ICE 311",
+          "title": "Professional Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 312",
+          "title": "General Education Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 313",
+          "title": "General Education Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ITIS 325",
+          "title": "Systems and Administration",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "ITIS 311, ITIS 312"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ITIS 326",
+          "title": "Data Privacy and Security",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "ITIS 313, ITIS 314"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ITIS 327",
+          "title": "Security Policy and Governance",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "ITIS 311, ITIS 313"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ICE 322",
+          "title": "Professional Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ICE 323",
+          "title": "Professional Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "IT 3210",
+          "title": "IT Research Paradigm",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IT 319"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "ITCP 400",
+          "title": "IT Capstone Project*",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "IT 3210"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "ITPR 401",
+          "title": "IT Practicum*",
+          "lec": 0,
+          "lab": 5,
+          "units": 5,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ITPR 401",
+          "title": "IT Practicum",
+          "lec": 0,
+          "lab": 4,
+          "units": 4,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ICE 414",
+          "title": "Professional Elective 4",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ICE 415",
+          "title": "Professional Elective 5",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ITCP 400",
+          "title": "IT Capstone Project*",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "IT 3210"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "ITCP 400",
+          "title": "IT Capstone Project",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "IT 3210"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "IT 4211",
+          "title": "IPR Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        }
+      ]
+    },
+    {
+      "key": "BSCS",
+      "legacy_codes": [],
+      "program_name": "Bachelor of Science in Computer Science",
+      "college": "CIC",
+      "major": "Data Science",
+      "level": "Bachelor",
+      "duration": 4,
+      "status": "active",
+      "prospectus": {
+        "title": "BSCS Prospectus — CMO No. 25 s.2015, Revised BOR Res. No. 75 s.2019, Effective SY 2018-2019",
+        "academic_year": "2018-2019",
+        "description": "Total: 152 units. Professional electives: Cloud Computing; Data Mining; Digital Image Processing; Educational Data Mining; Emerging Trends and Technologies; Publishing Research Papers in Computing; Affective Computing. General education electives: Environmental Science; Reading Visual Arts; Gender and Society; People of the Earth's Ecosystem; Philippine Indigenous Communities; Foreign Language."
+      },
+      "renames": [],
+      "legacy_subjects": [
+        [
+          "SECOND YEAR — 1st Semester",
+          "CS 211"
+        ]
+      ],
+      "printed_total": 152,
+      "subjects": [
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 111",
+          "title": "Purposive Communication",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 112",
+          "title": "Mathematics in the Modern World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 111",
+          "title": "Programming Paradigm 1",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 112",
+          "title": "Professional Ethics in Computing",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "IC 113",
+          "title": "Probability and Statistics for Computing",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "CS 111",
+          "title": "Advanced Algebra",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "PE 111",
+          "title": "Movement Enhancement",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "NSTP 111",
+          "title": "National Service Training Program",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 113",
+          "title": "Understanding the Self",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 114",
+          "title": "Ethics",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 124",
+          "title": "Programming Paradigm 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 125",
+          "title": "Discrete Math",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 113, CS 111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "IC 126",
+          "title": "Interaction Design",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "CS 122",
+          "title": "Introduction to Data Science",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 113, IC 112"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "PE 122",
+          "title": "Fitness Exercise",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "NSTP 122",
+          "title": "National Service Training Program",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 215",
+          "title": "Life and Works of Jose Rizal",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 216",
+          "title": "Readings in Philippine History",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "IC 217",
+          "title": "Data Structures",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 124, IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "CS 213",
+          "title": "Database Management Systems",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CS 122"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "CS 214",
+          "title": "Computer Networks Concepts and Theories",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "CS 215",
+          "title": "Design and Analysis of Algorithm",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "IC 124, IC 125"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "PE 213",
+          "title": "Physical Activities Towards Health & Fitness I",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 217",
+          "title": "Science, Technology and Society",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 218",
+          "title": "Arts Appreciation",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "CS 226",
+          "title": "Data Analytics – Stat Using R",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "IC 217, CS 213"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "CS 227",
+          "title": "Automata Theory",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "CS 215"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "CS 228",
+          "title": "Artificial Intelligence",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "CS 215"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "CS 229",
+          "title": "Design and Development Methodologies",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CS 214, IC 126"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "PE 224",
+          "title": "Physical Activities Towards Health & Fitness II",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "EGE 311",
+          "title": "General Education Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "GE 319",
+          "title": "Contemporary World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "CSDS 311",
+          "title": "Big Data Management",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "CS 226"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "CSDS 312",
+          "title": "Applied Data Science",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CS 229"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "CSDS 313",
+          "title": "Business Intelligence",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "CS 226"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "CSDS 314",
+          "title": "Machine Learning",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CS 228"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "CS 3110",
+          "title": "Modelling and Simulation",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CS 227"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "ICE 311",
+          "title": "Professional Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 312",
+          "title": "General Education Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 313",
+          "title": "General Education Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "CSDS 325",
+          "title": "Intelligent Information Systems",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CSDS 313, CSDS 314"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "CSDS 326",
+          "title": "Social Network Analysis",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CSDS 311, CSDS 312"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "CSDS 327",
+          "title": "Data Visualization",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "CSDS 311, CSDS 312"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ICE 322",
+          "title": "Professional Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "ICE 323",
+          "title": "Professional Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "CS 3211",
+          "title": "CS Research Methods",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "CS 226"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "Thesis 400",
+          "title": "Thesis*",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "CS 3211"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "CSPR 331",
+          "title": "CS Practicum",
+          "lec": 0,
+          "lab": 3,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ICE 414",
+          "title": "Professional Elective 4",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "ICE 415",
+          "title": "Professional Elective 5",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "Thesis 400",
+          "title": "Thesis*",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "CS 3211"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "CS 4212",
+          "title": "Legal, Ethical and Policy Issues in Data Science",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All prior Professional & Common Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "Thesis 400",
+          "title": "Thesis",
+          "lec": 0,
+          "lab": 2,
+          "units": 2,
+          "prereq": "CS 3211"
+        }
+      ]
+    },
+    {
+      "key": "BLIS",
+      "legacy_codes": [],
+      "program_name": "Bachelor of Library and Information Science",
+      "college": "CIC",
+      "major": null,
+      "level": "Bachelor",
+      "duration": 4,
+      "status": "active",
+      "prospectus": {
+        "title": "BLIS Prospectus — CMO No. 24 s.2015, Revised BOR Res. No. 75 s.2019, Effective SY 2018-2019",
+        "academic_year": "2018-2019",
+        "description": "Total: 161 units. Professional electives: Law Librarianship; Medical Librarianship; Disaster Risk Management; Data Visualization for LIS; Library Entrepreneurship; Basic Computer Network. General education electives: Environmental Science; Reading Visual Arts; Gender and Society; People of the Earth's Ecosystem; Philippine Indigenous Communities; Foreign Language; The Entrepreneurial Mind; Living in the IT Era."
+      },
+      "renames": [],
+      "legacy_subjects": [],
+      "printed_total": 161,
+      "subjects": [
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 113",
+          "title": "Understanding the Self",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "GE 114",
+          "title": "Ethics",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "LIS111",
+          "title": "Introduction to Library and Information Science",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "LST111",
+          "title": "School/Academic Librarianship",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "LST112",
+          "title": "Special/Public Librarianship",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "LICT111",
+          "title": "Information Processing and Handling in Libraries and Information Centers",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "PE 111",
+          "title": "Movement Enhancement",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 1st Semester",
+          "code": "NSTP 111",
+          "title": "National Service Training Program 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 111",
+          "title": "Purposive Communication",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "GE 112",
+          "title": "Mathematics in the Modern World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "LIS122",
+          "title": "Collection Management of Information Resources 1",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "LIS123",
+          "title": "Introduction to Records Management and Archives",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "LST123",
+          "title": "Philosophies & Principles of Teaching",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "LICT122",
+          "title": "Web Technologies in Libraries & Information Centers",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LICT111"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "PE 122",
+          "title": "Fitness Exercise",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "FIRST YEAR — 2nd Semester",
+          "code": "NSTP 122",
+          "title": "National Service Training Program 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 217",
+          "title": "Science, Technology, and Society",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "GE 218",
+          "title": "Arts Appreciation",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "LIS214",
+          "title": "Information Resources and Services 1",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS123"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "LIS215",
+          "title": "Organization of Information Resources 1",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS122, LIS123"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "LIS216",
+          "title": "Collection Management of Information Resources 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LIS122"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "LST214",
+          "title": "Preservation of Information Resources",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "LICT213",
+          "title": "Digital Libraries and Resources",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LICT122"
+        },
+        {
+          "section": "SECOND YEAR — 1st Semester",
+          "code": "PE 213",
+          "title": "Physical Activities Towards Health & Fitness I",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 215",
+          "title": "The Life and Works of Rizal",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "GE 216",
+          "title": "Readings in Philippine History",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "LIS227",
+          "title": "Information Resources and Services 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS214"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "LIS228",
+          "title": "Organization of Information Resources 2",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS215"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "LIS229",
+          "title": "Library Materials for Children and Young Adults",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LIS216"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "LST225",
+          "title": "Educational Technology",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "LICT224",
+          "title": "Programming Fundamentals",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LICT213"
+        },
+        {
+          "section": "SECOND YEAR — 2nd Semester",
+          "code": "PE 224",
+          "title": "Physical Activities Towards Health & Fitness II",
+          "lec": 2,
+          "lab": 0,
+          "units": 2,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "EGE 312",
+          "title": "General Education Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "EGE 313",
+          "title": "General Education Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "LIS3110",
+          "title": "Indexing and Abstracting",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LIS228"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "LIS3111",
+          "title": "Management of Libraries and Information Centers",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LIS227, LIS228"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "LST316",
+          "title": "Indigenous Knowledge and Multi Culturalism",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LIS227"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "LST317",
+          "title": "Introduction to Data Science",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "LICT315",
+          "title": "Systems Analysis and Design in Libraries & Information Centers",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LICT224"
+        },
+        {
+          "section": "THIRD YEAR — 1st Semester",
+          "code": "LICE311",
+          "title": "Professional Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "EGE 311",
+          "title": "General Education Elective 1",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "GE 319",
+          "title": "Contemporary World",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "LIS3212",
+          "title": "Information Literacy",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "LIS3111"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "LIS3213",
+          "title": "Research Methods in Library and Information Science",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "LST328",
+          "title": "Introduction to Data Mining",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "None"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "LICT326",
+          "title": "Database Design for Libraries",
+          "lec": 2,
+          "lab": 1,
+          "units": 3,
+          "prereq": "LICT315"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "LICE322",
+          "title": "Professional Elective 2",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "THIRD YEAR — 2nd Semester",
+          "code": "LICE323",
+          "title": "Professional Elective 3",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "THIRD YEAR — Summer",
+          "code": "LPr331",
+          "title": "Library Practice I (Out Campus Practicum)",
+          "lec": 0,
+          "lab": 3,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "LIS 400",
+          "title": "Thesis/Research Writing*",
+          "lec": 0,
+          "lab": 3,
+          "units": 3,
+          "prereq": "LIS3213"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "LICE414",
+          "title": "Professional Elective 4",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 1st Semester",
+          "code": "LPr412",
+          "title": "Library Practice II (In Campus Practicum)",
+          "lec": 0,
+          "lab": 3,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "LIS 400",
+          "title": "Thesis/Research Writing",
+          "lec": 0,
+          "lab": 3,
+          "units": 3,
+          "prereq": "LIS 400"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "LST429",
+          "title": "Foreign Language",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All Prior Professional Courses"
+        },
+        {
+          "section": "FOURTH YEAR — 2nd Semester",
+          "code": "ICR421",
+          "title": "Integrated Course Review",
+          "lec": 3,
+          "lab": 0,
+          "units": 3,
+          "prereq": "All LIS and LICT courses"
+        }
+      ]
+    }
+  ]
+}
