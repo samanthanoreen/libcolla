@@ -1,0 +1,211 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Quicksand', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif:
+        'Quicksand', system-ui, sans-serif;
+    --font-display:
+        'Quicksand', system-ui, sans-serif;
+
+    /* Palette tokens */
+    --color-primary-burgundy: #A04040;
+    --color-dark-burgundy: #8A3535;
+    --color-light-burgundy: #F9EDEF;
+    --color-white: #FFFFFF;
+    --color-bg-gray: #F8F8F8;
+    --color-border-gray: #E5E5E5;
+    --color-medium-gray: #6B7280;
+    --color-dark-gray: #4B5563;
+    --color-success: #21865A;
+    --color-warning: #D18A24;
+    --color-danger: #C44545;
+    --color-information: #3478B9;
+
+    --color-maroon: #A04040;
+    --color-maroon-dark: #8A3535;
+    --color-maroon-light: #F9EDEF;
+    --color-gold: #E9A12B;
+    --color-gold-light: #f0c541;
+    --color-gold-dark: #a87b0f;
+
+    --radius-lg: var(--radius);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+    /* Palette Tokens */
+    --primary-burgundy: #A04040;
+    --dark-burgundy: #8A3535;
+    --light-burgundy: #F9EDEF;
+    --white: #FFFFFF;
+    --bg-gray: #F8F8F8;
+    --border-gray: #E5E5E5;
+    --medium-gray: #6B7280;
+    --dark-gray: #4B5563;
+    --success: #21865A;
+    --success-bg: rgba(33, 134, 90, 0.12);
+    --warning: #D18A24;
+    --warning-bg: rgba(209, 138, 36, 0.12);
+    --danger: #C44545;
+    --danger-bg: rgba(196, 69, 69, 0.12);
+    --error: #C44545;
+    --error-bg: rgba(196, 69, 69, 0.12);
+    --info: #3478B9;
+    --info-bg: rgba(52, 120, 185, 0.12);
+    --information: #3478B9;
+
+    --maroon: #A04040;
+    --maroon-dark: #8A3535;
+    --maroon-light: #F9EDEF;
+    --maroon-bg: rgba(160,64,64, 0.1);
+    --maroon-hover: rgba(160,64,64, 0.2);
+    --maroon-active: rgba(160,64,64, 0.3);
+
+    --gold: #E9A12B;
+    --gold-light: #f0c541;
+    --gold-dark: #a87b0f;
+    --gold-bg: rgba(212, 160, 23, 0.12);
+
+    --bg-start: #FAF6F8;
+    --bg-end: #F8F8F8;
+
+    --font-display: 'Quicksand', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+    --background: #F8F8F8;
+    --foreground: #4B5563;
+    --card: #FFFFFF;
+    --card-foreground: #4B5563;
+    --popover: #FFFFFF;
+    --popover-foreground: #4B5563;
+    --primary: #A04040;
+    --primary-foreground: #FFFFFF;
+    --secondary: #F9EDEF;
+    --secondary-foreground: #A04040;
+    --muted: #F8F8F8;
+    --muted-foreground: #6B7280;
+    --accent: #F9EDEF;
+    --accent-foreground: #A04040;
+    --destructive: #C44545;
+    --destructive-foreground: #FFFFFF;
+    --border: #E5E5E5;
+    --input: #E5E5E5;
+    --ring: #A04040;
+    --chart-1: #A04040;
+    --chart-2: #3478B9;
+    --chart-3: #21865A;
+    --chart-4: #D18A24;
+    --chart-5: #C44545;
+    --radius: 0.625rem;
+    --sidebar: #A04040;
+    --sidebar-foreground: #FFFFFF;
+    --sidebar-primary: #A04040;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #521526;
+    --sidebar-accent-foreground: #FFFFFF;
+    --sidebar-border: rgba(255, 255, 255, 0.15);
+    --sidebar-ring: #A04040;
+}
+
+.dark {
+    --bg-start: #111111;
+    --bg-end: #000000;
+    --background: #000000;
+    --foreground: #F5F5F5;
+    --card: #161616;
+    --card-foreground: #F5F5F5;
+    --popover: #161616;
+    --popover-foreground: #F5F5F5;
+    --primary: #A04040;
+    --primary-foreground: #FFFFFF;
+    --secondary: #1F1F1F;
+    --secondary-foreground: #F5F5F5;
+    --muted: #1F1F1F;
+    --muted-foreground: #A3A3A3;
+    --accent: #262626;
+    --accent-foreground: #FFFFFF;
+    --destructive: #C44545;
+    --destructive-foreground: #FFFFFF;
+    --border: rgba(255, 255, 255, 0.10);
+    --input: rgba(255, 255, 255, 0.10);
+    --ring: #A04040;
+    --chart-1: #A04040;
+    --chart-2: #3478B9;
+    --chart-3: #21865A;
+    --chart-4: #D18A24;
+    --chart-5: #C44545;
+    --sidebar: #1E070F;
+    --sidebar-foreground: #FFFFFF;
+    --sidebar-primary: #A04040;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #3D0E1C;
+    --sidebar-accent-foreground: #FFFFFF;
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --sidebar-ring: #A04040;
+}
+
+@layer base {
+    html {
+        font-size: 17.5px;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+}

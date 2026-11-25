@@ -1,0 +1,84 @@
+/* Dashboard Specific Styles */
+
+/* Stats Cards */
+.stat-card {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid var(--gold);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    transition: all var(--transition-normal);
+}
+
+.stat-row-center {
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(112, 31, 53, 0.25);
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-size: 3.1rem;
+    font-weight: bold;
+    color: white;
+    margin-top: var(--space-sm);
+}
+
+.stat-trend {
+    margin-top: var(--space-xl);
+    color: var(--success);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+/* Quick Action Cards */
+.quick-action {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl) var(--space-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.quick-action:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.quick-action-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-xl);
+    background: linear-gradient(135deg, var(--maroon), var(--maroon-light));
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-action-icon i {
+    font-size: 1.75rem;
+    color: white;
+}
+
+.quick-action-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: white;
+}

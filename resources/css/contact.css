@@ -1,0 +1,206 @@
+/* Contact Page Specific Styles */
+
+/* Contact Form */
+.contact-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contact-form-card {
+    background: white;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-2xl);
+}
+
+/* Recipient Chips */
+.recipient-chips-container {
+    background: white;
+    border: 2px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: text;
+    transition: all var(--transition-fast);
+}
+
+.recipient-chips-container:focus-within {
+    border-color: var(--maroon);
+    box-shadow: 0 0 0 3px rgba(112, 31, 53, 0.12);
+}
+
+.recipient-chips-container.error {
+    border-color: var(--error);
+}
+
+.to-label {
+    color: var(--slate-400);
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.recipient-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: #F5E9ED;
+    color: var(--maroon);
+    border: 1px solid #E2E5E9;
+    border-radius: var(--radius-full);
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.recipient-chip button {
+    background: none;
+    border: none;
+    color: var(--maroon);
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+.recipient-chip button:hover {
+    opacity: 1;
+}
+
+.recipient-input {
+    flex: 1;
+    min-width: 180px;
+    outline: none;
+    background: transparent;
+    border: none;
+    padding: var(--space-xs) 0;
+    font-size: 0.875rem;
+}
+
+/* File Upload */
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm);
+    border: 2px solid var(--slate-200);
+    border-radius: var(--radius-lg);
+    background: white;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex: 1;
+    min-width: 0;
+}
+
+.file-name {
+    color: var(--slate-400);
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-clear {
+    background: none;
+    border: none;
+    color: var(--error);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+}
+
+.file-clear:hover {
+    background: var(--error-bg);
+}
+
+/* Success Panel */
+.contact-success-panel {
+    background: var(--success-bg);
+    border: 2px solid var(--success);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.contact-success-panel i {
+    font-size: 3rem;
+    color: var(--success);
+    margin-bottom: var(--space-md);
+}
+
+/* Explicit width so the contact card reliably fills the page instead of
+   depending on Tailwind's max-w-* + parent flex-stretch behavior */
+.contact-page-wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.contact-page-wrap .card {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+/* ── Bigger, easier-to-read form on the Contact page ── */
+.card .form-label {
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    color: var(--slate-700);
+    margin-bottom: 8px;
+}
+
+.card .form-input {
+    padding: 14px 18px;
+    font-size: 1rem;
+    border-radius: var(--radius-lg);
+}
+
+.card .form-textarea {
+    min-height: 180px;
+}
+
+.card .recipient-chips-container {
+    padding: 10px 14px;
+    min-height: 52px;
+}
+
+.card .recipient-chip {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+}
+
+.card .recipient-input {
+    font-size: 1rem;
+    min-width: 220px;
+}
+
+.card .btn-primary,
+.card .btn-secondary {
+    font-size: 1rem;
+    padding: 12px 22px;
+}
+
+/* Tighten side padding on small screens so the card fills more of the viewport */
+@media (max-width: 640px) {
+    #dynamic-panel {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    .card .form-label { font-size: 0.85rem; }
+    .card .form-input { padding: 12px 14px; font-size: 0.95rem; }
+    .card-body.p-8 { padding: 1.25rem !important; }
+}
