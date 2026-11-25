@@ -15,6 +15,7 @@ import {
     Moon,
     Settings,
     Sun,
+    Trash2,
     User,
     Users,
     Wrench,
@@ -599,21 +600,39 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                     </span>
                                                 )}
                                             </div>
-                                            {unreadNotificationsCount > 0 && (
-                                                <button
-                                                    type="button"
-                                                    onClick={() => {
-                                                        router.post(
-                                                            '/support/contact/mark-read',
-                                                            {},
-                                                            { preserveScroll: true },
-                                                        );
-                                                    }}
-                                                    className="text-xs font-semibold text-[#A04040] hover:underline cursor-pointer dark:text-[#E9A12B]"
-                                                >
-                                                    Mark all read
-                                                </button>
-                                            )}
+                                            <div className="flex items-center gap-2">
+                                                {unreadNotificationsCount > 0 && (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            router.post(
+                                                                '/support/contact/mark-read',
+                                                                {},
+                                                                { preserveScroll: true },
+                                                            );
+                                                        }}
+                                                        className="text-xs font-semibold text-[#A04040] hover:underline cursor-pointer dark:text-[#E9A12B]"
+                                                    >
+                                                        Mark all read
+                                                    </button>
+                                                )}
+                                                {notificationItems.length > 0 && (
+                                                    <button
+                                                        type="button"
+                                                        title="Delete all notifications"
+                                                        aria-label="Delete all notifications"
+                                                        onClick={() => {
+                                                            router.delete(
+                                                                '/support/contact/notifications',
+                                                                { preserveScroll: true },
+                                                            );
+                                                        }}
+                                                        className="inline-flex size-7 items-center justify-center rounded-lg text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-white/10"
+                                                    >
+                                                        <Trash2 className="size-3.5" />
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
 
                                         <div className="max-h-80 overflow-y-auto divide-y divide-[#E5E5E5] dark:divide-white/10">
@@ -623,58 +642,77 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                 </div>
                                             ) : (
                                                 notificationItems.map((item) => (
-                                                    <button
+                                                    <div
                                                         key={item.id}
-                                                        type="button"
-                                                        onClick={() => {
-                                                            setNotificationsOpen(false);
-                                                            const targetHref = item.href || '/support/contact?tab=inbox';
-                                                            if (!item.is_read) {
-                                                                router.post(
-                                                                    '/support/contact/mark-read',
-                                                                    { message_id: item.id },
-                                                                    {
-                                                                        preserveScroll: true,
-                                                                        onFinish: () => router.visit(targetHref),
-                                                                    },
-                                                                );
-                                                            } else {
-                                                                router.visit(targetHref);
-                                                            }
-                                                        }}
-                                                        className={`block w-full text-left px-4 py-3 transition hover:bg-[#F9EDEF]/40 cursor-pointer dark:hover:bg-white/[0.06] ${
+                                                        className={`flex items-start gap-2 px-4 py-3 transition hover:bg-[#F9EDEF]/40 dark:hover:bg-white/[0.06] ${
                                                             !item.is_read
                                                                 ? 'bg-[#F9EDEF]/25 dark:bg-[#A04040]/10'
                                                                 : ''
                                                         }`}
                                                     >
-                                                        <div className="flex items-start justify-between gap-2">
-                                                            <div className="min-w-0 flex-1">
-                                                                <div className="flex items-center gap-1.5">
-                                                                    {!item.is_read && (
-                                                                        <span className="size-2 shrink-0 rounded-full bg-[#C44545]" />
-                                                                    )}
-                                                                    <span className="truncate text-xs font-bold text-[#4B5563] dark:text-white">
-                                                                        {item.sender_name}
-                                                                    </span>
-                                                                    {item.sender_role && (
-                                                                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[#6B7280] dark:bg-white/10 dark:text-white/70">
-                                                                            {item.sender_role}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setNotificationsOpen(false);
+                                                                const targetHref = item.href || '/support/contact?tab=inbox';
+                                                                if (!item.is_read) {
+                                                                    router.post(
+                                                                        '/support/contact/mark-read',
+                                                                        { message_id: item.id },
+                                                                        {
+                                                                            preserveScroll: true,
+                                                                            onFinish: () => router.visit(targetHref),
+                                                                        },
+                                                                    );
+                                                                } else {
+                                                                    router.visit(targetHref);
+                                                                }
+                                                            }}
+                                                            className="min-w-0 flex-1 text-left cursor-pointer"
+                                                        >
+                                                            <div className="flex items-start justify-between gap-2">
+                                                                <div className="min-w-0 flex-1">
+                                                                    <div className="flex items-center gap-1.5">
+                                                                        {!item.is_read && (
+                                                                            <span className="size-2 shrink-0 rounded-full bg-[#C44545]" />
+                                                                        )}
+                                                                        <span className="truncate text-xs font-bold text-[#4B5563] dark:text-white">
+                                                                            {item.sender_name}
                                                                         </span>
-                                                                    )}
+                                                                        {item.sender_role && (
+                                                                            <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[#6B7280] dark:bg-white/10 dark:text-white/70">
+                                                                                {item.sender_role}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    <p className="mt-1 truncate text-xs font-semibold text-[#A04040] dark:text-[#ffd7ba]">
+                                                                        {item.subject}
+                                                                    </p>
+                                                                    <p className="mt-0.5 line-clamp-2 text-[11px] text-[#6B7280] dark:text-white/60">
+                                                                        {item.message}
+                                                                    </p>
                                                                 </div>
-                                                                <p className="mt-1 truncate text-xs font-semibold text-[#A04040] dark:text-[#ffd7ba]">
-                                                                    {item.subject}
-                                                                </p>
-                                                                <p className="mt-0.5 line-clamp-2 text-[11px] text-[#6B7280] dark:text-white/60">
-                                                                    {item.message}
-                                                                </p>
+                                                                <span className="shrink-0 text-[10px] text-[#6B7280] dark:text-white/50">
+                                                                    {item.created_at}
+                                                                </span>
                                                             </div>
-                                                            <span className="shrink-0 text-[10px] text-[#6B7280] dark:text-white/50">
-                                                                {item.created_at}
-                                                            </span>
-                                                        </div>
-                                                    </button>
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            title="Delete notification"
+                                                            aria-label="Delete notification"
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                router.delete(
+                                                                    `/support/contact/notifications/${item.id}`,
+                                                                    { preserveScroll: true },
+                                                                );
+                                                            }}
+                                                            className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-white/10"
+                                                        >
+                                                            <Trash2 className="size-3.5" />
+                                                        </button>
+                                                    </div>
                                                 ))
                                             )}
                                         </div>

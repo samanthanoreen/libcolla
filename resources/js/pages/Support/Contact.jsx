@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Head, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import {
     CheckCircle2,
     Download,
@@ -12,6 +12,7 @@ import {
     PenSquare,
     RotateCcw,
     Send,
+    ShieldCheck,
     Trash2,
     TriangleAlert,
     User as UserIcon,
@@ -491,16 +492,26 @@ export default function Contact({
                                                 {msg.message}
                                             </div>
 
-                                            {msg.attachment && (
-                                                <div className="mt-4 pt-3 border-t border-[#E5E5E5] dark:border-white/10">
-                                                    <a
-                                                        href={`/support/contact/download/${msg.id}`}
-                                                        download
-                                                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#A04040] hover:text-[#8A3535] bg-[#F9EDEF] hover:bg-[#F9EDEF]/80 px-3.5 py-2 rounded-xl transition dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
-                                                    >
-                                                        <Download className="size-3.5" /> Download Attachment (
-                                                        {msg.attachment.replace(/^\d+_/, '')})
-                                                    </a>
+                                            {(msg.attachment || msg.subject?.startsWith('Permission Request:')) && (
+                                                <div className="mt-4 pt-3 border-t border-[#E5E5E5] flex flex-wrap items-center gap-3 dark:border-white/10">
+                                                    {msg.subject?.startsWith('Permission Request:') && (
+                                                        <Link
+                                                            href={msg.sender_id ? `/users?edit=${msg.sender_id}` : '/users'}
+                                                            className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-gradient-to-r from-[#D66C6C] to-[#A04040] hover:brightness-95 px-4 py-2 rounded-xl shadow-sm transition"
+                                                        >
+                                                            <ShieldCheck className="size-3.5" /> Manage User Access
+                                                        </Link>
+                                                    )}
+                                                    {msg.attachment && (
+                                                        <a
+                                                            href={`/support/contact/download/${msg.id}`}
+                                                            download
+                                                            className="inline-flex items-center gap-2 text-xs font-semibold text-[#A04040] hover:text-[#8A3535] bg-[#F9EDEF] hover:bg-[#F9EDEF]/80 px-3.5 py-2 rounded-xl transition dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+                                                        >
+                                                            <Download className="size-3.5" /> Download Attachment (
+                                                            {msg.attachment.replace(/^\d+_/, '')})
+                                                        </a>
+                                                    )}
                                                 </div>
                                             )}
                                         </div>

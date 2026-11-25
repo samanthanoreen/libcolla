@@ -140,4 +140,67 @@ class NotificationVisibilityTest extends TestCase
                 );
         }
     }
+
+    public function test_recipient_can_delete_single_and_all_notifications(): void
+    {
+        $admin = User::factory()->create(['role' => 'admin']);
+        $staff = User::factory()->create(['role' => 'staff']);
+        $librarian = User::factory()->create(['role' => 'librarian']);
+
+        $this->actingAs($staff)->post('/support/contact', [
+            'subject' => 'Notif 1',
+            'message' => 'Body 1',
+            'recipients' => [$admin->email],
+        ])->assertRedirect();
+
+        $this->actingAs($staff)->post('/support/contact', [
+            'subject' => 'Notif 2',
+            'message' => 'Body 2',
+            'recipients' => [$admin->email],
+        ])->assertRedirect();
+
+        $this->actingAs($staff)->post('/support/contact', [
+            'subject' => 'Librarian Notif',
+            'message' => 'For librarian',
+            'recipients' => [$librarian->email],
+        ])->assertRedirect();
+
+        $firstAdminMsg = \App\Models\Message::where('recipient_id', $admin->id)->firstOrFail();
+
+        // Non-recipient cannot delete admin's notification
+        $this->actingAs($librarian)
+            ->delete("/support/contact/notifications/{$firstAdminMsg->id}")
+            ->assertForbidden();
+
+        // Admin deletes single notification
+        $this->actingAs($admin)
+            ->delete("/support/contact/notifications/{$firstAdminMsg->id}")
+            ->assertRedirect();
+
+        $this->actingAs($admin)
+            ->get('/dashboard')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('notifications.unreadCount', 1)
+                ->has('notifications.items', 1)
+            );
+
+        // Admin deletes all remaining notifications (librarian's stays intact)
+        $this->actingAs($admin)
+            ->delete('/support/contact/notifications')
+            ->assertRedirect();
+
+        $this->actingAs($admin)
+            ->get('/dashboard')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('notifications.unreadCount', 0)
+                ->has('notifications.items', 0)
+            );
+
+        $this->actingAs($librarian)
+            ->get('/dashboard')
+            ->assertInertia(fn (Assert $page) => $page
+                ->where('notifications.unreadCount', 1)
+                ->has('notifications.items', 1)
+            );
+    }
 }

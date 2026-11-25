@@ -105,6 +105,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/contact', [SupportContactController::class, 'index'])->name('contact');
     Route::post('/support/contact', [SupportContactController::class, 'store'])->name('support.contact.store');
     Route::post('/support/contact/mark-read', [SupportContactController::class, 'markRead'])->name('support.contact.markRead');
+    Route::delete('/support/contact/notifications', [SupportContactController::class, 'destroyAll'])->name('support.contact.destroyAll');
+    Route::delete('/support/contact/notifications/{message}', [SupportContactController::class, 'destroy'])->name('support.contact.destroy');
     Route::get('/support/contact/download/{message}', [SupportContactController::class, 'download'])->name('support.contact.download');
 
 });
