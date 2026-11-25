@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Head, useForm, router } from '@inertiajs/react';
+import { Head, Link, useForm, router } from '@inertiajs/react';
 import {
     CheckCircle2,
     Download,
@@ -12,6 +12,7 @@ import {
     PenSquare,
     RotateCcw,
     Send,
+    ShieldCheck,
     Trash2,
     TriangleAlert,
     User as UserIcon,
@@ -447,19 +448,6 @@ export default function Contact({
                                 </div>
                             ) : (
                                 <div className="space-y-4">
-                                    <div className="flex justify-end">
-                                        <button
-                                            type="button"
-                                            onClick={() => {
-                                                router.delete('/support/contact', {
-                                                    preserveScroll: true,
-                                                });
-                                            }}
-                                            className="inline-flex items-center gap-1.5 rounded-xl border border-[#C44545]/30 bg-[#F9EDEF]/60 px-3.5 py-2 text-xs font-semibold text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:bg-[#C44545]/15 dark:hover:bg-[#C44545]/25"
-                                        >
-                                            <Trash2 className="size-3.5" /> Delete All Notifications
-                                        </button>
-                                    </div>
                                     {inboxMessages.map((msg) => (
                                         <div
                                             key={msg.id}
@@ -473,31 +461,16 @@ export default function Contact({
                                                 <h4 className="font-bold text-lg text-[#4B5563] dark:text-white">
                                                     {msg.subject}
                                                 </h4>
-                                                <div className="flex items-center gap-2">
-                                                    <span className="text-xs text-[#4B5563] bg-[#F8F8F8] px-3 py-1 rounded-full dark:bg-white/10 dark:text-white/70">
-                                                        {new Date(msg.created_at).toLocaleString('en-US', {
-                                                            month: 'short',
-                                                            day: 'numeric',
-                                                            year: 'numeric',
-                                                            hour: 'numeric',
-                                                            minute: '2-digit',
-                                                            hour12: true,
-                                                        })}
-                                                    </span>
-                                                    <button
-                                                        type="button"
-                                                        title="Delete notification"
-                                                        aria-label="Delete notification"
-                                                        onClick={() => {
-                                                            router.delete(`/support/contact/${msg.id}`, {
-                                                                preserveScroll: true,
-                                                            });
-                                                        }}
-                                                        className="inline-flex size-8 items-center justify-center rounded-lg text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-[#C44545]/20"
-                                                    >
-                                                        <Trash2 className="size-4" />
-                                                    </button>
-                                                </div>
+                                                <span className="text-xs text-[#4B5563] bg-[#F8F8F8] px-3 py-1 rounded-full dark:bg-white/10 dark:text-white/70">
+                                                    {new Date(msg.created_at).toLocaleString('en-US', {
+                                                        month: 'short',
+                                                        day: 'numeric',
+                                                        year: 'numeric',
+                                                        hour: 'numeric',
+                                                        minute: '2-digit',
+                                                        hour12: true,
+                                                    })}
+                                                </span>
                                             </div>
 
                                             <div className="text-xs text-[#4B5563] mb-4 pb-3 border-b border-[#E5E5E5] flex items-center gap-2 dark:border-white/10 dark:text-white/60">
@@ -519,16 +492,26 @@ export default function Contact({
                                                 {msg.message}
                                             </div>
 
-                                            {msg.attachment && (
-                                                <div className="mt-4 pt-3 border-t border-[#E5E5E5] dark:border-white/10">
-                                                    <a
-                                                        href={`/support/contact/download/${msg.id}`}
-                                                        download
-                                                        className="inline-flex items-center gap-2 text-xs font-semibold text-[#A04040] hover:text-[#8A3535] bg-[#F9EDEF] hover:bg-[#F9EDEF]/80 px-3.5 py-2 rounded-xl transition dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
-                                                    >
-                                                        <Download className="size-3.5" /> Download Attachment (
-                                                        {msg.attachment.replace(/^\d+_/, '')})
-                                                    </a>
+                                            {(msg.attachment || msg.subject?.startsWith('Permission Request:')) && (
+                                                <div className="mt-4 pt-3 border-t border-[#E5E5E5] flex flex-wrap items-center gap-3 dark:border-white/10">
+                                                    {msg.subject?.startsWith('Permission Request:') && (
+                                                        <Link
+                                                            href={msg.sender_id ? `/users?edit=${msg.sender_id}` : '/users'}
+                                                            className="inline-flex items-center gap-2 text-xs font-semibold text-white bg-gradient-to-r from-[#D66C6C] to-[#A04040] hover:brightness-95 px-4 py-2 rounded-xl shadow-sm transition"
+                                                        >
+                                                            <ShieldCheck className="size-3.5" /> Manage User Access
+                                                        </Link>
+                                                    )}
+                                                    {msg.attachment && (
+                                                        <a
+                                                            href={`/support/contact/download/${msg.id}`}
+                                                            download
+                                                            className="inline-flex items-center gap-2 text-xs font-semibold text-[#A04040] hover:text-[#8A3535] bg-[#F9EDEF] hover:bg-[#F9EDEF]/80 px-3.5 py-2 rounded-xl transition dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+                                                        >
+                                                            <Download className="size-3.5" /> Download Attachment (
+                                                            {msg.attachment.replace(/^\d+_/, '')})
+                                                        </a>
+                                                    )}
                                                 </div>
                                             )}
                                         </div>

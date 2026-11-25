@@ -600,7 +600,7 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                     </span>
                                                 )}
                                             </div>
-                                            <div className="flex items-center gap-3">
+                                            <div className="flex items-center gap-2">
                                                 {unreadNotificationsCount > 0 && (
                                                     <button
                                                         type="button"
@@ -622,14 +622,14 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                         title="Delete all notifications"
                                                         aria-label="Delete all notifications"
                                                         onClick={() => {
-                                                            router.delete('/support/contact', {
-                                                                preserveScroll: true,
-                                                            });
+                                                            router.delete(
+                                                                '/support/contact/notifications',
+                                                                { preserveScroll: true },
+                                                            );
                                                         }}
-                                                        className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-semibold text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-[#C44545]/20"
+                                                        className="inline-flex size-7 items-center justify-center rounded-lg text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-white/10"
                                                     >
                                                         <Trash2 className="size-3.5" />
-                                                        <span>Clear all</span>
                                                     </button>
                                                 )}
                                             </div>
@@ -668,32 +668,34 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                                     router.visit(targetHref);
                                                                 }
                                                             }}
-                                                            className="flex min-w-0 flex-1 items-start justify-between gap-2 text-left cursor-pointer"
+                                                            className="min-w-0 flex-1 text-left cursor-pointer"
                                                         >
-                                                            <div className="min-w-0 flex-1">
-                                                                <div className="flex items-center gap-1.5">
-                                                                    {!item.is_read && (
-                                                                        <span className="size-2 shrink-0 rounded-full bg-[#C44545]" />
-                                                                    )}
-                                                                    <span className="truncate text-xs font-bold text-[#4B5563] dark:text-white">
-                                                                        {item.sender_name}
-                                                                    </span>
-                                                                    {item.sender_role && (
-                                                                        <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[#6B7280] dark:bg-white/10 dark:text-white/70">
-                                                                            {item.sender_role}
+                                                            <div className="flex items-start justify-between gap-2">
+                                                                <div className="min-w-0 flex-1">
+                                                                    <div className="flex items-center gap-1.5">
+                                                                        {!item.is_read && (
+                                                                            <span className="size-2 shrink-0 rounded-full bg-[#C44545]" />
+                                                                        )}
+                                                                        <span className="truncate text-xs font-bold text-[#4B5563] dark:text-white">
+                                                                            {item.sender_name}
                                                                         </span>
-                                                                    )}
+                                                                        {item.sender_role && (
+                                                                            <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-[#6B7280] dark:bg-white/10 dark:text-white/70">
+                                                                                {item.sender_role}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    <p className="mt-1 truncate text-xs font-semibold text-[#A04040] dark:text-[#ffd7ba]">
+                                                                        {item.subject}
+                                                                    </p>
+                                                                    <p className="mt-0.5 line-clamp-2 text-[11px] text-[#6B7280] dark:text-white/60">
+                                                                        {item.message}
+                                                                    </p>
                                                                 </div>
-                                                                <p className="mt-1 truncate text-xs font-semibold text-[#A04040] dark:text-[#ffd7ba]">
-                                                                    {item.subject}
-                                                                </p>
-                                                                <p className="mt-0.5 line-clamp-2 text-[11px] text-[#6B7280] dark:text-white/60">
-                                                                    {item.message}
-                                                                </p>
+                                                                <span className="shrink-0 text-[10px] text-[#6B7280] dark:text-white/50">
+                                                                    {item.created_at}
+                                                                </span>
                                                             </div>
-                                                            <span className="shrink-0 text-[10px] text-[#6B7280] dark:text-white/50">
-                                                                {item.created_at}
-                                                            </span>
                                                         </button>
                                                         <button
                                                             type="button"
@@ -701,11 +703,12 @@ export default function LibCollaLayout({ children }: { children: ReactNode }) {
                                                             aria-label="Delete notification"
                                                             onClick={(e) => {
                                                                 e.stopPropagation();
-                                                                router.delete(`/support/contact/${item.id}`, {
-                                                                    preserveScroll: true,
-                                                                });
+                                                                router.delete(
+                                                                    `/support/contact/notifications/${item.id}`,
+                                                                    { preserveScroll: true },
+                                                                );
                                                             }}
-                                                            className="mt-0.5 shrink-0 rounded-lg p-1.5 text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-[#C44545]/20"
+                                                            className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-lg text-[#C44545] transition hover:bg-[#F9EDEF] cursor-pointer dark:hover:bg-white/10"
                                                         >
                                                             <Trash2 className="size-3.5" />
                                                         </button>
