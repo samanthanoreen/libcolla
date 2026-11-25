@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Head, useForm, router, usePage } from '@inertiajs/react';
 import {
     Users,
@@ -112,6 +112,17 @@ export default function ManageUsers({ users = [], totalUsersCount = 0, accessRes
             },
         });
     };
+
+    useEffect(() => {
+        if (typeof window === 'undefined' || users.length === 0 || !canEdit) return;
+        const params = new URLSearchParams(window.location.search);
+        const editId = params.get('edit');
+        if (!editId) return;
+        const targetUser = users.find((u) => String(u.id) === String(editId));
+        if (targetUser) {
+            openEditModal(targetUser);
+        }
+    }, [users, canEdit]);
 
     const handleEditSubmit = (e) => {
         e.preventDefault();

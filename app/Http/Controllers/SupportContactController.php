@@ -88,11 +88,20 @@ class SupportContactController extends Controller
 
     public function markRead(Request $request)
     {
-        Message::where('recipient_id', $request->user()->id)
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
+        $query = Message::where('recipient_id', $request->user()->id)
+            ->where('is_read', false);
 
-        return response()->json(['status' => 'ok']);
+        if ($request->filled('message_id')) {
+            $query->where('id', $request->integer('message_id'));
+        }
+
+        $query->update(['is_read' => true]);
+
+        if ($request->wantsJson() && ! $request->header('X-Inertia')) {
+            return response()->json(['status' => 'ok']);
+        }
+
+        return back();
     }
 
     public function download(Message $message, Request $request)
