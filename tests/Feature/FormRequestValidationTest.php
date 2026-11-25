@@ -249,10 +249,20 @@ class FormRequestValidationTest extends TestCase
         $this->actingAs($admin)
             ->post('/reports', [
                 'program_id' => $program->id,
-                'summary' => [['courseName' => 'IS101']],
+                'summary' => [['courseName' => 'IS101', 'totalT' => 1, 'totalV' => 2, 'distinct5yr' => 1, 'distinct10yr' => 0, 'distinct20yr' => 0]],
                 'references' => [],
             ])
             ->assertRedirect('/reports/manage');
+
+        $report = \App\Models\AssessmentReport::firstOrFail();
+
+        $this->actingAs($admin)
+            ->get('/reports/manage')
+            ->assertOk();
+
+        $this->actingAs($admin)
+            ->get("/reports/{$report->id}")
+            ->assertOk();
 
         $this->actingAs($admin)
             ->post('/support/contact', [])
